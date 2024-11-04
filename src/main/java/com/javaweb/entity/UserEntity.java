@@ -18,7 +18,7 @@ import java.util.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserEntity extends BaseEntity {
+public class UserEntity  {
     private static final long serialVersionUID = -4988455421375043688L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

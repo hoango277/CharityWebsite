@@ -16,7 +16,7 @@ import java.util.HashSet;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class VolunteerEntity extends BaseEntity{
+public class VolunteerEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "volunteer_id")
