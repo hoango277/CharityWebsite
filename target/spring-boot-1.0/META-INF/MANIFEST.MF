@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Created-By: IntelliJ IDEA
+Built-By: FPT
+Build-Jdk: Oracle OpenJDK version 1.8.0_191
+Implementation-Version: 1.0
+Implementation-Vendor-Id: com.laptrinhjavaweb
+Main-Class: ${start-class}
+
