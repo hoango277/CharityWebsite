@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<decorators defaultdir="/decorators">
+
+    <excludes>
+        <pattern>/404-page.html</pattern>
+        <pattern>/api*</pattern>
+        <pattern>/access-denied</pattern>
+        <pattern>/ckfinder*</pattern>
+        <pattern>/logout</pattern>
+    </excludes>
+
+    <decorator name="web" page="web.jsp">
+       <pattern>/*</pattern>
+    </decorator>
+    
+    <decorator name="admin" page="admin.jsp">
+       <pattern>/admin*</pattern>
+    </decorator>
+
+    <decorator name="login" page="login.jsp">
+        <pattern>/login</pattern>
+    </decorator>
+</decorators>
