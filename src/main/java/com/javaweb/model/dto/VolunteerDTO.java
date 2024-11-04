@@ -18,5 +18,4 @@ public class VolunteerDTO {
     private Date donateDate;
     private Long moneyDonated;
     private String usernameDonate;
-    private String charityProgramName;
 }
