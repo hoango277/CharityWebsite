@@ -6,13 +6,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.io.Serializable;
+
 @Entity
 @Table(name="wallet")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class WalletEntity{
+public class WalletEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "wallet_id")

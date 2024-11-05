@@ -3,6 +3,8 @@ package com.javaweb.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.io.Serializable;
+
 @Entity
 @Table(name = "tokens")
 @Getter
