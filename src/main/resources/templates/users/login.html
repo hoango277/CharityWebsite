@@ -7,7 +7,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <!-- Custom CSS -->
-    <link rel="stylesheet" th:href="@{/assets/css/register.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/login.css}">
     <!-- Custom JavaScript -->
     <script th:src="@{/assets/js/login.js}"></script>
 </head>
@@ -16,11 +16,13 @@
 <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
     <div class="card p-4 shadow" style="width: 100%; max-width: 400px; border-radius: 10px;">
         <h2 class="text-center mb-4">Login</h2>
+
+        <!-- Display error message if exists -->
         <div th:if="${errorMessage}" class="alert alert-danger">
             <p th:text="${errorMessage}"></p>
         </div>
 
-        <!-- Hiển thị thông báo thành công nếu có -->
+        <!-- Display success message if exists -->
         <div th:if="${successMessage}" class="alert alert-success">
             <p th:text="${successMessage}"></p>
         </div>
@@ -38,10 +40,18 @@
                 <input type="password" id="password" th:field="*{password}" class="form-control" required>
             </div>
             <button type="submit" onclick="validateLoginForm(event)" class="btn btn-success btn-block">Login</button>
+
+            <!-- Forgot Password link -->
+            <div class="text-center mt-3">
+                <a th:href="@{/forgot-password}" class="text-secondary">Forgot your password?</a>
+            </div>
+
             <div class="text-center mt-3">
                 <small>Don't have an account? <a th:href="@{/register}">Register here</a></small>
             </div>
         </form>
+
+        <!-- Token data for logged-in user -->
         <div id="tokenData"
              th:if="${token}"
              th:attr="data-access-token=${token.accessToken}, data-refresh-token=${token.refreshToken}"
@@ -49,22 +59,6 @@
         </div>
     </div>
 </div>
-
-<script>
-    const tokenElement = document.getElementById("tokenData");
-    console.log("Có token")
-    if (tokenElement) {
-        const accessToken = tokenElement.getAttribute("data-access-token");
-        const refreshToken = tokenElement.getAttribute("data-refresh-token");
-
-        if (accessToken && refreshToken) {
-            localStorage.setItem("accessToken", accessToken);
-            localStorage.setItem("refreshToken", refreshToken);
-            console.log("Token đã được lưu vào localStorage.");
-            window.location.href = "/"
-        }
-    }
-</script>
 
 <!-- Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

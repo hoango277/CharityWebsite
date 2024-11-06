@@ -1,8 +1,10 @@
+/* Body styling */
 body {
     background-color: #f0f2f5;
     font-family: Arial, sans-serif;
 }
 
+/* Card styling */
 .card {
     border: none;
     border-radius: 10px;
@@ -13,6 +15,7 @@ body {
     color: #333;
 }
 
+/* Form styling */
 .form-group label {
     font-weight: 500;
     color: #555;
@@ -30,6 +33,7 @@ body {
     border-color: #80bdff;
 }
 
+/* Button styling */
 .btn-success {
     background-color: #28a745;
     border: none;
@@ -39,4 +43,27 @@ body {
 
 .btn-success:hover {
     background-color: #218838;
+}
+
+/* Forgot password link styling */
+.text-secondary {
+    color: #6c757d;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.text-secondary:hover {
+    color: #495057;
+    text-decoration: underline;
+}
+
+/* Register link styling */
+.text-center small a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.text-center small a:hover {
+    color: #0056b3;
+    text-decoration: underline;
 }
