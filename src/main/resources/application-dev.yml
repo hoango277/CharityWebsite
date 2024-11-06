@@ -3,7 +3,7 @@ spring:
     url: jdbc:mysql://127.0.0.1:3306/charitywebsite
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
-    password: pbhyclls
+    password: 30102004zcxbin@
   properties:
     mail:
       smtp:
