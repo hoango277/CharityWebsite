@@ -10,7 +10,6 @@ import com.javaweb.model.dto.LoginDTO;
 import com.javaweb.model.dto.RegisterDTO;
 import com.javaweb.model.dto.ResetPasswordDTO;
 import com.javaweb.model.dto.UserDTO;
-import com.javaweb.model.response.InfoUserResponse;
 import com.javaweb.model.response.ResponseDTO;
 import com.javaweb.model.response.StatusResponse;
 import com.javaweb.model.response.TokenResponse;
@@ -56,8 +55,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private TokenService tokenService;
     @Autowired
     private PasswordEncoder passwordEncoder;
-//    @Autowired
-//    private KafkaTemplate<String, String> kafkaTemplate;
     @Autowired
     private WalletRepository walletRepository;
     @Autowired
@@ -80,9 +77,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Override
     public TokenResponse authenticate(LoginDTO request){
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getName(), request.getPassword()));
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
 
-        UserEntity userEntity = userRepository.findByUserName(request.getName()).orElseThrow(()-> new ResourceNotFoundException("Username or Password is incorrect"));
+        UserEntity userEntity = userRepository.findByUserName(request.getUsername()).orElseThrow(()-> new ResourceNotFoundException("Username or Password is incorrect"));
 
         String accessToken = jwtTokenUtils.generateToken(userEntity);
         String refreshToken = jwtTokenUtils.generateRefreshToken(userEntity);
@@ -131,11 +128,11 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Override
     public String logout(HttpServletRequest request) {
-        String refreshToken = request.getHeader("referer");
-        if (refreshToken == null) {
+        String accessToken = request.getHeader("check-token");
+        if (accessToken == null) {
             throw new InvalidDataException("Token must be not blank!");
         }
-        final String name = jwtTokenUtils.extractUser(refreshToken, TokenType.ACCESS_TOKEN);
+        final String name = jwtTokenUtils.extractUser(accessToken, TokenType.ACCESS_TOKEN);
 
 //        RedisToken redisToken = redisTokenService.getById(name);
 //        redisTokenService.delete(redisToken.getId());
@@ -148,7 +145,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     @Override
     public StatusResponse forgotPassword(String email) throws MessagingException, UnsupportedEncodingException {
         UserEntity userEntity = userRepository.findByEmail(email).orElseThrow(() -> new ResourceNotFoundException("User not found"));
-        if (!userEntity.isEnabled() || userEntity.getStatus().equals("0")){
+        if (!userEntity.isEnabled() || userEntity.getStatus().equals(0)){
             throw new InvalidDataException("User is disabled");
         }
 

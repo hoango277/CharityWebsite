@@ -1,10 +1,12 @@
 package com.javaweb.model.response;
 
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 
 @Getter
+@Setter
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class TokenResponse {
     private String accessToken;
     private String refreshToken;

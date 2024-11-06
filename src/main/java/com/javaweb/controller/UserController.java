@@ -1,4 +1,4 @@
-package com.javaweb.controller.admin;
+package com.javaweb.controller;
 
 
 import com.javaweb.model.dto.UserDTO;
@@ -27,26 +27,12 @@ public class UserController {
         ResponseDTO responseDTO = userService.getAllUser();
         return new ResponseEntity<>(responseDTO, HttpStatus.OK);
     }
+
     @GetMapping("/user/{userId}")
     public ResponseEntity<ResponseDTO> getInfoUser(@PathVariable Long userId) {
         ResponseDTO responseDTO = userService.getUserById(userId);
         return new ResponseEntity<>(responseDTO, HttpStatus.OK);
     }
-
-//    @GetMapping("/user/{userId}")
-//    public String getInfoUser(@PathVariable Long userId, Model model) {
-//        ResponseDTO responseDTO = userService.getUserById(userId);
-//        model.addAttribute("infoUser", responseDTO.getData()); // Thêm dữ liệu vào Model với key là "user"
-//        return "html"; // Tên của view Thymeleaf (tệp .html)
-//    }
-
-//    @GetMapping("/user/{userId}")
-//    public String formUpdateUser(Model model,@PathVariable Long userId) {
-//        UserDTO userDTO = authenticationService.getUserById(userId);
-//        model.addAttribute("updateUser", userDTO);
-//        return "the.html";
-//    }
-
     @PostMapping("/user/{userId}")
     public ResponseEntity<ResponseDTO> updateUser(@PathVariable Long userId,@Valid @RequestBody UserDTO userDTO) {
         ResponseDTO responseDTO = authenticationService.updateUser(userId,userDTO);

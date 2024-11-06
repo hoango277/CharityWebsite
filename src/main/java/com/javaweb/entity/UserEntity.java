@@ -64,8 +64,6 @@ public class UserEntity implements UserDetails {
     @Column(name = "user_id")
     private Long userId;
 
-    @Size(min = 5, max = 30, message = "Name must be between 5 and 30 characters long")
-    @Pattern(regexp = "^[a-zA-Z\\s]*$", message = "Name must not contain numbers or special characters")
     @Column(name = "username", nullable = false, unique = true)
     private String userName;
 

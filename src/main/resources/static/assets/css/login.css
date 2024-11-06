@@ -1,0 +1,42 @@
+body {
+    background-color: #f0f2f5;
+    font-family: Arial, sans-serif;
+}
+
+.card {
+    border: none;
+    border-radius: 10px;
+}
+
+.card h2 {
+    font-weight: 700;
+    color: #333;
+}
+
+.form-group label {
+    font-weight: 500;
+    color: #555;
+}
+
+.form-control {
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    font-size: 16px;
+}
+
+.form-control:focus {
+    box-shadow: none;
+    border-color: #80bdff;
+}
+
+.btn-success {
+    background-color: #28a745;
+    border: none;
+    font-size: 16px;
+    padding: 10px;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+}

@@ -27,7 +27,7 @@ public class SwaggerConfig {
     @Bean
     public OpenAPI springShopOpenAPI(){
         return new OpenAPI().info(new Info().title("Charity Program")
-                        .description("Backend APIs for Charity Program app")
+                        .description("Backend APIs for Charity Program")
                         .version("1.0.0")
                         .contact(new Contact().name("Charity Program").email("testmail@gmail.com"))
                         .license(new License().name("License").url("/")))

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" th:href="@{/assets/css/register.css}">
+    <script th:src="@{/assets/js/register.js}"></script>
+</head>
+<body>
+
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+    <div class="card p-4 shadow" style="width: 100%; max-width: 400px; border-radius: 10px;">
+        <h2 class="text-center mb-4">Register</h2>
+        <!-- Hiển thị thông báo lỗi nếu có -->
+        <div th:if="${errorMessage}" class="alert alert-danger">
+            <p th:text="${errorMessage}"></p>
+        </div>
+
+        <!-- Hiển thị thông báo thành công nếu có -->
+        <div th:if="${successMessage}" class="alert alert-success">
+            <p th:text="${successMessage}"></p>
+        </div>
+        <form method="post" th:action="@{/register}" th:object="${user}">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" th:field="*{userName}" class="form-control" required>
+                <p th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}" class="text-danger"></p>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" th:field="*{email}" class="form-control" required>
+                <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-danger"></p>
+            </div>
+            <div class="form-group">
+                <label for="phoneNumber">Phone Number</label>
+                <input type="text" id="phoneNumber" th:field="*{phoneNumber}" class="form-control" required>
+                <p th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}" class="text-danger"></p>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" th:field="*{password}" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="confirmPassword">Confirm Password</label>
+                <input type="password" id="confirmPassword" th:field="*{confirmPassword}" class="form-control" required>
+            </div>
+            <button type="submit" onclick="validateForm(event)" class="btn btn-success btn-block">Register</button>
+        </form>
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

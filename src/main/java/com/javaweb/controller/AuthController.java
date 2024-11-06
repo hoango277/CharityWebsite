@@ -1,14 +1,11 @@
-package com.javaweb.controller.user;
+package com.javaweb.controller;
 
-import com.javaweb.model.dto.LoginDTO;
-import com.javaweb.model.dto.RegisterDTO;
 import com.javaweb.model.dto.ResetPasswordDTO;
 import com.javaweb.model.response.StatusResponse;
 import com.javaweb.model.response.TokenResponse;
 import com.javaweb.service.AuthenticationService;
 import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,16 +22,6 @@ import java.io.UnsupportedEncodingException;
 public class AuthController {
     @Autowired
     private AuthenticationService authenticationService;
-
-    @PostMapping("/register")
-    public ResponseEntity<StatusResponse> register(@Valid @RequestBody RegisterDTO registerDTO) {
-        return new ResponseEntity<StatusResponse>(authenticationService.registerUser(registerDTO), HttpStatus.CREATED);
-    }
-
-    @PostMapping("/login")
-    public ResponseEntity<TokenResponse> login(@RequestBody LoginDTO request){
-        return new ResponseEntity<TokenResponse>(authenticationService.authenticate(request), HttpStatus.OK);
-    }
 
     @PostMapping("/refresh")
     public ResponseEntity<TokenResponse> refresh(HttpServletRequest request){
