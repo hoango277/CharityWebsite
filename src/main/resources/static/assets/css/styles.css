@@ -1,0 +1,83 @@
+.header .navbar-brand img {
+    height: 50px;
+}
+
+.header .navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+
+.banner-image {
+    width: 100%;
+    height: calc(100vh - 50px);
+    overflow: hidden;
+    position: relative;
+}
+
+.banner-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.carousel-item {
+    height: 80vh;
+}
+
+.carousel-item img {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+}
+
+.carousel-caption h5 {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.statistics-section {
+    color: #ffffff;
+    background-size: cover;
+    background: rgba(0, 0, 0, 0.5) url('../images/statistics-background.webp') center;
+}
+
+.stat-number {
+    font-size: 3rem;
+    font-weight: bold;
+}
+
+.stat-label {
+    font-size: 1.2rem;
+    margin-top: 10px;
+}
+
+
+.footer {
+    background-color: #2d4373;
+    color: #ffffff;
+}
+
+.footer-logo {
+    max-width: 150px;
+    margin-bottom: 15px;
+}
+
+.footer-links a {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.footer-links a:hover {
+    text-decoration: underline;
+}
+
+.social-links .btn {
+    color: #ffffff;
+    border-color: #ffffff;
+    margin-right: 10px;
+}
+
+
+
