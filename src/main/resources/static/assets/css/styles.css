@@ -7,6 +7,63 @@
     top: 0;
     z-index: 1;
 }
+/* Tổng thể cho user-account dropdown */
+.user-account {
+    position: relative;
+}
+
+.user-account .btn {
+    color: #ffffff;
+    background-color: #007bff; /* Màu nền cho nút Tài khoản */
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.user-account .btn:hover {
+    background-color: #0056b3; /* Màu nền khi hover */
+}
+
+/* Style cho icon và tên người dùng trong dropdown menu */
+.user-account .dropdown-toggle::after {
+    display: none; /* Ẩn mũi tên tự động của Bootstrap */
+}
+
+.user-account .dropdown-menu {
+    padding: 10px;
+    background-color: #f8f9fa; /* Màu nền cho menu thả xuống */
+    border: 1px solid #e2e2e2;
+    border-radius: 8px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Style cho từng mục trong dropdown */
+.user-account .dropdown-item-text {
+    font-weight: bold;
+    color: #333333;
+    margin-bottom: 5px;
+}
+
+.user-account .dropdown-item {
+    color: #007bff;
+    text-align: center;
+    border-radius: 5px;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.user-account .dropdown-item:hover {
+    background-color: #007bff;
+    color: #ffffff;
+}
+
+/* Style cho biểu tượng */
+.user-account .bi-person-circle {
+    font-size: 1.2rem;
+}
+
 
 
 .banner-image {
@@ -78,6 +135,8 @@
     border-color: #ffffff;
     margin-right: 10px;
 }
+
+
 
 
 
