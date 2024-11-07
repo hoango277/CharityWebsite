@@ -15,7 +15,6 @@ public class VolunteerConverter {
         VolunteerDTO volunteerDTO =  new VolunteerDTO();
         volunteerDTO.setDonateDate(volunteerEntity.getDonateDate());
         volunteerDTO.setMoneyDonated(volunteerEntity.getMoneyDonated());
-        volunteerDTO.setUsernameDonate(volunteerEntity.getUser().getUserName());
         return volunteerDTO;
     }
 }
