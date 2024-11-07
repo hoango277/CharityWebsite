@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" th:href="@{/assets/css/login.css}">
+    <!-- Custom JavaScript -->
+    <script th:src="@{/assets/js/login.js}"></script>
+</head>
+<body>
+
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+    <div class="card p-4 shadow" style="width: 100%; max-width: 400px; border-radius: 10px;">
+        <h2 class="text-center mb-4">Login</h2>
+
+        <!-- Display error message if exists -->
+        <div th:if="${errorMessage}" class="alert alert-danger">
+            <p th:text="${errorMessage}"></p>
+        </div>
+
+        <!-- Display success message if exists -->
+        <div th:if="${successMessage}" class="alert alert-success">
+            <p th:text="${successMessage}"></p>
+        </div>
+
+        <form method="post" th:action="@{/login}" th:object="${modelLogin}">
+            <div th:if="${loginError}" class="alert alert-danger text-center">
+                <p th:text="${loginError}"></p>
+            </div>
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" th:field="*{username}" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" th:field="*{password}" class="form-control" required>
+            </div>
+            <button type="submit" onclick="validateLoginForm(event)" class="btn btn-success btn-block">Login</button>
+
+            <!-- Forgot Password link -->
+            <div class="text-center mt-3">
+                <a th:href="@{/forgot-password}" class="text-secondary">Forgot your password?</a>
+            </div>
+
+            <div class="text-center mt-3">
+                <small>Don't have an account? <a th:href="@{/register}">Register here</a></small>
+            </div>
+        </form>
+
+        <!-- Token data for logged-in user -->
+        <div id="tokenData"
+             th:if="${token}"
+             th:attr="data-access-token=${token.accessToken}, data-refresh-token=${token.refreshToken}"
+             style="display:none;">
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

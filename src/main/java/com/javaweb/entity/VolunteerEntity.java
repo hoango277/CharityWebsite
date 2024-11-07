@@ -8,9 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import jakarta.persistence.*;
-import java.time.LocalDate;
+
 import java.util.Date;
-import java.util.HashSet;
 
 @Entity
 @Table(name="volunteers")

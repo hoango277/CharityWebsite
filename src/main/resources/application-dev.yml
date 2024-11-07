@@ -3,7 +3,22 @@ spring:
     url: jdbc:mysql://127.0.0.1:3306/charitywebsite
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
-    password: hoa0976271476
+    password: 30102004zcxbin@
+  properties:
+    mail:
+      smtp:
+        auth: true
+      starttls:
+        enable: true
+  mail:
+    from: nkswin@gmail.com
+    host: smtp.gmail.com
+    port: 587
+    username: kwinn0332@gmail.com
+    password: erjfxxbvzlcfpvqj
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
   springdoc:
     swagger-ui:
       enabled: true
