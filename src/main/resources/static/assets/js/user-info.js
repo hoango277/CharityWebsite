@@ -15,12 +15,14 @@ function loadUserInfo(userId) {
         })
         .then(data => {
             const userData = data.data; // Accessing the "data" field in the response
+            console.log(userData)
             displayUserInfo(userData);
         })
         .catch(error => {
             console.error("Error fetching user information:", error);
             document.getElementById("userInfoTable").innerHTML = "<tr><td colspan='2'>Failed to load user information.</td></tr>";
         });
+    console.log(localStorage.getItem("accessToken"))
 }
 
 // Function to display user information in the table
@@ -36,6 +38,8 @@ function displayUserInfo(user) {
         <tr><th>Transactions</th><td>${user.transactions.length}</td></tr>
     `;
 }
+
+
 
 // Replace 'user_id' with the actual ID, e.g., from URL or session
 const userId = 2; // Replace with actual ID logic

@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const accessToken = localStorage.getItem("accessToken");
     const registerButton = document.getElementById("registerButton");
     const loginButton = document.getElementById("loginButton");
-    const userAccount = document.querySelector(".user-account");
+    const userAccount = document.getElementById("userAccount");
 
     if (accessToken) {
         registerButton.classList.add("d-none");
