@@ -1,0 +1,78 @@
+/* Đặt lại các thuộc tính cơ bản cho toàn bộ tài liệu */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f3f4f6;
+    color: #4a4a4a;
+}
+
+/* Khung chính của email */
+.container {
+    max-width: 600px;
+    margin: 20px auto;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    border: 1px solid #e0e0e0;
+}
+
+/* Phần tiêu đề */
+.header {
+    background-color: #173849;
+    padding: 20px;
+    text-align: center;
+    color: #ffffff;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* Nội dung chính của email */
+.content {
+    padding: 30px 40px;
+    color: #4a4a4a;
+    line-height: 1.6;
+    font-size: 16px;
+}
+
+/* Hiển thị mật khẩu */
+.password {
+    font-weight: bold;
+    color: #173849;
+    background-color: #f0f7ff;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 15px;
+    text-align: center;
+}
+
+/* Phong cách nút xác nhận */
+.button {
+    display: inline-block;
+    font-size: 16px;
+    font-weight: bold;
+    color: #ffffff;
+    background-color: #1e90ff;
+    padding: 12px 40px;
+    border-radius: 8px;
+    border: none;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Hiệu ứng khi di chuột vào nút */
+.button:hover {
+    background-color: #006bb3;
+}
+
+/* Phần chân trang */
+.footer {
+    padding: 20px;
+    font-size: 12px;
+    color: #626262;
+    text-align: center;
+    background-color: #f4f4f4;
+    border-top: 1px solid #e0e0e0;
+}
