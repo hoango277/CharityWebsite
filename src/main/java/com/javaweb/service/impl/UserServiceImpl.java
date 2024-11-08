@@ -44,8 +44,8 @@ public class UserServiceImpl implements UserService {
                 .build();
     }
     @Override
-    public ResponseDTO getUserById(Long userId) {
-        UserEntity userEntity = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User Not Found"));
+    public ResponseDTO getUserById(String userId) {
+        UserEntity userEntity = userRepository.findById(Long.parseLong(userId)).orElseThrow(() -> new ResourceNotFoundException("User Not Found"));
         if (userEntity.getStatus().equals(0)){
             throw new InvalidDataException("User is not active!");
         }
