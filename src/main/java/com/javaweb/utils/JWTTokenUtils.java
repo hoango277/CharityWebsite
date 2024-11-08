@@ -38,8 +38,10 @@ public class JWTTokenUtils {
     private String resetKey;
 
 
-    public String generateToken(UserDetails userDetails){
-        return generateToken(new HashMap<>(), userDetails);
+    public String generateToken(UserDetails userDetails,Long userId){
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("userId", userId);
+        return generateToken(claims, userDetails);
     }
 
     private String generateToken(Map<String, Object> claims,UserDetails userDetails) {
@@ -85,6 +87,7 @@ public class JWTTokenUtils {
     public String extractUser(String token, TokenType type) {
         return extractClaim(token, type, Claims::getSubject);
     }
+
     public boolean validateToken(String token,TokenType type, UserDetails userDetails) {
         String user = extractUser(token,type);
         return (user.equals(userDetails.getUsername()))
