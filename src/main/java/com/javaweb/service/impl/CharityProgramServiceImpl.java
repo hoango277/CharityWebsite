@@ -9,11 +9,13 @@ import com.javaweb.model.response.ResponseDTO;
 import com.javaweb.model.response.StatusResponse;
 import com.javaweb.repository.CharityProgramRepository;
 import com.javaweb.service.CharityProgramService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -60,9 +62,17 @@ public class CharityProgramServiceImpl implements CharityProgramService {
 
 
     @Override
-    public ResponseDTO createCharityProgram(CharityProgramEntity charityProgramEntity) {
-        if (charityProgramEntity.getAmountNeeded() <= 0) {
-            throw new InvalidDataException("Amount needed must be greater than zero");
+    public ResponseDTO createCharityProgram(@Valid CharityProgramEntity charityProgramEntity) {
+
+        if(charityProgramEntity.getAmountNeeded() <= 0) {
+            throw new InvalidDataException("Amount needed cannot be zero.");
+        }
+
+        if (charityProgramEntity.getStartDate().before(new Date())) {
+            throw new InvalidDataException("Start date cannot be in the past.");
+        }
+        if (charityProgramEntity.getEndDate().before(charityProgramEntity.getStartDate())) {
+            throw new InvalidDataException("End date must be after start date.");
         }
 
         CharityProgramEntity savedCharityProgram = charityProgramRepository.save(charityProgramEntity);
@@ -76,7 +86,19 @@ public class CharityProgramServiceImpl implements CharityProgramService {
     }
 
     @Override
-    public ResponseDTO updateCharityProgram(Long id, CharityProgramEntity charityProgramEntity) {
+    public ResponseDTO updateCharityProgram(@Valid Long id, CharityProgramEntity charityProgramEntity) {
+
+        if(charityProgramEntity.getAmountNeeded() <= 0) {
+            throw new InvalidDataException("Amount needed cannot be zero.");
+        }
+
+        if (charityProgramEntity.getStartDate().before(new Date())) {
+            throw new InvalidDataException("Start date cannot be in the past.");
+        }
+        if (charityProgramEntity.getEndDate().before(charityProgramEntity.getStartDate())) {
+            throw new InvalidDataException("End date must be after start date.");
+        }
+
         Optional<CharityProgramEntity> existingCharityProgram = charityProgramRepository.findById(id);
 
         if (!existingCharityProgram.isPresent()) {
@@ -106,7 +128,11 @@ public class CharityProgramServiceImpl implements CharityProgramService {
     @Override
     public StatusResponse deleteCharityProgram(Long id) {
         Optional<CharityProgramEntity> existingCharityProgram = charityProgramRepository.findById(id);
+        if (!existingCharityProgram.isPresent()) {
+            throw new ResourceNotFoundException("Charity program not found with id: " + id);
+        }
         CharityProgramEntity deletedCharityProgram = existingCharityProgram.get();
+        charityProgramRepository.delete(deletedCharityProgram);
         return StatusResponse.builder()
                 .status(HttpStatus.OK.value())
                 .message("Delete successfully")
