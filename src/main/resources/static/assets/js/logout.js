@@ -28,15 +28,16 @@ document.addEventListener("DOMContentLoaded", function () {
     const accessToken = localStorage.getItem("accessToken");
     const registerButton = document.getElementById("registerButton");
     const loginButton = document.getElementById("loginButton");
-    const logoutButton = document.getElementById("logoutButton");
+    const userAccount = document.getElementById("userAccount");
 
     if (accessToken) {
         registerButton.classList.add("d-none");
         loginButton.classList.add("d-none");
-        logoutButton.classList.remove("d-none");
+        userAccount.classList.remove("d-none");
     } else {
         registerButton.classList.remove("d-none");
         loginButton.classList.remove("d-none");
-        logoutButton.classList.add("d-none");
+        userAccount.classList.add("d-none");
     }
 });
+

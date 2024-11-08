@@ -27,10 +27,25 @@
                 <form class="d-flex align-items-center">
                     <input class="form-control" type="search" placeholder="Tìm kiếm" aria-label="Search">
                 </form>
-                <div class="d-flex align-items-center ms-2 justify-content-md-center pt-md-2">
-                    <a th:href="@{/register}" class="btn btn-outline-light me-2" id="registerButton">Đăng ký</a>
-                    <a th:href="@{/login}" class="btn btn-outline-light" id="loginButton">Đăng nhập</a>
-                    <button id="logoutButton" class="btn btn-outline-light d-none" onclick="logout()">Đăng xuất</button>
+                <div class="d-flex align-items-center ms-2 justify-content-center pt-2 pt-lg-0">
+                    <a th:href="@{/register}" class="btn btn-outline-light me-2" id="registerButton">Register</a>
+                    <a th:href="@{/login}" class="btn btn-outline-light" id="loginButton">Login</a>
+                    <div class="user-account dropdown d-none" id="userAccount">
+                        <button class="btn btn-outline-light dropdown-toggle" type="button" id="userAccountButton" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-person-circle"></i> Tài khoản
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userAccountButton">
+                            <li>
+                                <span class="dropdown-item-text">Xin chào</span>
+                            </li>
+                            <li>
+                                <a th:href="@{/account-info}" class="dropdown-item">Thông tin tài khoản</a>
+                            </li>
+                            <li>
+                                <button id="logoutButton" class="dropdown-item" onclick="logout()">Log Out</button>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
@@ -126,7 +141,7 @@
             <div class="col-md-4">
                 <p><strong>Hotline:</strong> <a href="tel:0917945368" class="text-white">0917945368</a></p>
                 <p><strong>Email:</strong> <a href="mailto:hungnv.b22cn417@stu.ptit.edu.vn" class="text-white">hungnv.b22cn417@stu.ptit.edu.vn</a></p>
-                <p><strong>Địa chỉ:</strong>Hà Nội.</p>
+                <p><strong>Địa chỉ:</strong> Hà Nội.</p>
                 <div class="social-links mt-3">
                     <a th:href="@{https://www.facebook.com/huwn2004}" class="btn btn-outline-light">Facebook Page</a>
                 </div>
