@@ -42,5 +42,5 @@ function displayUserInfo(user) {
 
 
 // Replace 'user_id' with the actual ID, e.g., from URL or session
-const userId = 2; // Replace with actual ID logic
+const userId = localStorage.getItem("userId")
 loadUserInfo(userId);
