@@ -1,4 +1,4 @@
-package com.javaweb.controller;
+package com.javaweb.controller.restcontroller;
 
 import com.javaweb.model.dto.ResetPasswordDTO;
 import com.javaweb.model.response.StatusResponse;
