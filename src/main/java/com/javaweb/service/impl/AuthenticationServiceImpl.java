@@ -10,7 +10,7 @@ import com.javaweb.model.dto.LoginDTO;
 import com.javaweb.model.dto.RegisterDTO;
 import com.javaweb.model.dto.ResetPasswordDTO;
 import com.javaweb.model.dto.UserDTO;
-import com.javaweb.model.response.ResponseDTO;
+import com.javaweb.model.dto.ResponseDTO;
 import com.javaweb.model.response.StatusResponse;
 import com.javaweb.model.response.TokenResponse;
 import com.javaweb.repository.RoleRepository;

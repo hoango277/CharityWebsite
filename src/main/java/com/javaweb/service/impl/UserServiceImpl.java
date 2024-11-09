@@ -1,9 +1,13 @@
 package com.javaweb.service.impl;
 
+import com.javaweb.converter.CharityProgramConverter;
+import com.javaweb.converter.TransactionConverter;
 import com.javaweb.converter.UserConverter;
+import com.javaweb.converter.VolunteerConverter;
 import com.javaweb.entity.*;
 import com.javaweb.exception.InvalidDataException;
 import com.javaweb.exception.ResourceNotFoundException;
+import com.javaweb.model.dto.ResponseDTO;
 import com.javaweb.model.dto.UserDTO;
 import com.javaweb.model.response.*;
 import com.javaweb.repository.UserRepository;
@@ -12,9 +16,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -26,6 +30,10 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
     @Autowired
     private UserConverter userConverter;
+    @Autowired
+    private TransactionConverter transactionConverter;
+    @Autowired
+    private VolunteerConverter volunteerConverter;
     @Autowired
     private ModelMapper modelMapper;
 
@@ -44,7 +52,7 @@ public class UserServiceImpl implements UserService {
                 .build();
     }
     @Override
-    public ResponseDTO getUserById(String userId) {
+    public ResponseDTO getUserById(String userId) throws ParseException {
         UserEntity userEntity = userRepository.findById(Long.parseLong(userId)).orElseThrow(() -> new ResourceNotFoundException("User Not Found"));
         if (userEntity.getStatus().equals(0)){
             throw new InvalidDataException("User is not active!");
@@ -54,12 +62,12 @@ public class UserServiceImpl implements UserService {
         Set<VolunteerEntity> volunteerEntities = userEntity.getVolunteerPrograms();
         List<VolunteerResponse> volunteerResponses = new ArrayList<>();
         for (VolunteerEntity volunteerEntity : volunteerEntities) {
-            volunteerResponses.add(modelMapper.map(volunteerEntity, VolunteerResponse.class));
+            volunteerResponses.add(volunteerConverter.convertToResponse(volunteerEntity));
         }
         Set<TransactionEntity> transaction = userEntity.getTransactions();
         List<TransactionResponse> transactionResponses = new ArrayList<>();
         for (TransactionEntity transactionEntity : transaction) {
-            transactionResponses.add(modelMapper.map(transactionEntity, TransactionResponse.class));
+            transactionResponses.add(transactionConverter.convertToResponse(transactionEntity));
         }
         userResponse.setWallet(modelMapper.map(walletEntity, WalletResponse.class));
         userResponse.setVolunteers(volunteerResponses);

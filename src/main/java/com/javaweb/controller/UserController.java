@@ -2,7 +2,7 @@ package com.javaweb.controller;
 
 
 import com.javaweb.model.dto.UserDTO;
-import com.javaweb.model.response.ResponseDTO;
+import com.javaweb.model.dto.ResponseDTO;
 import com.javaweb.model.response.StatusResponse;
 import com.javaweb.service.AuthenticationService;
 import com.javaweb.service.UserService;
@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.text.ParseException;
 
 @RestController
 @RequestMapping("${api.prefix}")
@@ -29,7 +31,7 @@ public class UserController {
     }
 
     @GetMapping("/user/{userId}")
-    public ResponseEntity<ResponseDTO> getInfoUser(@PathVariable String userId) {
+    public ResponseEntity<ResponseDTO> getInfoUser(@PathVariable String userId) throws ParseException {
         ResponseDTO responseDTO = userService.getUserById(userId);
         return new ResponseEntity<>(responseDTO, HttpStatus.OK);
     }

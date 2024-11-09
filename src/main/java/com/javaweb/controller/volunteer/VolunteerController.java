@@ -1,6 +1,6 @@
 package com.javaweb.controller.volunteer;
 
-import com.javaweb.model.response.ResponseDTO;
+import com.javaweb.model.dto.ResponseDTO;
 import com.javaweb.service.VolunteerService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
