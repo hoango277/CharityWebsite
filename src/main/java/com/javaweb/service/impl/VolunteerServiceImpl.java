@@ -3,7 +3,7 @@ package com.javaweb.service.impl;
 import com.javaweb.converter.VolunteerConverter;
 import com.javaweb.entity.VolunteerEntity;
 import com.javaweb.model.dto.VolunteerDTO;
-import com.javaweb.model.response.ResponseDTO;
+import com.javaweb.model.dto.ResponseDTO;
 import com.javaweb.repository.VolunteerRepository;
 import com.javaweb.service.VolunteerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class VolunteerServiceImpl implements VolunteerService {

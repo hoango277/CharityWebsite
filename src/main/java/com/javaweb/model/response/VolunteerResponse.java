@@ -12,7 +12,7 @@ import java.util.Date;
 @Builder
 @AllArgsConstructor
 public class VolunteerResponse {
-    private Date donateDate;
+    private String donateDate;
     private Long moneyDonated;
     private CharityProgramResponse charityProgram;
 }
