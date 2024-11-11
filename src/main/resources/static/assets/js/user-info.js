@@ -40,7 +40,13 @@ function displayUserInfo(user) {
 
 function deleteUser(user){
 }
-
+document.addEventListener("DOMContentLoaded", function() {
+    let userId = localStorage.getItem('userId');
+    if (userId) {
+        let editLink = document.getElementById('editInfoLink');
+        editLink.href = '/update-user/' + userId;
+    }
+});
 
 
 // Replace 'user_id' with the actual ID, e.g., from URL or session
