@@ -32,11 +32,13 @@ function displayUserInfo(user) {
         <tr><th>Username</th><td>${user.userName}</td></tr>
         <tr><th>Phone Number</th><td>${user.phoneNumber}</td></tr>
         <tr><th>Email</th><td>${user.email}</td></tr>
-        <tr><th>Status</th><td>${user.status}</td></tr>
         <tr><th>Total Wallet Amount</th><td>${user.wallet.totalAmount}</td></tr>
         <tr><th>Volunteers</th><td>${user.volunteers.length}</td></tr>
         <tr><th>Transactions</th><td>${user.transactions.length}</td></tr>
     `;
+}
+
+function deleteUser(user){
 }
 
 
