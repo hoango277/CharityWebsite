@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Update User Info</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <h2 class="text-center mb-4">Cập nhật Thông tin Người dùng</h2>
+      <form th:action="@{/update-user/{userId}(userId=${userId})}" th:object="${userUpdate}" method="post">
+
+        <!-- Tên người dùng -->
+        <div class="mb-3">
+          <label for="userName" class="form-label">Tên người dùng</label>
+          <input type="text" class="form-control" id="userName" th:field="*{userName}" placeholder="Nhập tên người dùng" required>
+          <div class="form-text" th:if="${#fields.hasErrors('userName')}">
+            <span th:errors="*{userName}">Tên người dùng không được bỏ trống.</span>
+          </div>
+        </div>
+
+        <!-- Số điện thoại -->
+        <div class="mb-3">
+          <label for="phoneNumber" class="form-label">Số điện thoại</label>
+          <input type="text" class="form-control" id="phoneNumber" th:field="*{phoneNumber}" placeholder="Nhập số điện thoại" required>
+          <div class="form-text" th:if="${#fields.hasErrors('phoneNumber')}">
+            <span th:errors="*{phoneNumber}">Số điện thoại phải có đúng 10 chữ số.</span>
+          </div>
+        </div>
+
+        <!-- Mật khẩu -->
+        <div class="mb-3">
+          <label for="password" class="form-label">Mật khẩu</label>
+          <input type="password" class="form-control" id="password" th:field="*{password}" placeholder="Nhập mật khẩu" required>
+          <div class="form-text" th:if="${#fields.hasErrors('password')}">
+            <span th:errors="*{password}">Mật khẩu không được bỏ trống.</span>
+          </div>
+        </div>
+
+        <!-- Email -->
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input type="email" class="form-control" id="email" th:field="*{email}" placeholder="Nhập email" required>
+          <div class="form-text" th:if="${#fields.hasErrors('email')}">
+            <span th:errors="*{email}">Địa chỉ email không đúng định dạng.</span>
+          </div>
+        </div>
+
+        <!-- Nút submit -->
+        <div class="d-grid gap-2">
+          <button type="submit" class="btn btn-primary">Cập nhật</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

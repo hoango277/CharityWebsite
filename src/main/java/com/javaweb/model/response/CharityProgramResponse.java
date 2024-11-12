@@ -14,8 +14,8 @@ import java.util.Date;
 public class CharityProgramResponse {
     private String name;
     private String description;
-    private Date startDate;
-    private Date endDate;
+    private String startDate;
+    private String endDate;
     private String address;
     private Long amountNeeded;
     private Long totalAmount;
