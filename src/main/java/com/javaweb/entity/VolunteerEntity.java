@@ -2,6 +2,7 @@ package com.javaweb.entity;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,6 +26,7 @@ public class VolunteerEntity {
     private Long volunteerId;
 
     private Date donateDate;
+    @Min(1)
     private Long moneyDonated;
 
     @ManyToOne
