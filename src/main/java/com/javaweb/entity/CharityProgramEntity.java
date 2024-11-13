@@ -28,6 +28,7 @@ public class CharityProgramEntity {
     private String address;
     private Long amountNeeded;
     private Long totalAmount;
+    private String image;
 
     @OneToMany(mappedBy = "charityProgram",cascade = { CascadeType.PERSIST, CascadeType.MERGE }, orphanRemoval = true)
     private Set<VolunteerEntity> volunteers = new HashSet<>();

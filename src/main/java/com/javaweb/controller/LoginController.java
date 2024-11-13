@@ -1,5 +1,6 @@
 package com.javaweb.controller;
 
+import com.javaweb.exception.InvalidDataException;
 import com.javaweb.exception.ResourceNotFoundException;
 import com.javaweb.model.dto.LoginDTO;
 import com.javaweb.model.response.TokenResponse;
@@ -40,6 +41,8 @@ public class LoginController {
             return "users/login";
         } catch (AuthenticationException e){
             model.addAttribute("errorMessage", "Username or Password is incorrect");
+        } catch (InvalidDataException e){
+            model.addAttribute("errorMessage", e.getMessage());
         }
         return "users/login";
     }

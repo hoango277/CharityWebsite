@@ -78,9 +78,10 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     @Override
     public TokenResponse authenticate(LoginDTO request){
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
-
         UserEntity userEntity = userRepository.findByUserName(request.getUsername()).orElseThrow(()-> new ResourceNotFoundException("Username or Password is incorrect"));
-
+        if (userEntity.getStatus().equals(0)){
+            throw new InvalidDataException("User is not active!");
+        }
         String accessToken = jwtTokenUtils.generateToken(userEntity,userEntity.getUserId());
         String refreshToken = jwtTokenUtils.generateRefreshToken(userEntity);
         // save to database
@@ -134,8 +135,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         }
         final String name = jwtTokenUtils.extractUser(accessToken, TokenType.ACCESS_TOKEN);
 
-//        RedisToken redisToken = redisTokenService.getById(name);
-//        redisTokenService.delete(redisToken.getId());
         TokenEntity token = tokenService.getByName(name);
         tokenService.deleteToken(token.getId());
 
