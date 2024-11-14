@@ -56,8 +56,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired
-    private WalletRepository walletRepository;
-    @Autowired
     private MailService mailService;
 
     @Override
@@ -234,8 +232,13 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         saveUserEntity.setRoles(userEntity.getRoles());
         saveUserEntity.setWallet(userEntity.getWallet());
         saveUserEntity.setStatus(userEntity.getStatus());
-        if (userDTO.getPassword() != null){
+        saveUserEntity.setVolunteerPrograms(userEntity.getVolunteerPrograms());
+        saveUserEntity.setTransactions(userEntity.getTransactions());
+
+        if (userDTO.getPassword() != null && !userDTO.getPassword().isEmpty()){
             saveUserEntity.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+        } else {
+            saveUserEntity.setPassword(userEntity.getPassword());
         }
         userRepository.save(saveUserEntity);
         return ResponseDTO.builder()

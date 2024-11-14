@@ -16,9 +16,10 @@ public class UpdateUserController {
     @Autowired
     private AuthenticationService authenticationService;
 
-    @GetMapping("{userId}")
+    @GetMapping("/{userId}")
     public String showUpdateUserForm(Model model, @PathVariable String userId) {
-        model.addAttribute("userUpdate", new UserDTO());
+        UserDTO userDTO = authenticationService.getUserById(Long.parseLong(userId));
+        model.addAttribute("userUpdate", userDTO);
         return "users/update-user";
     }
 
