@@ -59,10 +59,7 @@ public class SecurityConfig {
                 .and()
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
                         .requestMatchers(MessageUtils.PUBLIC_URLS).permitAll()
-                        .requestMatchers(MessageUtils.ADMIN_URLS).permitAll()
-//        ("SYSADMIN","ADMIN","MANAGER")
-                        .requestMatchers(MessageUtils.USER_URLS).permitAll()
-//        ("USER","SYSADMIN")
+                        .requestMatchers(MessageUtils.USER_URLS).hasAnyRole("USER","ADMIN")
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(manager -> manager.sessionCreationPolicy(STATELESS))
