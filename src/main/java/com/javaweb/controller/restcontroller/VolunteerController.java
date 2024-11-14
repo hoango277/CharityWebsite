@@ -1,4 +1,4 @@
-package com.javaweb.controller;
+package com.javaweb.controller.restcontroller;
 
 
 
