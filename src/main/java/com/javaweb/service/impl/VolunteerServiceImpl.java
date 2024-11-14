@@ -63,7 +63,7 @@ public class VolunteerServiceImpl implements VolunteerService {
         }
 
         TransactionEntity transactionToAdd = new TransactionEntity();
-        transactionToAdd.setTransactionAmount(-1 * moneyVolunteer);
+        transactionToAdd.setTransactionAmount(moneyVolunteer);
         transactionToAdd.setUser(user);
         transactionToAdd.setTransactionDate(Date.from(Instant.now()));
         transactionToAdd.setTransactionType("CHARITY_PROGRAM");
