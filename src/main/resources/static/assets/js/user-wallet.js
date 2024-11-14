@@ -38,7 +38,7 @@ function displayUserInfo(userData) {
             <div class="col-md-6 mb-4">
                 <div class="card shadow-sm">
                     <div class="card-body">
-                        <h5 class="card-title">Transaction Amount: ${transaction.transactionAmount}</h5>
+                        <h5 class="card-title">Transaction Amount: <span class="transaction-amount">${transaction.transactionAmount}</span> </h5>
                         <p class="card-text">Date: ${transaction.transactionDate}</p>
                         <p class="card-text">Type: ${transaction.transactionType}</p>
                     </div>
@@ -54,6 +54,5 @@ const userID = localStorage.getItem("userId") || 1; // Hoặc giá trị mặc �
 loadUserWallet(userID);
 
 function refreshWallet() {
-    const userID = localStorage.getItem("userId") || 1; // Thay ID người dùng thực tế nếu cần
     loadUserWallet(userID); // Gọi lại hàm để tải dữ liệu ví
 }
