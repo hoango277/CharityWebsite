@@ -14,5 +14,5 @@ import java.util.Date;
 public class VolunteerResponse {
     private String donateDate;
     private Long moneyDonated;
-    private CharityProgramResponse charityProgram;
+    private String username;
 }

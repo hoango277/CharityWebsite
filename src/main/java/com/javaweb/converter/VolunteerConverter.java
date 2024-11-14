@@ -26,9 +26,7 @@ public class VolunteerConverter {
 
     public VolunteerResponse convertToResponse(VolunteerEntity volunteerEntity) throws ParseException {
         VolunteerResponse volunteerResponse = modelMapper.map(volunteerEntity, VolunteerResponse.class);
-        CharityProgramEntity charityProgram = volunteerEntity.getCharityProgram();
-        CharityProgramResponse charityProgramResponse = charityProgramConverter.convertToResponse(charityProgram);
-        volunteerResponse.setCharityProgram(charityProgramResponse);
+        volunteerResponse.setUsername(volunteerEntity.getUser().getUsername());
         volunteerResponse.setDonateDate(formatDate(volunteerEntity.getDonateDate()));
         return volunteerResponse;
     }
