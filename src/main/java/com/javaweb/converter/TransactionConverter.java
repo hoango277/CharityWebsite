@@ -22,6 +22,14 @@ public class TransactionConverter {
 
     public TransactionResponse convertToResponse(TransactionEntity transactionEntity) throws ParseException {
         TransactionResponse transactionResponse = modelMapper.map(transactionEntity, TransactionResponse.class);
+
+        if(transactionEntity.getTransactionType().equals("USER_WALLET")){
+            transactionResponse.setTransactionAmount("-" + transactionEntity.getTransactionAmount());
+            transactionResponse.setTransactionType("Tài khoản nguồn");
+        }
+        else {
+            transactionResponse.setTransactionAmount("+" + transactionEntity.getTransactionAmount());
+        }
         transactionResponse.setTransactionDate(formatDate(transactionEntity.getTransactionDate()));
         return transactionResponse;
     }
