@@ -66,7 +66,7 @@ public class VolunteerServiceImpl implements VolunteerService {
         transactionToAdd.setTransactionAmount(moneyVolunteer);
         transactionToAdd.setUser(user);
         transactionToAdd.setTransactionDate(Date.from(Instant.now()));
-        transactionToAdd.setTransactionType("CHARITY_PROGRAM");
+        transactionToAdd.setTransactionType("Chương trình " + charityProgram.getName().toLowerCase());
         transactionRepository.save(transactionToAdd);
 
 
