@@ -34,10 +34,7 @@
         <!-- Mật khẩu -->
         <div class="mb-3">
           <label for="password" class="form-label">Mật khẩu</label>
-          <input type="password" class="form-control" id="password" th:field="*{password}" placeholder="Nhập mật khẩu" required>
-          <div class="form-text" th:if="${#fields.hasErrors('password')}">
-            <span th:errors="*{password}">Mật khẩu không được bỏ trống.</span>
-          </div>
+          <input type="password" class="form-control" id="password" th:field="*{password}" placeholder="Nhập mật khẩu">
         </div>
 
         <!-- Email -->

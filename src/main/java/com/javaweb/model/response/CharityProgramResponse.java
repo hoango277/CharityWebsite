@@ -19,4 +19,5 @@ public class CharityProgramResponse {
     private String address;
     private Long amountNeeded;
     private Long totalAmount;
+    private String image;
 }
