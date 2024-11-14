@@ -27,10 +27,14 @@ function displayUserInfo(userData) {
     transactionContainer.innerHTML = "";
 
     userData.list.forEach(transaction => {
+        const amountClass = transaction.transactionType === "Tài khoản nguồn"
+        ? 'transaction-account-amount'
+        : 'transaction-project-amount';
+
         const transactionCard = `
             <div class="col-md-12 mb-3">
                 <div class="transaction-card shadow-sm">
-                    <p class="transaction-amount">Transaction Amount: <span class="transaction-amount">${transaction.transactionAmount}</span></p>
+                    <p class="transaction-amount">Transaction Amount: <span class="${amountClass}">${transaction.transactionAmount}</span></p>
                     <p class="card-text">Date: ${transaction.transactionDate}</p>
                     <p class="card-text">Program: ${transaction.transactionType}</p>
                 </div>

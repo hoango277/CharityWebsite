@@ -90,8 +90,13 @@ body {
 }
 
 /* Styling for transaction amount in red */
-.transaction-amount {
-    color: red;
+.transaction-account-amount {
+    color: #28a745; /* Màu sắc tùy chỉnh cho USER_WALLET */
+    font-weight: bold;
+}
+
+.transaction-project-amount {
+    color: red; /* Màu sắc tùy chỉnh cho các loại khác */
     font-weight: bold;
 }
 
