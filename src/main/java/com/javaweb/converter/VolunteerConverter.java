@@ -2,7 +2,6 @@ package com.javaweb.converter;
 
 import com.javaweb.entity.CharityProgramEntity;
 import com.javaweb.entity.VolunteerEntity;
-import com.javaweb.model.dto.VolunteerDTO;
 import com.javaweb.model.response.CharityProgramResponse;
 import com.javaweb.model.response.VolunteerResponse;
 import org.modelmapper.ModelMapper;
@@ -24,6 +23,7 @@ public class VolunteerConverter {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         return formatter.format(date);
     }
+
     public VolunteerResponse convertToResponse(VolunteerEntity volunteerEntity) throws ParseException {
         VolunteerResponse volunteerResponse = modelMapper.map(volunteerEntity, VolunteerResponse.class);
         CharityProgramEntity charityProgram = volunteerEntity.getCharityProgram();
@@ -31,11 +31,5 @@ public class VolunteerConverter {
         volunteerResponse.setCharityProgram(charityProgramResponse);
         volunteerResponse.setDonateDate(formatDate(volunteerEntity.getDonateDate()));
         return volunteerResponse;
-    }
-    public VolunteerDTO covertToDTO(VolunteerEntity volunteerEntity) {
-        VolunteerDTO volunteerDTO =  new VolunteerDTO();
-        volunteerDTO.setDonateDate(volunteerEntity.getDonateDate());
-        volunteerDTO.setMoneyDonated(volunteerEntity.getMoneyDonated());
-        return volunteerDTO;
     }
 }
