@@ -1,7 +1,7 @@
 package com.javaweb.controller;
 
 import com.javaweb.model.dto.UserDTO;
-import com.javaweb.model.response.ResponseDTO;
+import com.javaweb.model.dto.ResponseDTO;
 import com.javaweb.service.AuthenticationService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

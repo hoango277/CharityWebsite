@@ -2,15 +2,16 @@ package com.javaweb.service.impl;
 
 import com.javaweb.converter.VolunteerConverter;
 import com.javaweb.entity.*;
-import com.javaweb.model.dto.VolunteerDTO;
-import com.javaweb.model.response.ResponseDTO;
+import com.javaweb.model.dto.ResponseDTO;
 import com.javaweb.model.response.StatusResponse;
+import com.javaweb.model.response.VolunteerResponse;
 import com.javaweb.repository.*;
 import com.javaweb.service.VolunteerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
 import java.time.Instant;
 import java.util.*;
 
@@ -31,12 +32,12 @@ public class VolunteerServiceImpl implements VolunteerService {
 
 
     @Override
-    public ResponseDTO getAllVolunteers(long charityProgramID) {
+    public ResponseDTO getAllVolunteers(long charityProgramID) throws ParseException {
         List<VolunteerEntity> listVolunteersByID = volunteerRepository
                 .findVolunteersByCharityProgramID(charityProgramID);
-        List<VolunteerDTO> volunteerDTOS = new ArrayList<>();
+        List<VolunteerResponse> volunteerDTOS = new ArrayList<>();
         for(VolunteerEntity v : listVolunteersByID){
-            VolunteerDTO volunteerDTO = volunteerConverter.covertToDTO(v);
+            VolunteerResponse volunteerDTO = volunteerConverter.convertToResponse(v);
             volunteerDTOS.add(volunteerDTO);
         }
         return ResponseDTO.builder()
