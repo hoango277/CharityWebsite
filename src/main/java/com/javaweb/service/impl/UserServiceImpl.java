@@ -1,6 +1,5 @@
 package com.javaweb.service.impl;
 
-import com.javaweb.converter.CharityProgramConverter;
 import com.javaweb.converter.TransactionConverter;
 import com.javaweb.converter.UserConverter;
 import com.javaweb.converter.VolunteerConverter;
