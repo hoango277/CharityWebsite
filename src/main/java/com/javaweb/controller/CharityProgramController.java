@@ -17,7 +17,7 @@ public class CharityProgramController {
     }
 
     @GetMapping("/1")
-    public String getDetailCharity(Model model) {
+    public String getDetailCharity(Model    model) {
         return "charityPrograms/detail-charity-program";
     }
 }
