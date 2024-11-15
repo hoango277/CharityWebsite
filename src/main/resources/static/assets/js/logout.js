@@ -13,6 +13,7 @@ function logout() {
         if (response.ok) {
             localStorage.removeItem("accessToken");
             localStorage.removeItem("refreshToken");
+            localStorage.removeItem("userId")
             alert("Đăng xuất thành công");
             window.location.href = "/";
         } else {
