@@ -11,7 +11,7 @@
   <div class="row justify-content-center">
     <div class="col-md-6">
       <h2 class="text-center mb-4">Cập nhật Thông tin Người dùng</h2>
-      <form th:action="@{/update-user/{userId}(userId=${userId})}" th:object="${userUpdate}" method="post">
+      <form th:action="@{/api/user/update-user/{userId}(userId=${userId})}" th:object="${userUpdate}" method="post">
 
         <!-- Tên người dùng -->
         <div class="mb-3">

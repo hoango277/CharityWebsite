@@ -38,13 +38,11 @@ function displayUserInfo(user) {
     `;
 }
 
-function deleteUser(user){
-}
 document.addEventListener("DOMContentLoaded", function() {
     let userId = localStorage.getItem('userId');
     if (userId) {
         let editLink = document.getElementById('editInfoLink');
-        editLink.href = '/update-user/' + userId;
+        editLink.href = '/api/user/update-user/' + userId;
     }
 });
 
