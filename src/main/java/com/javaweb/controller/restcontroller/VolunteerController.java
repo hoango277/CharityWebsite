@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.text.ParseException;
 
 @RestController
-@RequestMapping("${api.prefix}/donationList")
+@RequestMapping("donationList")
 @Slf4j
 public class VolunteerController {
     @Autowired

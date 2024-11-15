@@ -19,7 +19,6 @@ import java.io.IOException;
 import java.text.ParseException;
 
 @RestController
-@RequestMapping("${api.prefix}")
 @Slf4j
 public class UserController {
     @Autowired
