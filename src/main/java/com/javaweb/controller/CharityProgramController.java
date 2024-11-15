@@ -41,7 +41,6 @@ public class CharityProgramController {
         List<CharityProgramResponse> list = charityProgramService.getAllCharityPrograms();
         System.out.println("Total projects: " + list.size());
 
-        // Tính toán tỷ lệ tài trợ cho từng dự án
         for (CharityProgramResponse project : list) {
             if (project.getAmountNeeded() != null && project.getAmountNeeded() > 0 && project.getTotalAmount() != null) {
                 double fundingPercentage = (double) project.getTotalAmount() / project.getAmountNeeded() * 100;
@@ -49,6 +48,6 @@ public class CharityProgramController {
             }
         }
 
-        return ResponseEntity.ok(list); // Trả về dữ liệu dưới dạng JSON với mã trạng thái 200 OK
+        return ResponseEntity.ok(list);
     }
 }

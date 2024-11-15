@@ -10,7 +10,7 @@
 </head>
 <body>
 <div class="container">
-    <h2>User Information</h2>
+    <h2>Thông Tin Tài Khoản</h2>
     <table class="table mt-4">
         <tbody id="userInfoTable">
         <!-- JavaScript will add data here -->
@@ -19,7 +19,8 @@
 
     <!-- Buttons for editing and deleting the account (centered) -->
     <div class="mt-4 d-flex justify-content-center">
-        <a id="editInfoLink" href="#" th:href="@{api/user/update-user/{userId}}" class="btn btn-primary mx-2">Edit Info</a>
+
+        <a id="editInfoLink" href="#" th:href="@{update-user/{userId}}" class="btn btn-primary mx-2">Cập nhật thông tin</a>
     </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
