@@ -1,6 +1,6 @@
 // Function to fetch and display user information in a table
 function loadUserInfo(userId) {
-    fetch(`/api/user/${userId}`, {
+    fetch(`/user/${userId}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", function() {
     let userId = localStorage.getItem('userId');
     if (userId) {
         let editLink = document.getElementById('editInfoLink');
-        editLink.href = '/api/user/update-user/' + userId;
+        editLink.href = '/user/update-user/' + userId;
     }
 });
 
