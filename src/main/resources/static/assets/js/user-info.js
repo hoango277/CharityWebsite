@@ -30,11 +30,10 @@ function displayUserInfo(user) {
     const userInfoTable = document.getElementById("userInfoTable");
     userInfoTable.innerHTML = `
         <tr><th>Username</th><td>${user.userName}</td></tr>
-        <tr><th>Phone Number</th><td>${user.phoneNumber}</td></tr>
+        <tr><th>Số Điện Thoại</th><td>${user.phoneNumber}</td></tr>
         <tr><th>Email</th><td>${user.email}</td></tr>
-        <tr><th>Total Wallet Amount</th><td>${user.wallet.totalAmount}</td></tr>
-        <tr><th>Volunteers</th><td>${user.volunteers.length}</td></tr>
-        <tr><th>Transactions</th><td>${user.transactions.length}</td></tr>
+        <tr><th>Số Dư</th><td>${user.wallet.totalAmount}</td></tr>
+        <tr><th>Số Chiến Dịch Đã Ủng Hộ</th><td>${user.volunteers.length}</td></tr>
     `;
 }
 
