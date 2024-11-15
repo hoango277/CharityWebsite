@@ -1,50 +1,54 @@
 package com.javaweb.controller;
 
 import com.javaweb.entity.CharityProgramEntity;
-import com.javaweb.model.response.ResponseDTO;
+import com.javaweb.model.dto.ResponseDTO;
+import com.javaweb.model.response.CharityProgramResponse;
 import com.javaweb.model.response.StatusResponse;
 import com.javaweb.service.CharityProgramService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.cdi.Eager;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+import java.util.List;
+
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/test")
 public class CharityProgramController {
 
     @Autowired
     private CharityProgramService charityProgramService;
 
-    @GetMapping("/charityprograms")
-    public ResponseEntity<ResponseDTO> getAllCharityPrograms() {
-        ResponseDTO responseDTO = charityProgramService.getAllCharityPrograms();
-        return ResponseEntity.ok(responseDTO);
-    }
+//    @GetMapping("")
+//    public String getAllCharityProgram(Model model) throws ParseException {
+//        List<CharityProgramResponse> list = charityProgramService.getAllCharityPrograms();
+//        System.out.println("Total projects: " + list.size());
+//        for (CharityProgramResponse project : list) {
+//            if (project.getAmountNeeded() != null && project.getAmountNeeded() > 0) {
+//                double fundingPercentage = (double) project.getTotalAmount() / project.getAmountNeeded() * 100;
+//                project.setFundingPercentage(fundingPercentage);
+//            }
+//        }
+//        model.addAttribute("projects", list);
+//        return "charityPrograms/charity-program";
+//    }
 
-    @GetMapping("/charityprograms/{charityProgramId}")
-    public ResponseEntity<ResponseDTO> getCharityProgramById(@PathVariable Long charityProgramId) {
-        ResponseDTO responseDTO = charityProgramService.getCharityProgramById(charityProgramId);
-        return ResponseEntity.ok(responseDTO);
-    }
+    @GetMapping("")
+    public ResponseEntity<List<CharityProgramResponse>> getAllCharityProgram() throws ParseException {
+        List<CharityProgramResponse> list = charityProgramService.getAllCharityPrograms();
+        System.out.println("Total projects: " + list.size());
 
-    @PostMapping("charityprograms")
-    public ResponseEntity<ResponseDTO> createCharityProgram(@RequestBody CharityProgramEntity charityProgramEntity) {
-        ResponseDTO responseDTO = charityProgramService.createCharityProgram(charityProgramEntity);
-        return ResponseEntity.ok(responseDTO);
-    }
+        // Tính toán tỷ lệ tài trợ cho từng dự án
+        for (CharityProgramResponse project : list) {
+            if (project.getAmountNeeded() != null && project.getAmountNeeded() > 0 && project.getTotalAmount() != null) {
+                double fundingPercentage = (double) project.getTotalAmount() / project.getAmountNeeded() * 100;
+                project.setFundingPercentage(fundingPercentage);
+            }
+        }
 
-    @PutMapping("/charityprograms/{charityProgramId}")
-    public ResponseEntity<ResponseDTO> updateCharityProgram(@PathVariable Long charityProgramId,
-                                                            @RequestBody CharityProgramEntity charityProgramEntity) {
-        ResponseDTO responseDTO = charityProgramService.updateCharityProgram(
-                charityProgramId,
-                charityProgramEntity);
-        return ResponseEntity.ok(responseDTO);
-    }
-
-    @DeleteMapping("/charityprograms/{charityProgramId}")
-    public ResponseEntity<StatusResponse> deleteCharityProgram(@PathVariable Long charityProgramId) {
-        charityProgramService.deleteCharityProgram(charityProgramId);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok(list); // Trả về dữ liệu dưới dạng JSON với mã trạng thái 200 OK
     }
 }

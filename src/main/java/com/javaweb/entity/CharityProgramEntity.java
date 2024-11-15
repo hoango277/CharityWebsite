@@ -7,6 +7,7 @@ import lombok.*;
 
 import jakarta.persistence.*;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -46,6 +47,9 @@ public class CharityProgramEntity {
 
     @Column(name = "total_amount")
     private Long totalAmount;
+
+    @Column(name = "image")
+    private String image;
 
     @OneToMany(mappedBy = "charityProgram",cascade = { CascadeType.PERSIST, CascadeType.MERGE }, orphanRemoval = true)
     private Set<VolunteerEntity> volunteers = new HashSet<>();

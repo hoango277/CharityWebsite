@@ -6,17 +6,24 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 @Component
 public class CharityProgramConverter {
-
     @Autowired
     private ModelMapper modelMapper;
 
-    public CharityProgramResponse convertToResponse(CharityProgramEntity charityProgramEntity) {
-        return modelMapper.map(charityProgramEntity, CharityProgramResponse.class);
+    private String formatDate(Date date) throws ParseException {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        return formatter.format(date);
     }
 
-    public CharityProgramEntity convertToEntity(CharityProgramResponse charityProgramResponse) {
-        return modelMapper.map(charityProgramResponse, CharityProgramEntity.class);
+    public CharityProgramResponse convertToResponse(CharityProgramEntity charityProgramEntity) throws ParseException {
+        CharityProgramResponse charityProgramResponse = modelMapper.map(charityProgramEntity, CharityProgramResponse.class);
+        charityProgramResponse.setStartDate(formatDate(charityProgramEntity.getStartDate()));
+        charityProgramResponse.setEndDate(formatDate(charityProgramEntity.getEndDate()));
+        return charityProgramResponse;
     }
 }

@@ -10,7 +10,7 @@ import com.javaweb.model.dto.LoginDTO;
 import com.javaweb.model.dto.RegisterDTO;
 import com.javaweb.model.dto.ResetPasswordDTO;
 import com.javaweb.model.dto.UserDTO;
-import com.javaweb.model.response.ResponseDTO;
+import com.javaweb.model.dto.ResponseDTO;
 import com.javaweb.model.response.StatusResponse;
 import com.javaweb.model.response.TokenResponse;
 import com.javaweb.repository.RoleRepository;
@@ -56,8 +56,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired
-    private WalletRepository walletRepository;
-    @Autowired
     private MailService mailService;
 
     @Override
@@ -78,9 +76,10 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     @Override
     public TokenResponse authenticate(LoginDTO request){
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
-
         UserEntity userEntity = userRepository.findByUserName(request.getUsername()).orElseThrow(()-> new ResourceNotFoundException("Username or Password is incorrect"));
-
+        if (userEntity.getStatus().equals(0)){
+            throw new InvalidDataException("User is not active!");
+        }
         String accessToken = jwtTokenUtils.generateToken(userEntity,userEntity.getUserId());
         String refreshToken = jwtTokenUtils.generateRefreshToken(userEntity);
         // save to database
@@ -134,8 +133,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         }
         final String name = jwtTokenUtils.extractUser(accessToken, TokenType.ACCESS_TOKEN);
 
-//        RedisToken redisToken = redisTokenService.getById(name);
-//        redisTokenService.delete(redisToken.getId());
         TokenEntity token = tokenService.getByName(name);
         tokenService.deleteToken(token.getId());
 
@@ -235,8 +232,13 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         saveUserEntity.setRoles(userEntity.getRoles());
         saveUserEntity.setWallet(userEntity.getWallet());
         saveUserEntity.setStatus(userEntity.getStatus());
-        if (userDTO.getPassword() != null){
+        saveUserEntity.setVolunteerPrograms(userEntity.getVolunteerPrograms());
+        saveUserEntity.setTransactions(userEntity.getTransactions());
+
+        if (userDTO.getPassword() != null && !userDTO.getPassword().isEmpty()){
             saveUserEntity.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+        } else {
+            saveUserEntity.setPassword(userEntity.getPassword());
         }
         userRepository.save(saveUserEntity);
         return ResponseDTO.builder()

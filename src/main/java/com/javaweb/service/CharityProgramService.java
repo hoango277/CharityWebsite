@@ -1,19 +1,22 @@
 package com.javaweb.service;
 
 import com.javaweb.entity.CharityProgramEntity;
+import com.javaweb.model.dto.ResponseDTO;
 import com.javaweb.model.response.CharityProgramResponse;
-import com.javaweb.model.response.ResponseDTO;
 import com.javaweb.model.response.StatusResponse;
+
+import java.text.ParseException;
+import java.util.List;
 
 public interface CharityProgramService {
 
-    ResponseDTO getAllCharityPrograms();
+    List<CharityProgramResponse> getAllCharityPrograms() throws ParseException;
 
-    ResponseDTO getCharityProgramById(Long id);
+    CharityProgramResponse getCharityProgramById(Long id) throws ParseException;
 
-    ResponseDTO createCharityProgram(CharityProgramEntity charityProgramEntity);
+    CharityProgramResponse createCharityProgram(CharityProgramEntity charityProgramEntity) throws ParseException;
 
-    ResponseDTO updateCharityProgram(Long id, CharityProgramEntity charityProgramEntity);
+    CharityProgramResponse updateCharityProgram(Long id, CharityProgramEntity charityProgramEntity) throws ParseException;
 
     StatusResponse deleteCharityProgram(Long id);
 }

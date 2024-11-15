@@ -12,7 +12,7 @@ import java.util.Date;
 @Builder
 @AllArgsConstructor
 public class TransactionResponse {
-    private Long transactionAmount;
-    private Date transactionDate;
+    private String transactionAmount;
+    private String transactionDate;
     private String transactionType;
 }
