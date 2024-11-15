@@ -39,15 +39,16 @@
                 <label for="password">Password</label>
                 <input type="password" id="password" th:field="*{password}" class="form-control" required>
             </div>
-            <button type="submit" onclick="validateLoginForm(event)" class="btn btn-success btn-block">Login</button>
+            <button type="submit" onclick="validateLoginForm(event)" class="btn btn-success btn-block">Đăng Nhập</button>
 
             <!-- Forgot Password link -->
             <div class="text-center mt-3">
-                <a th:href="@{/auth/forgot-password}" class="text-secondary">Forgot your password?</a>
+                <a th:href="@{/forgot-password}" class="text-secondary">Quên mật khẩu?</a>
+
             </div>
 
             <div class="text-center mt-3">
-                <small>Don't have an account? <a th:href="@{/register}">Register here</a></small>
+                <small>Bạn chưa có tài khoản? <a th:href="@{/register}">Đăng Ký ngay.</a></small>
             </div>
         </form>
 
