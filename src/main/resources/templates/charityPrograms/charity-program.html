@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GiveNow</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/assets/css/styles.css}">
+    <script th:src="@{/assets/js/logout.js}"></script>
+</head>
+<body>
+<header class="header">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark position-sticky top-0 z-1">
+        <div class="container">
+            <a class="navbar-brand" th:href="@{/}"><img src="/assets/images/logo.png" alt="logo"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link" th:href="@{/}">Trang chủ</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/projects}">Dự án</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/about}">Về chúng tôi</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/guide}">Hướng dẫn</a></li>
+                    <li class="nav-item"><a class="nav-link btn btn-danger text-white" th:href="@{/donate}">Ủng hộ ngay</a></li>
+                </ul>
+                <form class="d-flex align-items-center">
+                    <input class="form-control" type="search" placeholder="Tìm kiếm" aria-label="Search">
+                </form>
+                <div class="d-flex align-items-center ms-2 justify-content-center pt-2 pt-lg-0">
+                    <a th:href="@{/register}" class="btn btn-outline-light me-2" id="registerButton">Register</a>
+                    <a th:href="@{/login}" class="btn btn-outline-light" id="loginButton">Login</a>
+                    <div class="user-account dropdown d-none" id="userAccount">
+                        <button class="btn btn-outline-light dropdown-toggle" type="button" id="userAccountButton" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-person-circle"></i> Tài khoản
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userAccountButton">
+                            <li>
+                                <span class="dropdown-item-text">Xin chào</span>
+                            </li>
+                            <li>
+                                <a th:href="@{/account-info}" class="dropdown-item">User Information</a>
+                            </li>
+                            <li>
+                                <a th:href="@{/wallet}" class="dropdown-item">User Wallet</a>
+                            </li>
+                            <li>
+                                <button id="logoutButton" class="dropdown-item" onclick="logout()">Log Out</button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<div class="banner-du-an d-flex align-items-center justify-content-center">
+<!--     th:style="|background-image: linear-gradient(rgba(255, 255, 255, 1), rgba(255, 255, 255, 1)), url(@{/assets/images/banner.jpg}); background-size: cover; background-position: center; height: 300px;|">-->
+    <div class="text-center text-dark">
+        <h1>Dự án</h1>
+        <div class="foot-banner d-flex justify-content-center align-items-center mt-3">
+            <a th:href="@{/}" class="text-decoration-none">Trang chủ</a>
+            <span class="mx-2">/</span>
+            <span class th:href="@{/}">Dự án</span>
+        </div>
+    </div>
+</div>
+
+
+<main class="container my-5">
+    <!-- Header of Main Content -->
+    <div class="header-main text-center mb-4">
+        <h2>Các dự án đang gây quỹ</h2>
+    </div>
+
+    <!-- Projects Listing -->
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        <!-- Iterate Over Projects -->
+        <div class="col" th:each="project : ${projects}">
+            <div class="card h-100">
+                <!-- Project Image with Category Badge -->
+                <div class="card-image position-relative">
+                    <a th:href="@{/projects/{id}(id=${project.id})}">
+                        <img th:src="@{${project.imageUrl}}" class="card-img-top" th:alt="${project.title}" loading="lazy">
+                    </a>
+                    <span class="badge bg-primary position-absolute top-0 start-0 m-2" th:text="${project.category}">Category</span>
+                </div>
+
+                <!-- Project Details -->
+                <div class="card-body d-flex flex-column">
+                    <p class="organization mb-1" th:text="${project.organization}">Organization Name</p>
+                    <h5 class="card-title">
+                        <a th:href="@{/projects/{id}(id=${project.id})}" class="text-decoration-none" th:text="${project.title}">Project Title</a>
+                    </h5>
+
+                    <!-- Progress Bar -->
+                    <div class="progress mb-2" style="height: 20px;">
+                        <div class="progress-bar bg-success" role="progressbar"
+                             th:style="'width: ' + ${project.fundingPercentage} + '%;'"
+                             th:aria-valuenow="${project.fundingPercentage}"
+                             aria-valuemin="0"
+                             aria-valuemax="100"
+                             th:text="${project.fundingPercentage} + '%'">
+                            <!-- Funding Percentage -->
+                        </div>
+                    </div>
+
+                    <!-- Funding Information -->
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="raised" th:text="${#numbers.formatDecimal(project.raisedAmount, 0, 'POINT', 3, 'COMMA')} + 'đ'">Raised Amount</span>
+                        <span class="percentage" th:text="${project.fundingPercentage} + '%'">Percentage</span>
+                    </div>
+
+                    <!-- Funding Goal -->
+                    <p class="goal mt-auto" th:text="'với mục tiêu ' + #numbers.formatDecimal(project.goalAmount, 0, 'POINT', 3, 'COMMA') + 'đ'">Funding Goal</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!--     No Projects Message -->
+    <div class="text-center mt-5" th:if="${#lists.isEmpty(projects)}">
+        <p>Không có dự án nào hiện tại. Hãy quay lại sau!</p>
+    </div>
+</main>
+<footer class="footer py-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <a class="navbar-brand" th:href="@{/}">
+                    <img src="/assets/images/logo.png" alt="GiveNow Logo" class="footer-logo">
+                </a>
+                <p>Nền tảng gây quỹ cộng đồng trực tuyến tiện lợi, tin cậy và minh bạch.</p>
+            </div>
+            <div class="col-md-4">
+                <ul class="footer-links list-unstyled">
+                    <li><a href="#">Giới thiệu</a></li>
+                    <li><a href="#">Điều khoản và điều kiện</a></li>
+                    <li><a href="#">Tin tức</a></li>
+                    <li><a href="#">Báo chí</a></li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <p><strong>Hotline:</strong> <a href="tel:0917945368" class="text-white">0917945368</a></p>
+                <p><strong>Email:</strong> <a href="mailto:hungnv.b22cn417@stu.ptit.edu.vn" class="text-white">hungnv.b22cn417@stu.ptit.edu.vn</a></p>
+                <p><strong>Địa chỉ:</strong> Hà Nội.</p>
+                <div class="social-links mt-3">
+                    <a th:href="@{https://www.facebook.com/huwn2004}" class="btn btn-outline-light">Facebook Page</a>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-4">
+            <p>© GiveNow – All Rights Reserved</p>
+        </div>
+    </div>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
