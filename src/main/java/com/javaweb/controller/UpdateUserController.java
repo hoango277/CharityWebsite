@@ -11,7 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("${api.prefix}/user/update-user")
+@RequestMapping("user/update-user")
 public class UpdateUserController {
     @Autowired
     private AuthenticationService authenticationService;
