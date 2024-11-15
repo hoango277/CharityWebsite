@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.text.ParseException;
 
 @RestController
-@RequestMapping("/${api.prefix}/wallet")
+@RequestMapping("/wallet")
 @Slf4j
 public class WalletController {
     @Autowired

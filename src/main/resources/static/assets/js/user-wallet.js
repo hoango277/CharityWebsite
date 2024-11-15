@@ -1,5 +1,5 @@
 function loadUserWallet(userID) {
-    fetch(`/api/wallet/${userID}`, {
+    fetch(`/wallet/${userID}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',

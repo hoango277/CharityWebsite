@@ -34,7 +34,6 @@ public class JWTFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, @NonNull HttpServletResponse response,@NonNull FilterChain filterChain)
             throws ServletException, IOException {
 
-        // Lấy tất cả cookies từ yêu cầu
         Cookie[] cookies = request.getCookies();
         String token = null;
 
