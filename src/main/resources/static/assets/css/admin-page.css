@@ -1,0 +1,63 @@
+/* Nâng cao giao diện với CSS */
+body {
+    background-color: #f8f9fa;
+    font-family: Arial, sans-serif;
+}
+
+.sidebar {
+    width: 250px;
+    min-height: 100vh;
+    background-color: #343a40;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar h4 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #ffffff;
+    padding: 15px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    text-align: center;
+}
+
+.sidebar .nav-link {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #d1d1d1;
+    padding: 10px 15px;
+    transition: all 0.3s ease;
+}
+
+.sidebar .nav-link:hover {
+    background-color: #495057;
+    color: #ffffff;
+    border-radius: 5px;
+}
+
+.sidebar .nav-link.active {
+    background-color: #007bff;
+    color: #ffffff;
+    border-radius: 5px;
+}
+
+.content {
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-left: 20px;
+    flex-grow: 1;
+}
+
+.content h1 {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #343a40;
+}
+
+.footer {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 0.9rem;
+    color: #6c757d;
+}

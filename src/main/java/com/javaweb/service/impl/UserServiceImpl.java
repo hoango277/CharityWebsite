@@ -13,6 +13,9 @@ import com.javaweb.repository.UserRepository;
 import com.javaweb.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
@@ -37,18 +40,20 @@ public class UserServiceImpl implements UserService {
     private ModelMapper modelMapper;
 
     @Override
-    public ResponseDTO getAllUser() {
-        List<UserEntity> listUser = userRepository.findAll();
-        List<UserDTO> listUserDTO = new ArrayList<>();
-        for (UserEntity userEntity : listUser) {
-            UserDTO user = userConverter.convertToDTO(userEntity);
-            listUserDTO.add(user);
+    public PageUserResponse getAllUser(Integer pageNumber, Integer pageSize) {
+        Pageable pageable = PageRequest.of(pageNumber,pageSize);
+        Page<UserEntity> pageUser = userRepository.findAll(pageable);
+        List<UserEntity> userEntities = pageUser.getContent();
+
+        List<UserResponse> listUserResponse = new ArrayList<>();
+        for (UserEntity userEntity : userEntities) {
+            UserResponse user = userConverter.convertToUserResponse(userEntity);
+            listUserResponse.add(user);
         }
-        return ResponseDTO.builder()
-                .data(listUserDTO)
-                .message("Find successfully")
-                .detail("Detail message")
-                .build();
+        PageUserResponse pageUserResponse = new PageUserResponse();
+        pageUserResponse.setUsers(listUserResponse);
+        pageUserResponse.setTotalPage(pageUser.getTotalElements());
+        return pageUserResponse;
     }
     @Override
     public ResponseDTO getUserById(String userId) throws ParseException {
@@ -82,6 +87,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public StatusResponse deleteUser(Long userId) {
         UserEntity userEntity = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User Not Found"));
+        if (userEntity.getStatus().equals(0)){
+            return StatusResponse.builder()
+                    .status(HttpStatus.BAD_REQUEST.value())
+                    .message("Delete failed: User is not active!")
+                    .build();
+        }
         userEntity.setStatus(0);
         userRepository.save(userEntity);
         return StatusResponse.builder()

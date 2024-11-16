@@ -54,9 +54,4 @@ public class AuthController {
     public ResponseEntity<StatusResponse> resetPassword(@RequestParam String secretKey){
         return new ResponseEntity<StatusResponse>(authenticationService.resetPassword(secretKey), HttpStatus.OK);
     }
-
-    @PostMapping("/change-password")
-    public ResponseEntity<StatusResponse> changePassword(@RequestBody ResetPasswordDTO resetPasswordDTO){
-        return new ResponseEntity<StatusResponse>(authenticationService.changePassword(resetPasswordDTO), HttpStatus.OK);
-    }
 }

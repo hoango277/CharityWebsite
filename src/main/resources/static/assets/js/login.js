@@ -16,12 +16,20 @@ document.addEventListener("DOMContentLoaded", function() {
         const accessToken = tokenElement.getAttribute("data-access-token");
         const refreshToken = tokenElement.getAttribute("data-refresh-token");
         const userId = tokenElement.getAttribute("data-userId")
+        const roles = tokenElement.getAttribute("data-roles")
+
+        const listRole = roles ? roles.split(",") : [];
+
         if (accessToken && refreshToken) {
             localStorage.setItem("accessToken", accessToken);
             localStorage.setItem("refreshToken", refreshToken);
             localStorage.setItem("userId",userId);
             console.log("Token saved to localStorage.");
-            window.location.href = "/";
+            if (listRole.includes("ADMIN")){
+                window.location.href= "/admin"
+            } else {
+                window.location.href = "/";
+            }
         }
     }
 });
