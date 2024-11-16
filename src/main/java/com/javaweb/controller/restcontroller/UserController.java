@@ -7,6 +7,7 @@ import com.javaweb.model.response.StatusResponse;
 import com.javaweb.service.AuthenticationService;
 import com.javaweb.service.UploadImage;
 import com.javaweb.service.UserService;
+import com.javaweb.utils.MessageUtils;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,12 +27,6 @@ public class UserController {
     @Autowired
     private AuthenticationService authenticationService;
 
-    @GetMapping("/admin/users")
-    public ResponseEntity<ResponseDTO> getAllUsers(){
-        ResponseDTO responseDTO = userService.getAllUser();
-        return new ResponseEntity<>(responseDTO, HttpStatus.OK);
-    }
-
     @GetMapping("/user/{userId}")
     public ResponseEntity<ResponseDTO> getInfoUser(@PathVariable String userId) throws ParseException {
         ResponseDTO responseDTO = userService.getUserById(userId);
@@ -42,7 +37,7 @@ public class UserController {
         ResponseDTO responseDTO = authenticationService.updateUser(userId,userDTO);
         return new ResponseEntity<>(responseDTO, HttpStatus.OK);
     }
-    @DeleteMapping("/admin/{userId}")
+    @PostMapping("/admin/account/{userId}")
     public ResponseEntity<StatusResponse> deleteUser(@PathVariable Long userId) {
         return new ResponseEntity<>(userService.deleteUser(userId),HttpStatus.OK);
     }

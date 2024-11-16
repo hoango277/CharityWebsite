@@ -26,8 +26,6 @@ public interface AuthenticationService {
 
     StatusResponse resetPassword(String secretKey);
 
-    StatusResponse changePassword(ResetPasswordDTO resetPasswordDTO);
-
     StatusResponse registerUser(RegisterDTO registerDTO);
 
     ResponseDTO updateUser(Long userId, UserDTO userDTO);

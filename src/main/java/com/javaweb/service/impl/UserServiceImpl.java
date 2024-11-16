@@ -13,6 +13,9 @@ import com.javaweb.repository.UserRepository;
 import com.javaweb.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
@@ -37,18 +40,17 @@ public class UserServiceImpl implements UserService {
     private ModelMapper modelMapper;
 
     @Override
-    public ResponseDTO getAllUser() {
-        List<UserEntity> listUser = userRepository.findAll();
-        List<UserDTO> listUserDTO = new ArrayList<>();
-        for (UserEntity userEntity : listUser) {
-            UserDTO user = userConverter.convertToDTO(userEntity);
-            listUserDTO.add(user);
+    public List<InfoUserResponse> getAllUser(Integer pageNumber, Integer pageSize) {
+        Pageable pageable = PageRequest.of(pageNumber,pageSize);
+        Page<UserEntity> pageUser = userRepository.findAll(pageable);
+        List<UserEntity> userEntities = pageUser.getContent();
+
+        List<InfoUserResponse> listUserResponse = new ArrayList<>();
+        for (UserEntity userEntity : userEntities) {
+            InfoUserResponse user = userConverter.convertToInfoUserResponse(userEntity);
+            listUserResponse.add(user);
         }
-        return ResponseDTO.builder()
-                .data(listUserDTO)
-                .message("Find successfully")
-                .detail("Detail message")
-                .build();
+        return listUserResponse;
     }
     @Override
     public ResponseDTO getUserById(String userId) throws ParseException {
