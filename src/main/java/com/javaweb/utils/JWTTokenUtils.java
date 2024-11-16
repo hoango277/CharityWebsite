@@ -1,5 +1,6 @@
 package com.javaweb.utils;
 
+import com.javaweb.entity.UserEntity;
 import com.javaweb.exception.InvalidDataException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -36,7 +37,6 @@ public class JWTTokenUtils {
 
     @Value("${jwt.resetKey}")
     private String resetKey;
-
 
     public String generateToken(UserDetails userDetails,Long userId){
         Map<String, Object> claims = new HashMap<>();

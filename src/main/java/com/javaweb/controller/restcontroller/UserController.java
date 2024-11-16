@@ -26,7 +26,7 @@ public class UserController {
     @Autowired
     private AuthenticationService authenticationService;
 
-    @GetMapping("/admin")
+    @GetMapping("/admin/users")
     public ResponseEntity<ResponseDTO> getAllUsers(){
         ResponseDTO responseDTO = userService.getAllUser();
         return new ResponseEntity<>(responseDTO, HttpStatus.OK);
