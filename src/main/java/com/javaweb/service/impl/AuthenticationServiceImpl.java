@@ -175,21 +175,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     }
 
     @Override
-    public StatusResponse changePassword(ResetPasswordDTO resetPasswordDTO) {
-        UserEntity userEntity = isValidUserByToken(resetPasswordDTO.getSecretKey());
-        if (!resetPasswordDTO.getPassword().equals(resetPasswordDTO.getConfirmPassword())) {
-            throw new InvalidDataException("Passwords do not match");
-        }
-        userEntity.setPassword(passwordEncoder.encode(resetPasswordDTO.getPassword()));
-        userRepository.save(userEntity);
-
-        return StatusResponse.builder()
-                .message("Change password success!")
-                .status(HttpStatus.OK.value())
-                .build();
-    }
-
-    @Override
     public StatusResponse registerUser(RegisterDTO registerDTO) {
         Optional<UserEntity> existEntity = userRepository.findByUserNameOrEmail(registerDTO.getUserName(), registerDTO.getEmail());
 
