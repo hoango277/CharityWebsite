@@ -32,7 +32,7 @@ public class VolunteerServiceImpl implements VolunteerService {
 
 
     @Override
-    public ResponseDTO getAllVolunteers(long charityProgramID) throws ParseException {
+    public List<VolunteerResponse> getAllVolunteers(long charityProgramID) throws ParseException {
         List<VolunteerEntity> listVolunteersByID = volunteerRepository
                 .findVolunteersByCharityProgramID(charityProgramID);
         List<VolunteerResponse> volunteerDTOS = new ArrayList<>();
@@ -40,10 +40,7 @@ public class VolunteerServiceImpl implements VolunteerService {
             VolunteerResponse volunteerDTO = volunteerConverter.convertToResponse(v);
             volunteerDTOS.add(volunteerDTO);
         }
-        return ResponseDTO.builder()
-                .data(volunteerDTOS)
-                .detail("OK")
-                .message("Find succeeded").build();
+        return volunteerDTOS;
     }
 
     @Override

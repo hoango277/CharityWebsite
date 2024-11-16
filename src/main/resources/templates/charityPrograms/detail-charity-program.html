@@ -39,7 +39,7 @@
                                 <span class="dropdown-item-text">Xin chào</span>
                             </li>
                             <li>
-                                <a th:href="@{/account-info}" class="dropdown-item">Thông tin tài khoản</a>
+                                <a th:href="@{/user/account-info}" class="dropdown-item">Thông tin tài khoản</a>
                             </li>
                             <li>
                                 <a th:href="@{/wallet}" class="dropdown-item">Ví của bạn</a>
@@ -55,71 +55,124 @@
     </nav>
 </header>
 
-<div class="banner-du-an d-flex align-items-center justify-content-center">
-    <!--     th:style="|background-image: linear-gradient(rgba(255, 255, 255, 1), rgba(255, 255, 255, 1)), url(@{/assets/images/banner.jpg}); background-size: cover; background-position: center; height: 300px;|">-->
-    <div class="text-center text-dark">
+<div class="banner-du-an d-flex align-items-center justify-content-center"
+     th:style="|background-image: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)), url(@{/assets/images/nen-du-an.jpg}); background-size: cover; background-position: center; height: 300px;|">
+    <div class="text-center text-black">
         <h1>Dự án</h1>
         <div class="foot-banner d-flex justify-content-center align-items-center mt-3">
             <a th:href="@{/}" class="text-decoration-none">Trang chủ</a>
             <span class="mx-2">/</span>
             <span class th:href="@{/projects}">Dự án</span>
             <span class="mx-2">/</span>
-            <span class th:href="@{/}">tên dự án</span>
+            <span class th:text="${projects.name}"></span>
         </div>
     </div>
 </div>
 
 <main>
     <div>
-        <div class="container my-4" style="max-width: 70%;">
-            <div class="row">
+        <div class="container my-4 " style="max-width: 80%; padding: 30px;">
+            <div class="row" >
                 <!-- Cột 1: Slider -->
                 <div class="col-md-6">
-                    <div class="slider-container d-flex justify-content-center align-items-center">
-                        <img th:src="@{/assets/images/slide3.jpg}" alt="" class="slide img-fluid">
+                    <div class="slider-container d-flex justify-content-center align-items-center"
+                         style="border-radius: 15px; overflow: hidden; width: fit-content;">
+                        <img th:src="@{${projects.image}}" alt="" class="slide img-fluid"
+                             style="border-radius: 15px; max-width: 100%; height: auto;">
                     </div>
                 </div>
                 <!-- Cột 2: Phần Trình Bày -->
                 <div class="col-md-6">
-                    <h2 class="text-center mb-4">Giúp bé H’Thy Ân nuôi ước mơ trở thành bác sỹ</h2>
+                    <h2 class="text-center mb-4 wpneo-campaign-title"
+                        style="max-width: 100%; overflow-wrap: break-word; white-space: normal;"
+                        th:text="${projects.name}">
+                    </h2>
                     <div class="quy-tien bg-light p-3">
                         <div class="ntt mb-3">
                             <div class="d-flex align-items-center justify-content-between">
                                 <!-- Phần bên trái -->
                                 <div class="d-flex align-items-center">
-                                    <img th:src="@{/assets/images/logo.png}" alt="" class="me-2" style="width: 50px; height: 50px;">
-                                    <a class="text-decoration-none text-danger">Quỹ Từ tâm Đắk Lắk</a>
+                                    <img th:src="@{/assets/images/logo.png}" alt="" class="me-4" style="max-width: 50px; max-height: 50px;">
+                                    <span class="text-danger">Quỹ từ thiện PTIT</span>
                                 </div>
                                 <!-- Phần bên phải -->
                                 <div>
-                                    <p class="mb-0 text-muted" th:text="|${soLuotUngHo} lượt ủng hộ|">38 lượt ủng hộ</p>
-                                </div>
+                                    <p class="mb-0 text-muted font-weight-bold" th:text="${volunteers.size()} + ' lượt ủng hộ'"></p></div>
                             </div>
                         </div>
-                        <div class="muc-tieu d-flex justify-content-between mb-2">
-                            <p class="mb-0 text-secondary">Mục tiêu dự án</p>
-                            <p class="mb-0" th:text="${mucTieuDuAn}">20.000.000đ</p>
+                        <div class="muc-tieu d-flex justify-content-between mb-2" >
+                            <p class="mb-0 text-secondary font-weight-bold" >Mục tiêu dự án</p>
+                            <p class="mb-0" th:text="${#numbers.formatDecimal(T(java.math.BigDecimal).valueOf(projects.amountNeeded), 0, 'POINT', 0, 'COMMA')} + 'đ'"></p>
                         </div>
                         <div class="progress mb-2">
-                            <div class="progress-bar" role="progressbar"
-                                 th:style="'width: ' + ${tiLeDatDuoc} + '%;'"
-                                 th:aria-valuenow="${tiLeDatDuoc}" aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="progress-bar bg-success" role="progressbar"
+                                 th:style="'width: ' + ${projects.fundingPercentage} + '%;'"
+                                 th:aria-valuenow="${projects.fundingPercentage}"
+                                 aria-valuemin="0"
+                                 aria-valuemax="100"
+                                 th:text="${projects.fundingPercentage} + '%'">
+                            </div>
                         </div>
                         <div class="thanh-tich d-flex justify-content-between">
-                            <p class="mb-0 text-secondary">Đã đạt được</p>
-                            <p class="mb-0 text-danger fw-bold fs-5" th:text="${soTienDaDatDuoc}">1.155.000đ</p>
+                            <p class="mb-0 text-secondary font-weight-bold">Đã đạt được</p>
+                            <p class="mb-0 text-danger fw-bold fs-5" th:text="${#numbers.formatDecimal(T(java.math.BigDecimal).valueOf(projects.totalAmount), 0, 'POINT', 0, 'COMMA')} + 'đ'"></p>
                         </div>
                     </div>
 
                     <div class="ung-ho d-flex align-items-center mt-4">
                         <p class="mb-0 me-2 text-secondary">VNĐ</p>
                         <input type="text" class="form-control me-2" style="width: 200px;">
-                        <button class="btn btn-primary">Ủng hộ ngay</button>
+                        <button class="btn btn-primary padding: 10px 20px">Ủng hộ ngay</button>
                     </div>
                 </div>
             </div>
+            <div style="margin-top: 50px" >
+                <ul class="nav nav-tabs" style="border-bottom: 1px solid #ddd; display: flex; gap: 10px;">
+                    <li class="nav-item">
+                        <button id="contentTab" class="nav-link active font-weight-bold"
+                                style="border: 1px solid #007bff; border-radius: 5px; padding: 10px 20px; font-size: 16px; background-color: #007bff; color: #fff;"
+                                onclick="showTab('content')">
+                            Nội dung
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <button id="supportTab" class="nav-link font-weight-bold"
+                                style="border: 1px solid #ddd; border-radius: 5px; padding: 10px 20px; font-size: 16px; background-color: #f5f5f5; color: #888;"
+                                onclick="showTab('support')">
+                            Danh sách ủng hộ
+                        </button>
+                    </li>
+                </ul>
+            </div>
+
+            <div id="content" class="tab-content"
+                 style="border: 1px solid #ddd; border-top: none; border-radius: 0 0 5px 5px; background-color: #fff; color: #6c757d; padding: 15px;">
+                <p th:text="${projects.description}" style="color: #6c757d;"></p>
+            </div>
+            <div id="support" class="tab-content d-none"
+                 style="border: 1px solid #ddd; border-top: none; border-radius: 0 0 5px 5px; background-color: #fff; color: #6c757d; padding: 15px;">
+                <table class="table" style="background-color: #fff; color: #6c757d;">
+                    <thead>
+                    <tr style="background-color: #e9f5ff; color: #6c757d;">
+                        <th scope="col" style="background-color: #e9f5ff; color: #6c757d; padding: 10px;">Người ủng hộ</th>
+                        <th scope="col" style="background-color: #e9f5ff; color: #6c757d; padding: 10px;">Số tiền</th>
+                        <th scope="col" style="background-color: #e9f5ff; color: #6c757d; padding: 10px;">Thời gian</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="donation : ${volunteers}" style="background-color: #fff; color: #6c757d;">
+                        <td th:text="${donation.username}" style="color: #6c757d; padding: 10px;"></td>
+                        <td th:text="${#numbers.formatDecimal(T(java.math.BigDecimal).valueOf(donation.moneyDonated), 0, 'POINT', 0, 'COMMA')} + 'đ'" style="color: #6c757d; padding: 10px;"></td>
+                        <td th:text="${donation.donateDate}" style="color: #6c757d; padding: 10px;"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
         </div>
+
     </div>
+
 
 </main>
 <footer class="footer py-4">
@@ -155,5 +208,35 @@
 </footer>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    function showTab(tab) {
+        const content = document.getElementById('content');
+        const support = document.getElementById('support');
+        const contentTab = document.getElementById('contentTab');
+        const supportTab = document.getElementById('supportTab');
+
+        if (tab === 'content') {
+            content.classList.remove('d-none');
+            support.classList.add('d-none');
+            contentTab.style.backgroundColor = '#007bff';
+            contentTab.style.color = '#fff';
+            supportTab.style.backgroundColor = '#f5f5f5';
+            supportTab.style.color = '#888';
+            supportTab.style.borderColor = '#ddd';
+            content.style.backgroundColor = '#fff';
+            content.style.color = '#6c757d';
+        } else {
+            support.classList.remove('d-none');
+            content.classList.add('d-none');
+            supportTab.style.backgroundColor = '#007bff';
+            supportTab.style.color = '#fff';
+            contentTab.style.backgroundColor = '#f5f5f5';
+            contentTab.style.color = '#888';
+            contentTab.style.borderColor = '#ddd';
+            support.style.backgroundColor = '#fff';
+            support.style.color = '#6c757d';
+        }
+    }
+</script>
 </body>
 </html>
