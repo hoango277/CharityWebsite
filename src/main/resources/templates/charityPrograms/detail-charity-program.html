@@ -64,7 +64,7 @@
             <span class="mx-2">/</span>
             <span class th:href="@{/projects}">Dự án</span>
             <span class="mx-2">/</span>
-            <span class th:href="@{/}">tên dự án</span>
+            <span class th:text="${projects.name}"></span>
         </div>
     </div>
 </div>
@@ -98,16 +98,20 @@
                         </div>
                         <div class="muc-tieu d-flex justify-content-between mb-2">
                             <p class="mb-0 text-secondary">Mục tiêu dự án</p>
-                            <p class="mb-0" th:text="${mucTieuDuAn}">20.000.000đ</p>
+                            <p class="mb-0" th:text="${projects.amountNeeded}"></p>
                         </div>
-                        <div class="progress mb-2">
-                            <div class="progress-bar" role="progressbar"
-                                 th:style="'width: ' + ${tiLeDatDuoc} + '%;'"
-                                 th:aria-valuenow="${tiLeDatDuoc}" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress mb-2" style="height: 20px;">
+                            <div class="progress-bar bg-success" role="progressbar"
+                                 th:style="'width: ' + ${projects.fundingPercentage} + '%;'"
+                                 th:aria-valuenow="${projects.fundingPercentage}"
+                                 aria-valuemin="0"
+                                 aria-valuemax="100"
+                                 th:text="${projects.fundingPercentage} + '%'">
+                            </div>
                         </div>
                         <div class="thanh-tich d-flex justify-content-between">
                             <p class="mb-0 text-secondary">Đã đạt được</p>
-                            <p class="mb-0 text-danger fw-bold fs-5" th:text="${soTienDaDatDuoc}">1.155.000đ</p>
+                            <p class="mb-0 text-danger fw-bold fs-5" th:text="${projects.totalAmount}">1.155.000đ</p>
                         </div>
                     </div>
 

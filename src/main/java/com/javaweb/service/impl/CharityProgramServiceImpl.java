@@ -3,7 +3,6 @@ package com.javaweb.service.impl;
 import com.javaweb.converter.CharityProgramConverter;
 import com.javaweb.entity.CharityProgramEntity;
 import com.javaweb.exception.InvalidDataException;
-import com.javaweb.model.dto.ResponseDTO;
 import com.javaweb.model.response.CharityProgramResponse;
 import com.javaweb.exception.ResourceNotFoundException;
 import com.javaweb.model.response.StatusResponse;
