@@ -1,9 +1,7 @@
 package com.javaweb.model.response;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.javaweb.exception.InvalidDataException;
+import lombok.*;
 
 import java.util.Date;
 
@@ -11,7 +9,9 @@ import java.util.Date;
 @NoArgsConstructor
 @Builder
 @AllArgsConstructor
+@Getter
 public class CharityProgramResponse {
+    private Long id;
     private String name;
     private String description;
     private String startDate;
@@ -20,4 +20,7 @@ public class CharityProgramResponse {
     private Long amountNeeded;
     private Long totalAmount;
     private String image;
+    private Double fundingPercentage;
+
+
 }
