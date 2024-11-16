@@ -15,39 +15,33 @@ import org.springframework.web.bind.annotation.*;
 import java.text.ParseException;
 import java.util.List;
 
-@RestController
-@RequestMapping("/test")
+@Controller
+@RequestMapping("/projects")
 public class CharityProgramController {
 
     @Autowired
     private CharityProgramService charityProgramService;
 
-//    @GetMapping("")
-//    public String getAllCharityProgram(Model model) throws ParseException {
-//        List<CharityProgramResponse> list = charityProgramService.getAllCharityPrograms();
-//        System.out.println("Total projects: " + list.size());
-//        for (CharityProgramResponse project : list) {
-//            if (project.getAmountNeeded() != null && project.getAmountNeeded() > 0) {
-//                double fundingPercentage = (double) project.getTotalAmount() / project.getAmountNeeded() * 100;
-//                project.setFundingPercentage(fundingPercentage);
-//            }
-//        }
-//        model.addAttribute("projects", list);
-//        return "charityPrograms/charity-program";
-//    }
-
     @GetMapping("")
-    public ResponseEntity<List<CharityProgramResponse>> getAllCharityProgram() throws ParseException {
+    public String getAllCharityProgram(Model model) throws ParseException {
         List<CharityProgramResponse> list = charityProgramService.getAllCharityPrograms();
-        System.out.println("Total projects: " + list.size());
-
         for (CharityProgramResponse project : list) {
-            if (project.getAmountNeeded() != null && project.getAmountNeeded() > 0 && project.getTotalAmount() != null) {
+            System.out.println(project.getImage());
+            if (project.getAmountNeeded() != null && project.getAmountNeeded() > 0) {
                 double fundingPercentage = (double) project.getTotalAmount() / project.getAmountNeeded() * 100;
+                fundingPercentage = Math.round(fundingPercentage * 100.0) / 100.0;
                 project.setFundingPercentage(fundingPercentage);
             }
         }
-
-        return ResponseEntity.ok(list);
+        model.addAttribute("projects", list);
+        return "charityPrograms/charity-program";
     }
+
+    @GetMapping("/{id}")
+    public String getCharityProgramById(@PathVariable("id") Long id, Model model) throws ParseException {
+        CharityProgramResponse charityProgramResponse = charityProgramService.getCharityProgramById(id);
+        model.addAttribute("projects", charityProgramResponse);
+        return "charityPrograms/detail-charity-program";
+    }
+
 }
