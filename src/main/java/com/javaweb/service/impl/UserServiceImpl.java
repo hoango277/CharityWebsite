@@ -40,17 +40,20 @@ public class UserServiceImpl implements UserService {
     private ModelMapper modelMapper;
 
     @Override
-    public List<InfoUserResponse> getAllUser(Integer pageNumber, Integer pageSize) {
+    public PageUserResponse getAllUser(Integer pageNumber, Integer pageSize) {
         Pageable pageable = PageRequest.of(pageNumber,pageSize);
         Page<UserEntity> pageUser = userRepository.findAll(pageable);
         List<UserEntity> userEntities = pageUser.getContent();
 
-        List<InfoUserResponse> listUserResponse = new ArrayList<>();
+        List<UserResponse> listUserResponse = new ArrayList<>();
         for (UserEntity userEntity : userEntities) {
-            InfoUserResponse user = userConverter.convertToInfoUserResponse(userEntity);
+            UserResponse user = userConverter.convertToUserResponse(userEntity);
             listUserResponse.add(user);
         }
-        return listUserResponse;
+        PageUserResponse pageUserResponse = new PageUserResponse();
+        pageUserResponse.setUsers(listUserResponse);
+        pageUserResponse.setTotalPage(pageUser.getTotalElements());
+        return pageUserResponse;
     }
     @Override
     public ResponseDTO getUserById(String userId) throws ParseException {
@@ -84,6 +87,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public StatusResponse deleteUser(Long userId) {
         UserEntity userEntity = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User Not Found"));
+        if (userEntity.getStatus().equals(0)){
+            return StatusResponse.builder()
+                    .status(HttpStatus.BAD_REQUEST.value())
+                    .message("Delete failed: User is not active!")
+                    .build();
+        }
         userEntity.setStatus(0);
         userRepository.save(userEntity);
         return StatusResponse.builder()

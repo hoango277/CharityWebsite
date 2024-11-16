@@ -37,7 +37,7 @@ public class UserController {
         ResponseDTO responseDTO = authenticationService.updateUser(userId,userDTO);
         return new ResponseEntity<>(responseDTO, HttpStatus.OK);
     }
-    @PostMapping("/admin/account/{userId}")
+    @DeleteMapping("/admin/account/{userId}")
     public ResponseEntity<StatusResponse> deleteUser(@PathVariable Long userId) {
         return new ResponseEntity<>(userService.deleteUser(userId),HttpStatus.OK);
     }

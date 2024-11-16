@@ -1,58 +1,25 @@
-document.addEventListener("DOMContentLoaded", () => {
-    // Lấy dữ liệu từ thuộc tính data-user-accounts
-    const tableElement = document.querySelector("#userTable");
-    const userAccountsData = tableElement.getAttribute("data-user-accounts"); // Sử dụng đúng thuộc tính
-
-    // Kiểm tra nếu dữ liệu rỗng
-    if (!userAccountsData) {
-        console.error("No data found in data-user-accounts attribute");
-        return;
+function deleteUser(userId) {
+    if (confirm("Bạn có chắc chắn muốn xóa người dùng này?")) {
+        fetch(`/admin/account/${userId}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 200) {
+                    alert(data.message || 'Xóa thành công!');
+                    location.reload();
+                } else if (data.status === 400) {
+                    alert(data.message || 'Xóa thất bại: Người dùng không hoạt động!');
+                } else {
+                    alert(data.message || 'Xóa thất bại!');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Có lỗi xảy ra, vui lòng thử lại sau!');
+            });
     }
-
-    try {
-        // Parse dữ liệu JSON
-        const userAccounts = JSON.parse(userAccountsData);
-
-        // Tham chiếu đến phần tử tbody
-        const tableBody = document.querySelector("#userTable tbody");
-
-        // Duyệt qua danh sách tài khoản và thêm từng hàng vào bảng
-        userAccounts.forEach((user, index) => {
-            // Tạo hàng mới
-            const row = document.createElement("tr");
-
-            // Tạo từng ô và điền dữ liệu
-            const idCell = document.createElement("td");
-            idCell.textContent = index + 1; // Số thứ tự, vì JSON không có user_id
-
-            const usernameCell = document.createElement("td");
-            usernameCell.textContent = user.userName || "N/A";
-
-            const emailCell = document.createElement("td");
-            emailCell.textContent = user.email || "N/A";
-
-            const phoneCell = document.createElement("td");
-            phoneCell.textContent = user.phoneNumber || "N/A";
-
-            const statusCell = document.createElement("td");
-            statusCell.textContent = user.status === 1 ? "Hoạt động" : "Ngừng hoạt động";
-
-            const roleCell = document.createElement("td");
-            roleCell.textContent = user.role || "USER";
-
-
-            // Thêm các ô vào hàng
-            row.appendChild(idCell);
-            row.appendChild(usernameCell);
-            row.appendChild(emailCell);
-            row.appendChild(phoneCell);
-            row.appendChild(statusCell);
-            row.appendChild(roleCell);
-
-            // Thêm hàng vào tbody
-            tableBody.appendChild(row);
-        });
-    } catch (error) {
-        console.error("Error parsing user accounts data:", error);
-    }
-});
+}

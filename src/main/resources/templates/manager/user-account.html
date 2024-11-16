@@ -15,18 +15,68 @@
            th:data-user-accounts="${userAccounts}">
         <thead class="table-dark">
         <tr>
-            <th>ID</th>
+            <th>STT</th>
             <th>Tên người dùng</th>
             <th>Email</th>
             <th>Số điện thoại</th>
             <th>Trạng thái</th>
             <th>Vai trò</th>
+            <th>Số dư</th>
+            <th>Thao tác</th>
         </tr>
         </thead>
         <tbody>
-        <!-- Dữ liệu sẽ được tải động qua JS -->
+<!--        &lt;!&ndash; Duyệt qua danh sách người dùng &ndash;&gt;-->
+        <tr th:each="user, iterStat : ${userAccounts}">
+            <td th:text="${iterStat.index + 1 + (currentPage * 10)}">1</td>
+            <td th:text="${user.userName}">Tên người dùng</td>
+            <td th:text="${user.email}">Email</td>
+            <td th:text="${user.phoneNumber}">Số điện thoại</td>
+            <td>
+                <span th:text="${user.status == 1 ? 'Hoạt động' : 'Ngừng hoạt động'}"></span>
+            </td>
+            <td th:text="${user.role}">Vai trò</td>
+            <td th:text="${user.wallet}">Số dư</td>
+            <td>
+                <a href="#" class="btn btn-danger btn-sm"
+                   th:onclick="'deleteUser(' + ${user.id} + '); return false;'">Xóa</a>
+            </td>
+        </tr>
+        <!-- Hiển thị thông báo khi danh sách rỗng -->
+        <tr th:if="${userAccounts.isEmpty()}">
+            <td colspan="5" class="text-center">Không có người dùng nào!</td>
+        </tr>
         </tbody>
     </table>
+
+    <!-- Pagination -->
+    <nav th:if="${totalPages > 3}" aria-label="Pagination">
+        <ul class="pagination justify-content-center">
+
+            <!-- Nút Previous -->
+            <li class="page-item" th:classappend="${currentPage == 0 ? 'disabled' : ''}">
+                <a class="page-link" th:href="@{/admin/all-user-account(pageNumber=${currentPage - 1})}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+
+            <!-- Hiển thị chỉ 3 trang tại một thời điểm -->
+            <li class="page-item"
+                th:each="i : ${#numbers.sequence(currentPage, currentPage + 2)}"
+                th:if="${i < totalPages}"
+                th:classappend="${i == currentPage ? 'active' : ''}">
+                <a class="page-link" th:href="@{/admin/all-user-account(pageNumber=${i})}" th:text="${i + 1}"></a>
+            </li>
+
+            <!-- Nút Next -->
+            <li class="page-item" th:classappend="${currentPage + 3 >= totalPages ? 'disabled' : ''}">
+                <a class="page-link" th:href="@{/admin/all-user-account(pageNumber=${currentPage + 3})}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+
+        </ul>
+    </nav>
 </div>
 
 <!-- Bootstrap JS -->
