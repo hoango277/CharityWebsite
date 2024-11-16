@@ -1,0 +1,72 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+/* Cài đặt font chung */
+body {
+    background-color: #f8f9fa;
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    font-size: 2.5rem; /* Tăng kích thước tiêu đề */
+    font-weight: 700;
+    color: #212529;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#userTable {
+    width: 100%;
+    border-collapse: collapse; /* Gộp các đường viền */
+    margin: 20px 0; /* Khoảng cách bảng */
+    font-size: 1rem; /* Font chữ bảng */
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Đổ bóng bảng */
+    border-radius: 10px; /* Bo góc bảng */
+    overflow: hidden;
+}
+
+#userTable th, #userTable td {
+    padding: 12px 15px; /* Khoảng cách giữa nội dung và đường viền */
+    vertical-align: middle;
+    border: 1px solid #ddd; /* Màu đường viền sáng */
+}
+
+#userTable th {
+    background-color: #4CAF50; /* Màu nền tiêu đề */
+    color: white; /* Màu chữ tiêu đề */
+    font-weight: 500; /* Đậm hơn cho tiêu đề */
+    text-transform: uppercase; /* Chữ in hoa */
+}
+
+#userTable tbody tr {
+    background-color: #ffffff; /* Màu nền mặc định */
+    transition: background-color 0.3s ease; /* Hiệu ứng khi hover */
+}
+
+#userTable tbody tr:hover {
+    background-color: #f1f1f1; /* Màu nền khi hover */
+}
+
+#userTable tbody td {
+    color: #495057; /* Màu chữ ô nội dung */
+}
+
+.table {
+    margin: auto; /* Căn giữa bảng */
+}
+
+.table thead th {
+    font-size: 1.125rem; /* Kích thước chữ tiêu đề bảng */
+    letter-spacing: 0.05em; /* Khoảng cách giữa các chữ */
+}
+
+.table tbody td {
+    font-size: 0.95rem; /* Kích thước chữ ô nội dung */
+}
+
+.table thead {
+    border-bottom: 2px solid #e9ecef; /* Đường viền dưới tiêu đề */
+}
