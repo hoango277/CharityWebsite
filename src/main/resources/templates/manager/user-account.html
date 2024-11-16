@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh sách tài khoản</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/assets/css/user-account.css}">
+</head>
+<body>
+<div class="container mt-4">
+    <h1 class="mb-4">Danh sách tài khoản người dùng</h1>
+    <table id="userTable" class="table table-bordered table-striped"
+           th:data-user-accounts="${userAccounts}">
+        <thead class="table-dark">
+        <tr>
+            <th>ID</th>
+            <th>Tên người dùng</th>
+            <th>Email</th>
+            <th>Số điện thoại</th>
+            <th>Trạng thái</th>
+            <th>Vai trò</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Dữ liệu sẽ được tải động qua JS -->
+        </tbody>
+    </table>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- File JS -->
+<script th:src="@{/assets/js/user-account.js}"></script>
+</body>
+</html>
