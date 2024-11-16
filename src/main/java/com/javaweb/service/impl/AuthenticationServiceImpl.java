@@ -33,9 +33,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.io.UnsupportedEncodingException;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -82,6 +81,12 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         }
         String accessToken = jwtTokenUtils.generateToken(userEntity,userEntity.getUserId());
         String refreshToken = jwtTokenUtils.generateRefreshToken(userEntity);
+
+        Set<RoleEntity> roleEntities = userEntity.getRoles();
+        String roles = roleEntities.stream()
+                .map(RoleEntity::getRoleName)
+                .collect(Collectors.joining(","));
+
         // save to database
         tokenService.saveToken(TokenEntity.builder()
                         .name(userEntity.getUsername())
@@ -93,6 +98,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)
                 .userId(userEntity.getUserId())
+                .roles(roles)
                 .build();
     }
 
