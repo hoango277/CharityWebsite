@@ -69,7 +69,7 @@
             </li>
 
             <!-- Nút Next -->
-            <li class="page-item" th:classappend="${page == totalPages - 1} ? 'disabled'">
+            <li class="page-item" th:classappend="${pageNumber == totalPages - 1} ? 'disabled'">
                 <a class="page-link"
                    th:href="@{/admin/user-manage(pageNumber=${pageNumber + 1})}"
                    aria-label="Next">
