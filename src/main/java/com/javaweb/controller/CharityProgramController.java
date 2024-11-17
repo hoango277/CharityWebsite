@@ -52,5 +52,4 @@ public class CharityProgramController {
         model.addAttribute("volunteers", volunteerResponse);
         return "charityPrograms/detail-charity-program";
     }
-
 }
