@@ -28,10 +28,20 @@ public class AdminController {
         model.addAttribute("userAccounts", userAccounts.getContent());
         model.addAttribute("pageNumber", pageNumber);
         model.addAttribute("totalPages", userAccounts.getTotalPages());
-        if (pageNumber == 0){
-            return "admin";
-        } else {
-            return "manager/user-account";
-        }
+        return "admin";
+    }
+
+    @GetMapping("/user-manage")
+    public String userManagePage(
+            Model model,
+            @RequestParam(name = "pageNumber", defaultValue = MessageUtils.PAGE_NUMBER, required = false) Integer pageNumber,
+            @RequestParam(name = "pageSize", defaultValue = MessageUtils.PAGE_SIZE, required = false) Integer pageSize) {
+
+        Page<UserResponse> userAccounts = userService.getAllUser(pageNumber,pageSize);
+
+        model.addAttribute("userAccounts", userAccounts.getContent());
+        model.addAttribute("pageNumber", pageNumber);
+        model.addAttribute("totalPages", userAccounts.getTotalPages());
+        return "admin/user-account";
     }
 }
