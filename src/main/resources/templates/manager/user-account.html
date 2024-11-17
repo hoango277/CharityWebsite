@@ -11,8 +11,7 @@
 <body>
 <div class="container mt-4" th:fragment="user-account">
     <h1 class="mb-4">Danh sách tài khoản người dùng</h1>
-    <table id="userTable" class="table table-bordered table-striped"
-           th:data-user-accounts="${userAccounts}">
+    <table id="userTable" class="table table-bordered table-striped">
         <thead class="table-dark">
         <tr>
             <th>STT</th>
@@ -28,7 +27,7 @@
         <tbody>
 <!--        &lt;!&ndash; Duyệt qua danh sách người dùng &ndash;&gt;-->
         <tr th:each="user, iterStat : ${userAccounts}">
-            <td th:text="${iterStat.index + 1 + (currentPage * 10)}">1</td>
+            <td th:text="${iterStat.index + 1 + (pageNumber * 10)}">1</td>
             <td th:text="${user.userName}">Tên người dùng</td>
             <td th:text="${user.email}">Email</td>
             <td th:text="${user.phoneNumber}">Số điện thoại</td>
@@ -48,33 +47,35 @@
         </tr>
         </tbody>
     </table>
-
-    <!-- Pagination -->
-    <nav th:if="${totalPages > 3}" aria-label="Pagination">
-        <ul class="pagination justify-content-center">
-
+    <!-- Phân trang -->
+    <nav aria-label="Page navigation" class="mt-4">
+        <ul class="pagination justify-content-center" th:if="${totalPages > 0}">
             <!-- Nút Previous -->
-            <li class="page-item" th:classappend="${currentPage == 0 ? 'disabled' : ''}">
-                <a class="page-link" th:href="@{/admin/all-user-account(pageNumber=${currentPage - 1})}" aria-label="Previous">
+            <li class="page-item" th:classappend="${pageNumber == 0} ? 'disabled'">
+                <a class="page-link"
+                   th:href="@{/admin(pageNumber=${pageNumber - 1})}"
+                   aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>
                 </a>
             </li>
 
-            <!-- Hiển thị chỉ 3 trang tại một thời điểm -->
+            <!-- Các số trang -->
             <li class="page-item"
-                th:each="i : ${#numbers.sequence(currentPage, currentPage + 2)}"
-                th:if="${i < totalPages}"
-                th:classappend="${i == currentPage ? 'active' : ''}">
-                <a class="page-link" th:href="@{/admin/all-user-account(pageNumber=${i})}" th:text="${i + 1}"></a>
+                th:each="page : ${#numbers.sequence(0, totalPages - 1)}"
+                th:classappend="${page == pageNumber} ? 'active'">
+                <a class="page-link"
+                   th:href="@{/admin(pageNumber=${page})}"
+                   th:text="${page + 1}">1</a>
             </li>
 
             <!-- Nút Next -->
-            <li class="page-item" th:classappend="${currentPage + 3 >= totalPages ? 'disabled' : ''}">
-                <a class="page-link" th:href="@{/admin/all-user-account(pageNumber=${currentPage + 3})}" aria-label="Next">
+            <li class="page-item" th:classappend="${page == totalPages - 1} ? 'disabled'">
+                <a class="page-link"
+                   th:href="@{/admin(pageNumber=${pageNumber + 1})}"
+                   aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
                 </a>
             </li>
-
         </ul>
     </nav>
 </div>
