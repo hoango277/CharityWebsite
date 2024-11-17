@@ -55,7 +55,10 @@
         <!-- Token data for logged-in user -->
         <div id="tokenData"
              th:if="${token}"
-             th:attr="data-access-token=${token.accessToken}, data-refresh-token=${token.refreshToken}, data-userId = ${token.userId}"
+             th:attr="data-access-token=${token.accessToken},
+                 data-refresh-token=${token.refreshToken},
+                 data-userId = ${token.userId},
+                 data-roles = ${token.roles}"
              style="display:none;">
         </div>
     </div>

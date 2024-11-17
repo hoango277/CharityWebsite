@@ -20,12 +20,6 @@ public class VolunteerController {
     @Autowired
     private VolunteerService volunteerService;
 
-    @GetMapping("/{charityProgramID}")
-    public ResponseEntity<ResponseDTO> getAllVolunteers(@PathVariable("charityProgramID") long charityProgramID) throws ParseException {
-        ResponseDTO responseDTO = volunteerService.getAllVolunteers(charityProgramID);
-        return new ResponseEntity<ResponseDTO>(responseDTO, HttpStatus.OK);
-    }
-
     @PostMapping("/{charityProgramID}")
     public StatusResponse addVolunteer(@PathVariable("charityProgramID") long charityProgramID, long userID, long money)
     {

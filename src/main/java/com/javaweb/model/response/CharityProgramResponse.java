@@ -21,6 +21,4 @@ public class CharityProgramResponse {
     private Long totalAmount;
     private String image;
     private Double fundingPercentage;
-
-
 }
