@@ -28,10 +28,6 @@ public class AdminController {
         model.addAttribute("userAccounts", userAccounts.getContent());
         model.addAttribute("pageNumber", pageNumber);
         model.addAttribute("totalPages", userAccounts.getTotalPages());
-        if (pageNumber == 0){
-            return "admin";
-        } else {
-            return "manager/user-account";
-        }
+        return "admin";
     }
 }
