@@ -1,63 +1,109 @@
-/* Nâng cao giao diện với CSS */
+/* Tổng thể */
 body {
-    background-color: #f8f9fa;
-    font-family: Arial, sans-serif;
+    background-color: #e9ecef; /* Màu nền nhẹ nhàng */
+    font-family: 'Roboto', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
 }
 
+/* Sidebar */
 .sidebar {
     width: 250px;
     min-height: 100vh;
-    background-color: #343a40;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    background-color: #212529; /* Màu nền sidebar đậm hơn */
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 15px;
 }
 
 .sidebar h4 {
-    font-size: 1.5rem;
-    font-weight: bold;
+    font-size: 1.6rem;
+    font-weight: 700;
     color: #ffffff;
-    padding: 15px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    margin-bottom: 20px;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+    padding-bottom: 10px;
     text-align: center;
+    width: 100%;
 }
 
 .sidebar .nav-link {
-    font-size: 1rem;
+    font-size: 1.1rem;
     font-weight: 500;
-    color: #d1d1d1;
-    padding: 10px 15px;
+    color: #adb5bd; /* Màu chữ xám nhẹ */
+    padding: 12px 20px;
+    width: 100%;
+    text-align: center;
     transition: all 0.3s ease;
+    border-radius: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
 }
 
 .sidebar .nav-link:hover {
     background-color: #495057;
     color: #ffffff;
-    border-radius: 5px;
+    transform: scale(1.02); /* Hiệu ứng phóng to nhẹ */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .sidebar .nav-link.active {
     background-color: #007bff;
     color: #ffffff;
+    font-weight: bold;
     border-radius: 5px;
+    box-shadow: 0 3px 6px rgba(0, 123, 255, 0.5);
 }
 
+/* Content */
 .content {
-    padding: 20px;
+    padding: 30px;
     background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin-left: 20px;
     flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
 .content h1 {
-    font-size: 2rem;
-    font-weight: bold;
+    font-size: 2.2rem;
+    font-weight: 700;
     color: #343a40;
+    margin-bottom: 15px;
 }
 
+.content p {
+    font-size: 1rem;
+    color: #6c757d;
+}
+
+/* Footer */
 .footer {
     text-align: center;
-    margin-top: 20px;
+    padding: 15px;
     font-size: 0.9rem;
     color: #6c757d;
+    background-color: #f1f3f5; /* Nền nhẹ */
+    margin-top: 20px;
+    border-top: 1px solid #dee2e6;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .d-flex {
+        flex-direction: column;
+    }
+    .sidebar {
+        width: 100%;
+        min-height: auto;
+    }
+    .content {
+        margin-left: 0;
+    }
 }
