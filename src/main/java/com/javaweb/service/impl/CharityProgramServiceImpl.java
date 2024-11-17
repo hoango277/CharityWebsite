@@ -3,21 +3,23 @@ package com.javaweb.service.impl;
 import com.javaweb.converter.CharityProgramConverter;
 import com.javaweb.entity.CharityProgramEntity;
 import com.javaweb.exception.InvalidDataException;
-import com.javaweb.model.dto.ResponseDTO;
 import com.javaweb.model.response.CharityProgramResponse;
 import com.javaweb.exception.ResourceNotFoundException;
 import com.javaweb.model.response.StatusResponse;
 import com.javaweb.repository.CharityProgramRepository;
 import com.javaweb.service.CharityProgramService;
 import jakarta.validation.Valid;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -29,17 +31,23 @@ public class CharityProgramServiceImpl implements CharityProgramService {
     private CharityProgramConverter charityProgramConverter;
 
 
+    @SneakyThrows
     @Override
-    public List<CharityProgramResponse> getAllCharityPrograms() throws ParseException {
-        List<CharityProgramEntity> list = charityProgramRepository.findAll();
-        List<CharityProgramResponse> responseList = new ArrayList<>();
-        for (CharityProgramEntity charityProgramEntity : list) {
-            CharityProgramResponse charityProgramResponse = charityProgramConverter.convertToResponse(charityProgramEntity);
-            responseList.add(charityProgramResponse);
-        }
+    public Page<CharityProgramResponse> getAllCharityPrograms(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
 
-        return responseList;
+        Page<CharityProgramEntity> charityProgramsPage = charityProgramRepository.findAll(pageable);
+
+        return charityProgramsPage.map(charityProgram -> {
+            try {
+                return charityProgramConverter.convertToResponse(charityProgram);
+            } catch (ParseException e) {
+                throw new RuntimeException("Error parsing CharityProgram", e);
+            }
+        });
     }
+
+
 
 
 

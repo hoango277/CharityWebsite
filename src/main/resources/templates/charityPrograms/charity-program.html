@@ -113,6 +113,44 @@
     </div>
 </main>
 
+<!-- Phân trang -->
+<nav aria-label="Page navigation" class="mt-4">
+    <ul class="pagination justify-content-center" th:if="${totalPages > 0}">
+        <!-- Nút Previous -->
+        <li class="page-item" th:classappend="${page == 0} ? 'disabled'">
+            <a class="page-link"
+               th:href="@{/projects(page=${page - 1})}"
+               aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+
+        <!-- Các số trang -->
+        <li class="page-item"
+            th:each="pageNumber : ${#numbers.sequence(0, totalPages - 1)}"
+            th:classappend="${pageNumber == page} ? 'active'">
+            <a class="page-link"
+               th:href="@{/projects(page=${pageNumber})}"
+               th:text="${pageNumber + 1}">1</a>
+        </li>
+
+        <!-- Nút Next -->
+        <li class="page-item" th:classappend="${page == totalPages - 1} ? 'disabled'">
+            <a class="page-link"
+               th:href="@{/projects(page=${page + 1})}"
+               aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+
+<!-- Hiển thị thông tin về số lượng item -->
+<div class="text-center mt-3" th:if="${totalItems > 0}">
+    <p>Hiển thị [[${page * 6 + 1}]] đến [[${(page * 6 + 6) > totalItems ? totalItems : (page * 6 + 6)}]]
+        trong tổng số [[${totalItems}]] dự án</p>
+</div>
+
 <footer class="footer py-4">
     <div class="container">
         <div class="row">
