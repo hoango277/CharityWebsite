@@ -6,6 +6,7 @@ import com.javaweb.model.response.CharityProgramResponse;
 import com.javaweb.model.response.StatusResponse;
 import com.javaweb.service.CharityProgramService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.repository.cdi.Eager;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -23,8 +24,10 @@ public class CharityProgramController {
     private CharityProgramService charityProgramService;
 
     @GetMapping("")
-    public String getAllCharityProgram(Model model) throws ParseException {
-        List<CharityProgramResponse> list = charityProgramService.getAllCharityPrograms();
+    public String getAllCharityProgram(Model model,
+                                       @RequestParam(defaultValue = "0") int page,
+                                       @RequestParam(defaultValue = "6") int size) throws ParseException {
+        Page<CharityProgramResponse> list = charityProgramService.getAllCharityPrograms(page, size);
         for (CharityProgramResponse project : list) {
             System.out.println(project.getImage());
             if (project.getAmountNeeded() != null && project.getAmountNeeded() > 0) {
@@ -33,7 +36,10 @@ public class CharityProgramController {
                 project.setFundingPercentage(fundingPercentage);
             }
         }
-        model.addAttribute("projects", list);
+        model.addAttribute("projects", list.getContent());
+        model.addAttribute("page", page);
+        model.addAttribute("totalPages", list.getTotalPages());
+        model.addAttribute("totalItems", list.getTotalElements());
         return "charityPrograms/charity-program";
     }
 
