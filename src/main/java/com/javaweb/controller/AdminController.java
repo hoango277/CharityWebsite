@@ -23,13 +23,9 @@ public class AdminController {
     @Autowired
     private UserService userService;
 
-    @GetMapping
-    public String adminPage() {
-        return "admin";
-    }
 
-    @GetMapping("/all-user-account")
-    public String allUser(
+    @GetMapping("")
+    public String adminPage(
             Model model,
             @RequestParam(name = "pageNumber", defaultValue = MessageUtils.PAGE_NUMBER, required = false) Integer pageNumber,
             @RequestParam(name = "pageSize", defaultValue = MessageUtils.PAGE_SIZE, required = false) Integer pageSize) {
@@ -37,6 +33,6 @@ public class AdminController {
         model.addAttribute("userAccounts", userAccounts.getUsers());
         model.addAttribute("currentPage", pageNumber);
         model.addAttribute("totalPages", userAccounts.getTotalPage());
-        return "manager/user-account";
+        return "admin";
     }
 }
