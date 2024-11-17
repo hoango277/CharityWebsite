@@ -132,4 +132,19 @@ public class CharityProgramServiceImpl implements CharityProgramService {
                 .message("Delete successfully")
                 .build();
     }
+
+    @Override
+    public Page<CharityProgramResponse> getCharityProgramByKeyword(int page, int size, String keyword) {
+        Pageable pageable = PageRequest.of(page, size);
+
+        Page<CharityProgramEntity> charityProgramsPage = charityProgramRepository.findCharityProgramByKeyword(keyword,pageable);
+
+        return charityProgramsPage.map(charityProgram -> {
+            try {
+                return charityProgramConverter.convertToResponse(charityProgram);
+            } catch (ParseException e) {
+                throw new RuntimeException("Error parsing CharityProgram", e);
+            }
+        });
+    }
 }

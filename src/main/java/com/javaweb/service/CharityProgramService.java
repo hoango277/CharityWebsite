@@ -22,4 +22,6 @@ public interface CharityProgramService {
     CharityProgramResponse updateCharityProgram(Long id, CharityProgramEntity charityProgramEntity) throws ParseException;
 
     StatusResponse deleteCharityProgram(Long id);
+
+    Page<CharityProgramResponse> getCharityProgramByKeyword(int page, int size, String keyword);
 }

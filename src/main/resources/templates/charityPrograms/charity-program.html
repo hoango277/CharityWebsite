@@ -24,9 +24,24 @@
                     <li class="nav-item"><a class="nav-link" th:href="@{/guide}">Hướng dẫn</a></li>
                     <li class="nav-item"><a class="nav-link btn btn-danger text-white" th:href="@{/donate}">Ủng hộ ngay</a></li>
                 </ul>
-                <form class="d-flex align-items-center">
-                    <input class="form-control" type="search" placeholder="Tìm kiếm" aria-label="Search">
-                </form>
+                <div class="col-3">
+                    <div class="box-search">
+                        <form action="/projects/search/result" method="GET">
+                            <div class="form-group d-flex mb-0">
+                                <input
+                                        class="form-control"
+                                        type="text"
+                                        placeholder="Tìm kiếm..."
+                                        name="keyword"
+                                        th:value="${keyword}" />
+                                <button type="submit" class="btn btn-primary">Tìm</button>
+                            </div>
+                        </form>
+                        <div class="inner-suggest">
+                            <div class="inner-list"></div>
+                        </div>
+                    </div>
+                </div>
                 <div class="d-flex align-items-center ms-2 justify-content-center pt-2 pt-lg-0">
                     <a th:href="@{/register}" class="btn btn-outline-light me-2" id="registerButton">Đăng ký</a>
                     <a th:href="@{/login}" class="btn btn-outline-light" id="loginButton">Đăng nhập</a>

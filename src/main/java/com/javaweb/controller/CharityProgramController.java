@@ -54,6 +54,25 @@ public class CharityProgramController {
         return "charityPrograms/detail-charity-program";
     }
 
+    @GetMapping("/search/result")
+    public String getAllCharityProgramByKeyword(Model model, @RequestParam("keyword") String keyword,
+                                       @RequestParam(defaultValue = "0") int page,
+                                       @RequestParam(defaultValue = "6") int size) throws ParseException {
+        Page<CharityProgramResponse> list = charityProgramService.getCharityProgramByKeyword(page, size,keyword);
+        for (CharityProgramResponse project : list) {
+            System.out.println(project.getImage());
+            if (project.getAmountNeeded() != null && project.getAmountNeeded() > 0) {
+                double fundingPercentage = (double) project.getTotalAmount() / project.getAmountNeeded() * 100;
+                fundingPercentage = Math.round(fundingPercentage * 100.0) / 100.0;
+                project.setFundingPercentage(fundingPercentage);
+            }
+        }
 
+        model.addAttribute("projects", list.getContent());
+        model.addAttribute("page", page);
+        model.addAttribute("totalPages", list.getTotalPages());
+        model.addAttribute("totalItems", list.getTotalElements());
+        return "charityPrograms/charity-program";
+    }
 
 }
