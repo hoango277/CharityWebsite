@@ -9,7 +9,7 @@
     <link rel="stylesheet" th:href="@{/assets/css/user-account.css}">
 </head>
 <body>
-<div class="container mt-4">
+<div class="container mt-4" th:fragment="user-account">
     <h1 class="mb-4">Danh sách tài khoản người dùng</h1>
     <table id="userTable" class="table table-bordered table-striped"
            th:data-user-accounts="${userAccounts}">
