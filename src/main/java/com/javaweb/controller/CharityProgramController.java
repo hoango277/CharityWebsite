@@ -2,13 +2,8 @@ package com.javaweb.controller;
 
 import com.javaweb.model.response.CharityProgramResponse;
 import com.javaweb.model.response.VolunteerResponse;
-import com.javaweb.entity.CharityProgramEntity;
-import com.javaweb.entity.UserEntity;
-import com.javaweb.model.dto.ResponseDTO;
-import com.javaweb.model.dto.UserDTO;
 import com.javaweb.model.response.*;
 import com.javaweb.service.CharityProgramService;
-import com.javaweb.service.PaymentServices;
 import com.javaweb.service.UserService;
 import com.javaweb.service.VolunteerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +23,6 @@ public class CharityProgramController {
     private CharityProgramService charityProgramService;
     @Autowired
     private VolunteerService volunteerService;
-    @Autowired
-    private PaymentServices paymentServices;
     @Autowired
     private UserService userService;
 
