@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh sách dự án từ thiện</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-4" th:fragment="project-management">
+    <h1 class="mb-4">Danh sách dự án từ thiện</h1>
+
+    <!-- Nút thêm dự án -->
+    <button class="btn btn-success mb-4" data-bs-toggle="modal" data-bs-target="#addProjectModal">Thêm Dự Án</button>
+
+    <!-- Bảng danh sách dự án -->
+    <table id="projectTable" class="table table-bordered table-striped">
+        <thead class="table-dark">
+        <tr>
+            <th>STT</th>
+            <th>Tên dự án</th>
+            <th>Mô tả</th>
+            <th>Ngày bắt đầu</th>
+            <th>Ngày kết thúc</th>
+            <th>Địa chỉ</th>
+            <th>Số tiền cần</th>
+            <th>Tổng số tiền đã được khuyên góp</th>
+            <th>Hình ảnh</th>
+            <th>Thao tác</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="project, iterStat : ${charityProjects}">
+            <td th:text="${iterStat.index + 1 + (pageNumber * 10)}">1</td>
+            <td th:text="${project.name}">Tên dự án</td>
+            <td th:text="${project.description}">Mô tả</td>
+            <td th:text="${#dates.format(project.startDate, 'dd/MM/yyyy')}">Ngày bắt đầu</td>
+            <td th:text="${#dates.format(project.endDate, 'dd/MM/yyyy')}">Ngày kết thúc</td>
+            <td th:text="${project.address}">Địa chỉ</td>
+            <td th:text="${#numbers.formatDecimal(project.amountNeeded, 0, 3)}">Số tiền cần</td>
+            <td th:text="${#numbers.formatDecimal(project.totalAmount, 0, 3)}">Tổng số tiền đã </td>
+            <td>
+                <img th:src="@{'/assets/images/' + ${project.image}}" alt="Hình ảnh dự án" style="max-width: 100px;">
+            </td>
+            <td>
+                <!-- Nút sửa: Mở modal tương ứng với dự án -->
+                <button class="btn btn-primary btn-sm"
+                        th:data-bs-toggle="'modal'"
+                        th:data-bs-target="'#editProjectModal__' + ${project.charityProgramId}">
+                    Sửa
+                </button>
+
+                <!-- Nút xóa -->
+                <a href="#" class="btn btn-danger btn-sm"
+                   th:href="@{/admin/delete-project(id=${project.charityProgramId})}"
+                   onclick="return confirm('Bạn có chắc chắn muốn xóa dự án này?');">
+                    Xóa
+                </a>
+            </td>
+        </tr>
+        <tr th:if="${charityProjects.isEmpty()}">
+            <td colspan="10" class="text-center">Không có dự án nào!</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- Modal Thêm Dự Án -->
+    <div class="modal fade" id="addProjectModal" tabindex="-1" aria-labelledby="addProjectModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addProjectModalLabel">Thêm Dự Án Mới</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form th:action="@{/admin/add-project}" method="post" enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Tên dự án</label>
+                            <input type="text" class="form-control" id="name" name="name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Mô tả</label>
+                            <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="startDate" class="form-label">Ngày bắt đầu</label>
+                            <input type="date" class="form-control" id="startDate" name="startDate" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="endDate" class="form-label">Ngày kết thúc</label>
+                            <input type="date" class="form-control" id="endDate" name="endDate" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="address" class="form-label">Địa chỉ</label>
+                            <input type="text" class="form-control" id="address" name="address" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="amountNeeded" class="form-label">Số tiền cần</label>
+                            <input type="number" class="form-control" id="amountNeeded" name="amountNeeded" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="image" class="form-label">Hình ảnh</label>
+                            <input type="file" class="form-control" id="image" name="image" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                        <button type="submit" class="btn btn-primary">Thêm Dự Án</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Sửa Dự Án -->
+    <div th:each="project : ${charityProjects}">
+        <div class="modal fade"
+             th:id="'editProjectModal__' + ${project.charityProgramId}"
+             tabindex="-1"
+             aria-labelledby="editProjectModalLabel__" + ${project.charityProgramId}
+             aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" th:text="'Sửa Dự Án: ' + ${project.name}"></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form th:action="@{/admin/edit-project}" method="post" enctype="multipart/form-data">
+                        <div class="modal-body">
+                            <!-- Truyền ID dự án để xác định dự án cần sửa -->
+                            <input type="hidden" name="charityProgramId" th:value="${project.charityProgramId}">
+
+                            <div class="mb-3">
+                                <label th:for="'editName__' + ${project.charityProgramId}" class="form-label">Tên dự án</label>
+                                <input type="text" class="form-control"
+                                       th:id="'editName__' + ${project.charityProgramId}"
+                                       name="name"
+                                       th:value="${project.name}"
+                                       required>
+                            </div>
+                            <div class="mb-3">
+                                <label th:for="'editDescription__' + ${project.charityProgramId}" class="form-label">Mô tả</label>
+                                <textarea class="form-control"
+                                          th:id="'editDescription__' + ${project.charityProgramId}"
+                                          name="description"
+                                          rows="3"
+                                          required
+                                          th:text="${project.description}"></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label th:for="'editStartDate__' + ${project.charityProgramId}" class="form-label">Ngày bắt đầu</label>
+                                <input type="date" class="form-control"
+                                       th:id="'editStartDate__' + ${project.charityProgramId}"
+                                       name="startDate"
+                                       th:value="${#dates.format(project.startDate, 'yyyy-MM-dd')}"
+                                       required>
+                            </div>
+                            <div class="mb-3">
+                                <label th:for="'editEndDate__' + ${project.charityProgramId}" class="form-label">Ngày kết thúc</label>
+                                <input type="date" class="form-control"
+                                       th:id="'editEndDate__' + ${project.charityProgramId}"
+                                       name="endDate"
+                                       th:value="${#dates.format(project.endDate, 'yyyy-MM-dd')}"
+                                       required>
+                            </div>
+                            <div class="mb-3">
+                                <label th:for="'editAddress__' + ${project.charityProgramId}" class="form-label">Địa chỉ</label>
+                                <input type="text" class="form-control"
+                                       th:id="'editAddress__' + ${project.charityProgramId}"
+                                       name="address"
+                                       th:value="${project.address}"
+                                       required>
+                            </div>
+                            <div class="mb-3">
+                                <label th:for="'editAmountNeeded__' + ${project.charityProgramId}" class="form-label">Số tiền cần</label>
+                                <input type="number" class="form-control"
+                                       th:id="'editAmountNeeded__' + ${project.charityProgramId}"
+                                       name="amountNeeded"
+                                       th:value="${project.amountNeeded}"
+                                       required>
+                            </div>
+                            <div class="mb-3">
+                                <label th:for="'editImage__' + ${project.charityProgramId}" class="form-label">Hình ảnh</label>
+                                <input type="file" class="form-control"
+                                       th:id="'editImage__' + ${project.charityProgramId}"
+                                       name="image">
+                                <!-- Hiển thị hình ảnh hiện tại -->
+                                <div class="mt-2">
+                                    <img th:src="@{'/assets/images/' + ${project.image}}"
+                                         alt="Hình ảnh dự án"
+                                         style="max-width: 100px;">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                            <button type="submit" class="btn btn-primary">Lưu Thay Đổi</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Phân trang -->
+    <nav aria-label="Page navigation" class="mt-4">
+        <ul class="pagination justify-content-center" th:if="${totalPages > 0}">
+            <!-- Nút Previous -->
+            <li class="page-item" th:classappend="${pageNumber == 0} ? 'disabled'">
+                <a class="page-link"
+                   th:href="@{/admin/project-manage(pageNumber=${pageNumber - 1})}"
+                   aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+
+            <!-- Các số trang -->
+            <li class="page-item"
+                th:each="page : ${#numbers.sequence(0, totalPages - 1)}"
+                th:classappend="${page == pageNumber} ? 'active'">
+                <a class="page-link"
+                   th:href="@{/admin/project-manage(pageNumber=${page})}"
+                   th:text="${page + 1}">1</a>
+            </li>
+
+            <!-- Nút Next -->
+            <li class="page-item" th:classappend="${pageNumber == totalPages - 1} ? 'disabled'">
+                <a class="page-link"
+                   th:href="@{/admin/project-manage(pageNumber=${pageNumber + 1})}"
+                   aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
