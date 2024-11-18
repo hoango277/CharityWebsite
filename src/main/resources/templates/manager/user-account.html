@@ -53,7 +53,7 @@
             <!-- Nút Previous -->
             <li class="page-item" th:classappend="${pageNumber == 0} ? 'disabled'">
                 <a class="page-link"
-                   th:href="@{/admin(pageNumber=${pageNumber - 1})}"
+                   th:href="@{/admin/user-manage(pageNumber=${pageNumber - 1})}"
                    aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>
                 </a>
@@ -64,14 +64,14 @@
                 th:each="page : ${#numbers.sequence(0, totalPages - 1)}"
                 th:classappend="${page == pageNumber} ? 'active'">
                 <a class="page-link"
-                   th:href="@{/admin(pageNumber=${page})}"
+                   th:href="@{/admin/user-manage(pageNumber=${page})}"
                    th:text="${page + 1}">1</a>
             </li>
 
             <!-- Nút Next -->
-            <li class="page-item" th:classappend="${page == totalPages - 1} ? 'disabled'">
+            <li class="page-item" th:classappend="${pageNumber == totalPages - 1} ? 'disabled'">
                 <a class="page-link"
-                   th:href="@{/admin(pageNumber=${pageNumber + 1})}"
+                   th:href="@{/admin/user-manage(pageNumber=${pageNumber + 1})}"
                    aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
                 </a>
