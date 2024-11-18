@@ -31,11 +31,9 @@ public class CharityProgramEntity {
     private String description;
 
     @Column(name = "start_date")
-    @FutureOrPresent
     private Date startDate;
 
     @Column(name = "end_date")
-    @Future
     private Date endDate;
 
     @Column(name = "address")
@@ -46,7 +44,7 @@ public class CharityProgramEntity {
     private Long amountNeeded;
 
     @Column(name = "total_amount")
-    private Long totalAmount;
+    private Long totalAmount = 0L;
 
     @Column(name = "image")
     private String image;
