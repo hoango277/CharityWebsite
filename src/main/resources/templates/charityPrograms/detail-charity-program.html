@@ -320,7 +320,7 @@
                                 ${donation.anonymous ? 'Ẩn danh' : donation.username}
                             </td>
                             <td style="color: #6c757d; padding: 10px;">
-                                ${donation.moneyDonated}đ
+                            ${new Intl.NumberFormat('vi-VN').format(donation.moneyDonated)} đ
                             </td>
                             <td style="color: #6c757d; padding: 10px;">
                                 ${donation.donateDate}
