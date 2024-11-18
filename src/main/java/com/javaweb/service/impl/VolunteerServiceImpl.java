@@ -7,6 +7,7 @@ import com.javaweb.model.response.StatusResponse;
 import com.javaweb.model.response.VolunteerResponse;
 import com.javaweb.repository.*;
 import com.javaweb.service.VolunteerService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,7 @@ import java.time.Instant;
 import java.util.*;
 
 @Service
+
 public class VolunteerServiceImpl implements VolunteerService {
     @Autowired
     private VolunteerRepository volunteerRepository;
@@ -44,20 +46,17 @@ public class VolunteerServiceImpl implements VolunteerService {
     }
 
     @Override
-    public StatusResponse addVolunteer(long charityProgramID, long moneyVolunteer, long userID) {
+    @Transactional
+    public StatusResponse addVolunteer(long charityProgramID, long moneyVolunteer, long userID, boolean anonymous) {
         CharityProgramEntity charityProgram = charityProgramRepository.findById(charityProgramID)
                 .orElseThrow(() -> new NoSuchElementException("Charity Program not found with ID: " + charityProgramID));
 
         UserEntity user = userRepository.findById(userID)
                 .orElseThrow(() -> new NoSuchElementException("User not found with ID: " + userID));
 
-        WalletEntity walletEntity = walletRepository.findByUserID(userID);
 
-        if(walletEntity.getTotalAmount() < moneyVolunteer){
-            return StatusResponse.builder()
-                    .message("Không đủ số dư")
-                    .status(HttpStatus.OK.value()).build();
-        }
+        charityProgram.setTotalAmount(charityProgram.getTotalAmount() + moneyVolunteer);
+        charityProgramRepository.save(charityProgram);
 
         TransactionEntity transactionToAdd = new TransactionEntity();
         transactionToAdd.setTransactionAmount(moneyVolunteer);
@@ -67,13 +66,10 @@ public class VolunteerServiceImpl implements VolunteerService {
         transactionRepository.save(transactionToAdd);
 
 
-        walletEntity.setTotalAmount(walletEntity.getTotalAmount() - moneyVolunteer);
-        walletRepository.save(walletEntity);
-
-
         VolunteerEntity volunteerEntity = new VolunteerEntity();
         volunteerEntity.setMoneyDonated(moneyVolunteer);
         volunteerEntity.setUser(user);
+        volunteerEntity.setAnonymous(anonymous);
         volunteerEntity.setDonateDate(Date.from(Instant.now()));
         volunteerEntity.setCharityProgram(charityProgram);
         volunteerRepository.save(volunteerEntity);
