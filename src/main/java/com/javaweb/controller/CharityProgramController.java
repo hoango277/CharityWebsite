@@ -52,7 +52,7 @@ public class CharityProgramController {
                                         @RequestParam(value = "userId") Long userId,
                                         @RequestParam(defaultValue = "0") int page,
                                         @RequestParam(defaultValue = "10") int size
-                                       ) throws ParseException {
+    ) throws ParseException {
         CharityProgramResponse charityProgramResponse = charityProgramService.getCharityProgramById(id);
         Page<VolunteerResponse> volunteerResponse = volunteerService.getAllVolunteers(id, page, size);
         InfoUserResponse userResponse = (InfoUserResponse) userService.getUserById(String.valueOf(userId)).getData();
@@ -74,8 +74,8 @@ public class CharityProgramController {
 
     @GetMapping("/search/result")
     public String getAllCharityProgramByKeyword(Model model, @RequestParam("keyword") String keyword,
-                                       @RequestParam(defaultValue = "0") int page,
-                                       @RequestParam(defaultValue = "6") int size) throws ParseException {
+                                                @RequestParam(defaultValue = "0") int page,
+                                                @RequestParam(defaultValue = "6") int size) throws ParseException {
         Page<CharityProgramResponse> list = charityProgramService.getCharityProgramByKeyword(page, size,keyword);
         for (CharityProgramResponse project : list) {
             System.out.println(project.getImage());
@@ -92,7 +92,5 @@ public class CharityProgramController {
         model.addAttribute("totalItems", list.getTotalElements());
         return "charityPrograms/charity-program";
     }
-
-
 
 }
