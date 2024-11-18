@@ -90,12 +90,10 @@
                     <div class="quy-tien bg-light p-3">
                         <div class="ntt mb-3">
                             <div class="d-flex align-items-center justify-content-between">
-                                <!-- Phần bên trái -->
                                 <div class="d-flex align-items-center">
                                     <img th:src="@{/assets/images/logo.png}" alt="" class="me-4" style="max-width: 50px; max-height: 50px;">
                                     <span class="text-danger">Quỹ từ thiện PTIT</span>
                                 </div>
-                                <!-- Phần bên phải -->
                                 <div>
                                     <p class="mb-0 text-muted font-weight-bold" th:text="${volunteers.size()} + ' lượt ủng hộ'"></p></div>
                             </div>
@@ -148,11 +146,9 @@
                                         <input type="hidden" id="projectID" name="projectID" th:value="${projects.id}">
                                         <input type="hidden" id="userID" name="userID" th:value="${userID}">
 
-                                        <!-- Input ẩn với giá trị mặc định là false -->
                                         <input type="hidden" name="anonymous" value="false">
 
                                         <div class="form-check">
-                                            <!-- Nếu checkbox được chọn, giá trị true sẽ được gửi -->
                                             <input class="form-check-input" type="checkbox" id="anonymous" name="anonymous" value="true">
                                             <label class="form-check-label" for="anonymous">Ủng hộ ẩn danh</label>
                                         </div>

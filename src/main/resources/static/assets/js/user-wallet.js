@@ -22,28 +22,43 @@ function loadUserWallet(userID) {
 }
 
 function displayUserInfo(userData) {
-    // Lấy và hiển thị tổng số giao dịch
+
     const totalTransactions = userData.list.length;
     document.getElementById("totalTransaction").innerHTML = `<span class="text-success">${totalTransactions}</span>`;
 
-    // Làm rỗng container trước khi thêm nội dung
+
     const transactionContainer = document.getElementById("transactionContainer");
     transactionContainer.innerHTML = "";
 
+
+    function formatCurrency(amount) {
+        return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ' VNĐ';
+    }
+
+
+    const fragment = document.createDocumentFragment();
+
     // Hiển thị từng giao dịch
     userData.list.forEach(transaction => {
-        const transactionAmount = `+${transaction.transactionAmount}`;
-        const transactionCard = `
-            <div class="col-md-12 mb-3 font-weight-bold">
-                <div class="transaction-card shadow-sm" >
-                    <p class="transaction-amount"> Số tiền ủng hộ: <span class="text-success" style="font-weight: bold">${transactionAmount}</span></p>
-                    <p class="card-text"> Ngày ủng hộ: ${transaction.transactionDate}</p>
-                    <p class="card-text"> Tới: ${transaction.transactionType}</p>
-                </div>
+        const formattedAmount = `+${formatCurrency(transaction.transactionAmount)}`;
+        const transactionCard = document.createElement("div");
+        transactionCard.className = "col-md-12 mb-3 font-weight-bold";
+
+        transactionCard.innerHTML = `
+            <div class="transaction-card shadow-sm">
+                <p class="transaction-amount"> 
+                    Số tiền ủng hộ: 
+                    <span class="text-success" style="font-weight: bold">${formattedAmount}</span>
+                </p>
+                <p class="card-text"> Ngày ủng hộ: ${transaction.transactionDate}</p>
+                <p class="card-text"> Tới: ${transaction.transactionType}</p>
             </div>
         `;
-        transactionContainer.innerHTML += transactionCard;
+
+        fragment.appendChild(transactionCard);
     });
+
+    transactionContainer.appendChild(fragment);
 }
 
 
