@@ -44,4 +44,12 @@ public class AdminController {
         model.addAttribute("totalPages", userAccounts.getTotalPages());
         return "admin/user-account";
     }
+
+    @GetMapping("/program-manage")
+    public String programManagePage()
+    {
+        return "admin/project";
+    }
+
+
 }
