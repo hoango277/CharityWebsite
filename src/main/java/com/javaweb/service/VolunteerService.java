@@ -1,16 +1,13 @@
 package com.javaweb.service;
-
-import com.javaweb.model.dto.ResponseDTO;
-import com.javaweb.model.response.StatusResponse;
 import com.javaweb.model.response.VolunteerResponse;
+import org.springframework.data.domain.Page;
 
 import java.text.ParseException;
-import java.util.List;
 
 public interface VolunteerService {
-    List<VolunteerResponse> getAllVolunteers(long charityProgramID) throws ParseException;
+    Page<VolunteerResponse> getAllVolunteers(long charityProgramID, int page, int size) throws ParseException;
 
-    StatusResponse addVolunteer(long charityProgramID, long moneyVolunteer, long userID, boolean anonymous);
+    void addVolunteer(long charityProgramID, long moneyVolunteer, long userID, boolean anonymous);
 
 
 
