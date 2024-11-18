@@ -7,6 +7,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/assets/css/styles.css}">
     <script th:src="@{/assets/js/logout.js}"></script>
+    <link rel="stylesheet" th:href="@{/assets/css/box-search.css}">
+    <script th:src="@{/assets/js/search.js}"></script>
 </head>
 <body>
 <header class="header">
@@ -24,9 +26,24 @@
                     <li class="nav-item"><a class="nav-link" th:href="@{/guide}">Hướng dẫn</a></li>
                     <li class="nav-item"><a class="nav-link btn btn-danger text-white" th:href="@{/donate}">Ủng hộ ngay</a></li>
                 </ul>
-                <form class="d-flex align-items-center">
-                    <input class="form-control" type="search" placeholder="Tìm kiếm" aria-label="Search">
-                </form>
+                <div class="col-3">
+                    <div class="box-search">
+                        <form action="/projects/search/result" method="GET">
+                            <div class="form-group d-flex mb-0">
+                                <input
+                                        class="form-control"
+                                        type="text"
+                                        placeholder="Tìm kiếm..."
+                                        name="keyword"
+                                        th:value="${keyword}" />
+                                <button type="submit" class="btn btn-primary">Tìm</button>
+                            </div>
+                        </form>
+                        <div class="inner-suggest">
+                            <div class="inner-list"></div>
+                        </div>
+                    </div>
+                </div>
                 <div class="d-flex align-items-center ms-2 justify-content-center pt-2 pt-lg-0">
                     <a th:href="@{/register}" class="btn btn-outline-light me-2" id="registerButton">Đăng ký</a>
                     <a th:href="@{/login}" class="btn btn-outline-light" id="loginButton">Đăng nhập</a>
@@ -112,6 +129,44 @@
         </div>
     </div>
 </main>
+
+<!-- Phân trang -->
+<nav aria-label="Page navigation" class="mt-4">
+    <ul class="pagination justify-content-center" th:if="${totalPages > 0}">
+        <!-- Nút Previous -->
+        <li class="page-item" th:classappend="${page == 0} ? 'disabled'">
+            <a class="page-link"
+               th:href="@{/projects(page=${page - 1})}"
+               aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+
+        <!-- Các số trang -->
+        <li class="page-item"
+            th:each="pageNumber : ${#numbers.sequence(0, totalPages - 1)}"
+            th:classappend="${pageNumber == page} ? 'active'">
+            <a class="page-link"
+               th:href="@{/projects(page=${pageNumber})}"
+               th:text="${pageNumber + 1}">1</a>
+        </li>
+
+        <!-- Nút Next -->
+        <li class="page-item" th:classappend="${page == totalPages - 1} ? 'disabled'">
+            <a class="page-link"
+               th:href="@{/projects(page=${page + 1})}"
+               aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+
+<!-- Hiển thị thông tin về số lượng item -->
+<div class="text-center mt-3" th:if="${totalItems > 0}">
+    <p>Hiển thị [[${page * 6 + 1}]] đến [[${(page * 6 + 6) > totalItems ? totalItems : (page * 6 + 6)}]]
+        trong tổng số [[${totalItems}]] dự án</p>
+</div>
 
 <footer class="footer py-4">
     <div class="container">
