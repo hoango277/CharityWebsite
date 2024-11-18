@@ -77,7 +77,7 @@
     <div class="text-center text-black">
         <h1>Dự án</h1>
         <div class="foot-banner d-flex justify-content-center align-items-center mt-3">
-            <a th:href="@{/}" class="text-decoration-none">Trang chủ</a>
+            <a th:href="@{/}" class="text-decoration-none" style="font-weight: bold">Trang chủ</a>
             <span class="mx-2">/</span>
             <span>Dự án</span>
         </div>
@@ -166,7 +166,7 @@
     </ul>
 </nav>
 
-<!-- Hiển thị thông tin về số lượng item -->
+
 <div class="text-center mt-3" th:if="${totalItems > 0}">
     <p>Hiển thị [[${page * 6 + 1}]] đến [[${(page * 6 + 6) > totalItems ? totalItems : (page * 6 + 6)}]]
         trong tổng số [[${totalItems}]] dự án</p>
