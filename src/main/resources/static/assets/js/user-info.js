@@ -32,7 +32,6 @@ function displayUserInfo(user) {
         <tr><th>Username</th><td>${user.userName}</td></tr>
         <tr><th>Số Điện Thoại</th><td>${user.phoneNumber}</td></tr>
         <tr><th>Email</th><td>${user.email}</td></tr>
-        <tr><th>Số Dư</th><td>${user.wallet.totalAmount}</td></tr>
         <tr><th>Số Chiến Dịch Đã Ủng Hộ</th><td>${user.volunteers.length}</td></tr>
     `;
 }

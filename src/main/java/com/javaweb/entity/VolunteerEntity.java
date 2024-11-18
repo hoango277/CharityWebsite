@@ -29,6 +29,8 @@ public class VolunteerEntity {
     @Min(1)
     private Long moneyDonated;
 
+    private Boolean anonymous;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private UserEntity user;
