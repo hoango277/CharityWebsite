@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (boxSearch) {
         const input = boxSearch.querySelector("input[name='keyword']");
         const boxSuggest = boxSearch.querySelector(".inner-suggest");
+        const userId = localStorage.getItem("userId")
         input.addEventListener("keyup", () => {
             const keyword = input.value;
             const link = `/projects/search/suggest?keyword=${keyword}`;
@@ -14,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         boxSuggest.classList.add("show");
                         const htmls = projects.map(project => {
                             return `
-                                  <a class="inner-item" href="/projects/${project.id}">
+                                  <a class="inner-item" href="/projects/${project.id}?userId=${userId}">
                                     <div class="inner-image">
                                         <img src="${project.image}" alt="Ảnh tượng trưng"/>
                                     </div>

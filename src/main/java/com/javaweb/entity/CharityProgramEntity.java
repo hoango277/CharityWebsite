@@ -44,7 +44,7 @@ public class CharityProgramEntity {
     private Long amountNeeded;
 
     @Column(name = "total_amount")
-    private Long totalAmount;
+    private Long totalAmount = 0L;
 
     @Column(name = "image")
     private String image;
