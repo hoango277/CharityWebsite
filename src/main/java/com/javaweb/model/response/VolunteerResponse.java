@@ -12,6 +12,7 @@ import java.util.Date;
 @Builder
 @AllArgsConstructor
 public class VolunteerResponse {
+    private boolean anonymous;
     private String donateDate;
     private Long moneyDonated;
     private String username;

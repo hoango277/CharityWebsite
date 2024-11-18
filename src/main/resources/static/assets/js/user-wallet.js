@@ -22,27 +22,45 @@ function loadUserWallet(userID) {
 }
 
 function displayUserInfo(userData) {
-    document.getElementById("totalAmount").textContent = userData.totalAmount;
+
+    const totalTransactions = userData.list.length;
+    document.getElementById("totalTransaction").innerHTML = `<span class="text-success">${totalTransactions}</span>`;
+
+
     const transactionContainer = document.getElementById("transactionContainer");
     transactionContainer.innerHTML = "";
 
-    userData.list.forEach(transaction => {
-        const amountClass = transaction.transactionType === "Tài khoản nguồn"
-        ? 'transaction-account-amount'
-        : 'transaction-project-amount';
 
-        const transactionCard = `
-            <div class="col-md-12 mb-3">
-                <div class="transaction-card shadow-sm">
-                    <p class="transaction-amount">Transaction Amount: <span class="${amountClass}">${transaction.transactionAmount}</span></p>
-                    <p class="card-text">Date: ${transaction.transactionDate}</p>
-                    <p class="card-text">Program: ${transaction.transactionType}</p>
-                </div>
+    function formatCurrency(amount) {
+        return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ' VNĐ';
+    }
+
+
+    const fragment = document.createDocumentFragment();
+
+    // Hiển thị từng giao dịch
+    userData.list.forEach(transaction => {
+        const formattedAmount = `+${formatCurrency(transaction.transactionAmount)}`;
+        const transactionCard = document.createElement("div");
+        transactionCard.className = "col-md-12 mb-3 font-weight-bold";
+
+        transactionCard.innerHTML = `
+            <div class="transaction-card shadow-sm">
+                <p class="transaction-amount"> 
+                    Số tiền ủng hộ: 
+                    <span class="text-success" style="font-weight: bold">${formattedAmount}</span>
+                </p>
+                <p class="card-text"> Ngày ủng hộ: ${transaction.transactionDate}</p>
+                <p class="card-text"> Tới: ${transaction.transactionType}</p>
             </div>
         `;
-        transactionContainer.innerHTML += transactionCard;
+
+        fragment.appendChild(transactionCard);
     });
+
+    transactionContainer.appendChild(fragment);
 }
+
 
 const userID = localStorage.getItem("userId") || 1;
 loadUserWallet(userID);

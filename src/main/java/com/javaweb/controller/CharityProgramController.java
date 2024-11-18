@@ -2,7 +2,14 @@ package com.javaweb.controller;
 
 import com.javaweb.model.response.CharityProgramResponse;
 import com.javaweb.model.response.VolunteerResponse;
+import com.javaweb.entity.CharityProgramEntity;
+import com.javaweb.entity.UserEntity;
+import com.javaweb.model.dto.ResponseDTO;
+import com.javaweb.model.dto.UserDTO;
+import com.javaweb.model.response.*;
 import com.javaweb.service.CharityProgramService;
+import com.javaweb.service.PaymentServices;
+import com.javaweb.service.UserService;
 import com.javaweb.service.VolunteerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -21,6 +28,10 @@ public class CharityProgramController {
     private CharityProgramService charityProgramService;
     @Autowired
     private VolunteerService volunteerService;
+    @Autowired
+    private PaymentServices paymentServices;
+    @Autowired
+    private UserService userService;
 
     @GetMapping("")
     public String getAllCharityProgram(Model model,
@@ -43,14 +54,20 @@ public class CharityProgramController {
     }
 
     @GetMapping("/{id}")
-    public String getCharityProgramById(@PathVariable("id") Long id, Model model) throws ParseException {
+    public String getCharityProgramById(@PathVariable("id") Long id,
+                                        Model model,
+                                        @RequestParam(value = "userId", required = false) Long userId
+    ) throws ParseException {
         CharityProgramResponse charityProgramResponse = charityProgramService.getCharityProgramById(id);
         List<VolunteerResponse> volunteerResponse =  volunteerService.getAllVolunteers(id);
+        InfoUserResponse userResponse = (InfoUserResponse) userService.getUserById(String.valueOf(userId)).getData();
         double fundingPercentage = (double) charityProgramResponse.getTotalAmount() / charityProgramResponse.getAmountNeeded() * 100;
         fundingPercentage = Math.round(fundingPercentage * 100.0) / 100.0;
         charityProgramResponse.setFundingPercentage(fundingPercentage);
         model.addAttribute("projects", charityProgramResponse);
         model.addAttribute("volunteers", volunteerResponse);
+        model.addAttribute("user", userResponse);
+        model.addAttribute("userID", String.valueOf(userId));
         return "charityPrograms/detail-charity-program";
     }
 
@@ -74,5 +91,7 @@ public class CharityProgramController {
         model.addAttribute("totalItems", list.getTotalElements());
         return "charityPrograms/charity-program";
     }
+
+
 
 }
