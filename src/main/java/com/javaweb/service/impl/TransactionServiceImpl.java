@@ -3,11 +3,16 @@ package com.javaweb.service.impl;
 import com.javaweb.converter.TransactionConverter;
 import com.javaweb.entity.TransactionEntity;
 import com.javaweb.model.dto.ResponseDTO;
+import com.javaweb.model.response.TransactionAdminResponse;
 import com.javaweb.model.response.TransactionResponse;
 import com.javaweb.repository.TransactionRepository;
 import com.javaweb.service.TransactionService;
 import jakarta.transaction.Transaction;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
@@ -22,15 +27,18 @@ public class TransactionServiceImpl implements TransactionService {
     private TransactionConverter transactionConverter;
 
 
+    @SneakyThrows
     @Override
-    public ResponseDTO getAllTransactions() throws ParseException {
-        List<TransactionEntity> transactions = transactionRepository.findAll();
-        List<TransactionResponse> transactionResponses = new ArrayList<>();
-        for (TransactionEntity transaction : transactions) {
-            TransactionResponse transactionResponse = transactionConverter.convertToResponse(transaction);
-            transactionResponses.add(transactionResponse);
-        }
-        return ResponseDTO.builder().data(transactionResponses).message("Lấy tất cả transaction thành công")
-                .detail("OK").build();
+    public Page<TransactionAdminResponse> getAllTransactions(int page , int size) throws ParseException {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<TransactionEntity> transactions = transactionRepository.findAllTransaction(pageable);
+        return transactions.map(transactionEntity -> {
+            try {
+                return transactionConverter.convertToResponseAdmin(transactionEntity);
+            } catch (ParseException e) {
+                throw new RuntimeException("Error parsing volunteer entity", e);
+            }
+        });
+
     }
 }
