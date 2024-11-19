@@ -1,0 +1,52 @@
+body {
+    background-color: #f6fff0; /* Màu nền xanh lá cây nhạt */
+    font-family: 'Poppins', Arial, sans-serif; /* Font chữ hiện đại */
+    color: #1b4332; /* Màu xanh lá cây đậm */
+}
+
+/* Tiêu đề */
+h2 {
+    color: #1b4332; /* Xanh lá đậm */
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Container */
+.container {
+    max-width: 900px; /* Độ rộng tối đa */
+    background-color: #ffffff; /* Nền trắng cho container */
+    padding: 20px;
+    border-radius: 15px; /* Bo góc mềm mại */
+    margin-top: 40px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Đổ bóng */
+}
+
+/* Bảng */
+.table {
+    border: 1px solid #95d5b2; /* Đường viền xanh nhạt */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
+}
+
+.table thead {
+    background: linear-gradient(90deg, #52b788, #1b4332); /* Gradient xanh lá */
+    color: #ffffff; /* Chữ trắng cho header */
+}
+
+.table tbody tr:nth-child(even) {
+    background-color: #e9f5e9; /* Màu xanh nhạt cho hàng chẵn */
+}
+
+.table tbody tr:nth-child(odd) {
+    background-color: #f6fff0; /* Màu nền dịu cho hàng lẻ */
+}
+
+.table-hover tbody tr:hover {
+    background-color: #d8f3dc; /* Hiệu ứng hover: Xanh lá nhạt hơn */
+    transition: background-color 0.3s ease-in-out; /* Hiệu ứng mượt */
+}
+
+/* Văn bản */
+.text-center {
+    color: #2d6a4f; /* Xanh lá đậm */
+}

@@ -5,6 +5,7 @@ import com.javaweb.model.response.CharityProgramResponse;
 import com.javaweb.model.response.StatusResponse;
 import com.javaweb.model.response.UserResponse;
 import com.javaweb.service.CharityProgramService;
+import com.javaweb.service.TransactionService;
 import com.javaweb.service.UploadImage;
 import com.javaweb.service.UserService;
 import com.javaweb.utils.MessageUtils;
@@ -29,6 +30,8 @@ public class AdminController {
     private CharityProgramService charityProgramService;
     @Autowired
     private UploadImage uploadImage;
+    @Autowired
+    private TransactionService transactionService;
 
 
     @GetMapping("")
@@ -133,6 +136,12 @@ public class AdminController {
     public String deleteProject(@RequestParam("id") Long id) throws ParseException {
         StatusResponse statusResponse = charityProgramService.deleteCharityProgram(id);
         return "redirect:/admin/program-manage";
+    }
+
+    @GetMapping("/transaction-manage")
+    public String transactionManagePage(Model model) throws ParseException {
+        model.addAttribute("transactions", transactionService.getAllTransactions().getData());
+        return "admin/transaction-manage";
     }
 
 }
