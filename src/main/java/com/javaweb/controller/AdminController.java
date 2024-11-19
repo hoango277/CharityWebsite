@@ -148,7 +148,7 @@ public class AdminController {
 
         model.addAttribute("pageNumber", pageNumber);
         model.addAttribute("transactions", transactions.getContent());
-        model.addAttribute("totalPage", transactions.getTotalPages());
+        model.addAttribute("totalPages", transactions.getTotalPages());
         return "admin/transaction-manage";
     }
 
