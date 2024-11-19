@@ -14,6 +14,8 @@
     <table class="table table-bordered table-hover">
         <thead>
         <tr>
+            <th>Mã ủng hộ</th>
+            <th>Người ủng hộ</th>
             <th>Số tiền ủng hộ</th>
             <th>Ngày ủng hộ</th>
             <th>Tới</th>
@@ -22,6 +24,8 @@
         <tbody>
         <!-- Duyệt qua danh sách giao dịch -->
         <tr th:each="transaction : ${transactions}">
+            <td th:text="${transaction.transactionId}"></td>
+            <td th:text="${transaction.userID}"></td>
             <td class="transaction-account-amount" th:text="${transaction.transactionAmount}"></td>
             <td th:text="${transaction.transactionDate}"></td>
             <td th:text="${transaction.transactionType}"></td>
