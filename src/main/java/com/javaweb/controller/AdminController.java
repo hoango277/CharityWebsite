@@ -138,10 +138,10 @@ public class AdminController {
         return "redirect:/admin/program-manage";
     }
 
-    @GetMapping("/transaction-manage")
-    public String transactionManagePage(Model model) throws ParseException {
-        model.addAttribute("transactions", transactionService.getAllTransactions().getData());
-        return "admin/transaction-manage";
-    }
+//    @GetMapping("/transaction-manage")
+//    public String transactionManagePage(Model model) throws ParseException {
+//        model.addAttribute("transactions", transactionService.getAllTransactions().getData());
+//        return "admin/transaction-manage";
+//    }
 
 }
