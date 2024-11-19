@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class TransactionAdminResponse {
     private Long transactionId;;
-    private Long userID;
+    private String username;
     private String transactionAmount;
     private String transactionDate;
     private String transactionType;
