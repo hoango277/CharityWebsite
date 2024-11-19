@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Transaction List</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5" th:fragment="transaction">
+  <h2 class="text-center mb-4">Transaction List</h2>
+  <table class="table table-bordered table-hover">
+    <thead>
+    <tr>
+      <th>Amount</th>
+      <th>Date</th>
+      <th>Type</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Loop through the transactions -->
+    <tr th:each="transaction : ${transactions}">
+      <td th:text="${transaction.transactionAmount}"></td>
+      <td th:text="${transaction.transactionDate}"></td>
+      <td th:text="${transaction.transactionType}"></td>
+    </tr>
+    <!-- Show message if no transactions -->
+    <tr th:if="${transactions.size() == 0}">
+      <td colspan="3" class="text-center">No transactions available</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
