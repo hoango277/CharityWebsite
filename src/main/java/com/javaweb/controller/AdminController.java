@@ -3,6 +3,7 @@ package com.javaweb.controller;
 import com.javaweb.entity.CharityProgramEntity;
 import com.javaweb.model.response.CharityProgramResponse;
 import com.javaweb.model.response.StatusResponse;
+import com.javaweb.model.response.TransactionAdminResponse;
 import com.javaweb.model.response.UserResponse;
 import com.javaweb.service.CharityProgramService;
 import com.javaweb.service.TransactionService;
@@ -138,10 +139,17 @@ public class AdminController {
         return "redirect:/admin/program-manage";
     }
 
-//    @GetMapping("/transaction-manage")
-//    public String transactionManagePage(Model model) throws ParseException {
-//        model.addAttribute("transactions", transactionService.getAllTransactions().getData());
-//        return "admin/transaction-manage";
-//    }
+    @GetMapping("/transaction-manage")
+    public String transactionManagePage(
+            Model model,
+            @RequestParam(name = "pageNumber", defaultValue = MessageUtils.PAGE_NUMBER, required = false) Integer pageNumber,
+            @RequestParam(name = "pageSize", defaultValue = MessageUtils.PAGE_SIZE, required = false) Integer pageSize) throws ParseException {
+        Page<TransactionAdminResponse> transactions = transactionService.getAllTransactions(pageNumber, pageSize);
+
+        model.addAttribute("pageNumber", pageNumber);
+        model.addAttribute("transactions", transactions.getContent());
+        model.addAttribute("totalPages", transactions.getTotalPages());
+        return "admin/transaction-manage";
+    }
 
 }
