@@ -25,7 +25,7 @@
         <!-- Duyệt qua danh sách giao dịch -->
         <tr th:each="transaction : ${transactions}">
             <td th:text="${transaction.transactionId}"></td>
-            <td th:text="${transaction.userID}"></td>
+            <td th:text="${transaction.username}"></td>
             <td class="transaction-account-amount" th:text="${transaction.transactionAmount}"></td>
             <td th:text="${transaction.transactionDate}"></td>
             <td th:text="${transaction.transactionType}"></td>

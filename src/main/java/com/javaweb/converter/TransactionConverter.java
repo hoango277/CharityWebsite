@@ -30,7 +30,7 @@ public class TransactionConverter {
     public TransactionAdminResponse convertToResponseAdmin(TransactionEntity transactionEntity) throws ParseException {
         TransactionAdminResponse transactionResponse = modelMapper.map(transactionEntity, TransactionAdminResponse.class);
         transactionResponse.setTransactionDate(formatDate(transactionEntity.getTransactionDate()));
-        transactionResponse.setUserID(transactionEntity.getUser().getUserId());
+        transactionResponse.setUsername(transactionEntity.getUser().getUsername());
         return transactionResponse;
     }
 }
