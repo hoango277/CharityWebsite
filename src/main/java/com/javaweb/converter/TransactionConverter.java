@@ -1,6 +1,7 @@
 package com.javaweb.converter;
 
 import com.javaweb.entity.TransactionEntity;
+import com.javaweb.model.response.TransactionAdminResponse;
 import com.javaweb.model.response.TransactionResponse;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,13 @@ public class TransactionConverter {
     public TransactionResponse convertToResponse(TransactionEntity transactionEntity) throws ParseException {
         TransactionResponse transactionResponse = modelMapper.map(transactionEntity, TransactionResponse.class);
         transactionResponse.setTransactionDate(formatDate(transactionEntity.getTransactionDate()));
+        return transactionResponse;
+    }
+
+    public TransactionAdminResponse convertToResponseAdmin(TransactionEntity transactionEntity) throws ParseException {
+        TransactionAdminResponse transactionResponse = modelMapper.map(transactionEntity, TransactionAdminResponse.class);
+        transactionResponse.setTransactionDate(formatDate(transactionEntity.getTransactionDate()));
+        transactionResponse.setUserID(transactionEntity.getUser().getUserId());
         return transactionResponse;
     }
 }
