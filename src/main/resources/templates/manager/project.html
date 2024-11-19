@@ -38,22 +38,22 @@
             <td th:text="${#dates.format(project.startDate, 'dd/MM/yyyy')}">Ngày bắt đầu</td>
             <td th:text="${#dates.format(project.endDate, 'dd/MM/yyyy')}">Ngày kết thúc</td>
             <td th:text="${project.address}">Địa chỉ</td>
-            <td th:text="${#numbers.formatDecimal(project.amountNeeded, 0, 3)}">Số tiền cần</td>
-            <td th:text="${#numbers.formatDecimal(project.totalAmount, 0, 3)}">Tổng số tiền đã </td>
+            <td th:text="${#numbers.formatDecimal(T(java.math.BigDecimal).valueOf(project.amountNeeded), 0, 'POINT', 0, 'COMMA')} + 'đ'">Số tiền cần</td>
+            <td th:text="${#numbers.formatDecimal(T(java.math.BigDecimal).valueOf(project.totalAmount), 0, 'POINT', 0, 'COMMA')} + 'đ'">Tổng số tiền đã </td>
             <td>
-                <img th:src="@{'/assets/images/' + ${project.image}}" alt="Hình ảnh dự án" style="max-width: 100px;">
+                <img th:src="@{${project.image}}" alt="Hình ảnh dự án" style="max-width: 100px;">
             </td>
             <td>
                 <!-- Nút sửa: Mở modal tương ứng với dự án -->
                 <button class="btn btn-primary btn-sm"
                         th:data-bs-toggle="'modal'"
-                        th:data-bs-target="'#editProjectModal__' + ${project.charityProgramId}">
+                        th:data-bs-target="'#editProjectModal__' + ${project.Id}">
                     Sửa
                 </button>
 
                 <!-- Nút xóa -->
                 <a href="#" class="btn btn-danger btn-sm"
-                   th:href="@{/admin/delete-project(id=${project.charityProgramId})}"
+                   th:href="@{/admin/delete-project(id=${project.Id})}"
                    onclick="return confirm('Bạn có chắc chắn muốn xóa dự án này?');">
                     Xóa
                 </a>
@@ -116,9 +116,9 @@
     <!-- Modal Sửa Dự Án -->
     <div th:each="project : ${charityProjects}">
         <div class="modal fade"
-             th:id="'editProjectModal__' + ${project.charityProgramId}"
+             th:id="'editProjectModal__' + ${project.Id}"
              tabindex="-1"
-             aria-labelledby="editProjectModalLabel__" + ${project.charityProgramId}
+             aria-labelledby="editProjectModalLabel__" + ${project.Id}
              aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
@@ -126,68 +126,67 @@
                         <h5 class="modal-title" th:text="'Sửa Dự Án: ' + ${project.name}"></h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form th:action="@{/admin/edit-project}" method="post" enctype="multipart/form-data">
+                    <form th:action="@{/admin/update-project}" method="post" enctype="multipart/form-data">
                         <div class="modal-body">
                             <!-- Truyền ID dự án để xác định dự án cần sửa -->
-                            <input type="hidden" name="charityProgramId" th:value="${project.charityProgramId}">
+                            <input type="hidden" name="Id" th:value="${project.Id}">
 
                             <div class="mb-3">
-                                <label th:for="'editName__' + ${project.charityProgramId}" class="form-label">Tên dự án</label>
+                                <label th:for="'editName__' + ${project.Id}" class="form-label">Tên dự án</label>
                                 <input type="text" class="form-control"
-                                       th:id="'editName__' + ${project.charityProgramId}"
+                                       th:id="'editName__' + ${project.Id}"
                                        name="name"
                                        th:value="${project.name}"
                                        required>
                             </div>
                             <div class="mb-3">
-                                <label th:for="'editDescription__' + ${project.charityProgramId}" class="form-label">Mô tả</label>
+                                <label th:for="'editDescription__' + ${project.Id}" class="form-label">Mô tả</label>
                                 <textarea class="form-control"
-                                          th:id="'editDescription__' + ${project.charityProgramId}"
+                                          th:id="'editDescription__' + ${project.Id}"
                                           name="description"
                                           rows="3"
                                           required
                                           th:text="${project.description}"></textarea>
                             </div>
                             <div class="mb-3">
-                                <label th:for="'editStartDate__' + ${project.charityProgramId}" class="form-label">Ngày bắt đầu</label>
+                                <label th:for="'editStartDate__' + ${project.Id}" class="form-label">Ngày bắt đầu</label>
                                 <input type="date" class="form-control"
-                                       th:id="'editStartDate__' + ${project.charityProgramId}"
+                                       th:id="'editStartDate__' + ${project.Id}"
                                        name="startDate"
                                        th:value="${#dates.format(project.startDate, 'yyyy-MM-dd')}"
                                        required>
                             </div>
                             <div class="mb-3">
-                                <label th:for="'editEndDate__' + ${project.charityProgramId}" class="form-label">Ngày kết thúc</label>
+                                <label th:for="'editEndDate__' + ${project.Id}" class="form-label">Ngày kết thúc</label>
                                 <input type="date" class="form-control"
-                                       th:id="'editEndDate__' + ${project.charityProgramId}"
+                                       th:id="'editEndDate' + ${project.Id}"
                                        name="endDate"
                                        th:value="${#dates.format(project.endDate, 'yyyy-MM-dd')}"
                                        required>
                             </div>
                             <div class="mb-3">
-                                <label th:for="'editAddress__' + ${project.charityProgramId}" class="form-label">Địa chỉ</label>
+                                <label th:for="'editAddress__' + ${project.Id}" class="form-label">Địa chỉ</label>
                                 <input type="text" class="form-control"
-                                       th:id="'editAddress__' + ${project.charityProgramId}"
+                                       th:id="'editAddress__' + ${project.Id}"
                                        name="address"
                                        th:value="${project.address}"
                                        required>
                             </div>
                             <div class="mb-3">
-                                <label th:for="'editAmountNeeded__' + ${project.charityProgramId}" class="form-label">Số tiền cần</label>
+                                <label th:for="'editAmountNeeded__' + ${project.Id}" class="form-label">Số tiền cần</label>
                                 <input type="number" class="form-control"
-                                       th:id="'editAmountNeeded__' + ${project.charityProgramId}"
+                                       th:id="'editAmountNeeded__' + ${project.Id}"
                                        name="amountNeeded"
                                        th:value="${project.amountNeeded}"
                                        required>
                             </div>
                             <div class="mb-3">
-                                <label th:for="'editImage__' + ${project.charityProgramId}" class="form-label">Hình ảnh</label>
+                                <label th:for="'editImage__' + ${project.Id}" class="form-label">Hình ảnh</label>
                                 <input type="file" class="form-control"
-                                       th:id="'editImage__' + ${project.charityProgramId}"
+                                       th:id="'editImage__' + ${project.Id}"
                                        name="image">
-                                <!-- Hiển thị hình ảnh hiện tại -->
                                 <div class="mt-2">
-                                    <img th:src="@{'/assets/images/' + ${project.image}}"
+                                    <img th:src="@{${project.image}}"
                                          alt="Hình ảnh dự án"
                                          style="max-width: 100px;">
                                 </div>
@@ -204,12 +203,13 @@
     </div>
 
     <!-- Phân trang -->
+
     <nav aria-label="Page navigation" class="mt-4">
         <ul class="pagination justify-content-center" th:if="${totalPages > 0}">
             <!-- Nút Previous -->
             <li class="page-item" th:classappend="${pageNumber == 0} ? 'disabled'">
                 <a class="page-link"
-                   th:href="@{/admin/project-manage(pageNumber=${pageNumber - 1})}"
+                   th:href="@{/admin/program-manage(pageNumber=${pageNumber - 1})}"
                    aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>
                 </a>
@@ -217,23 +217,24 @@
 
             <!-- Các số trang -->
             <li class="page-item"
-                th:each="page : ${#numbers.sequence(0, totalPages - 1)}"
-                th:classappend="${page == pageNumber} ? 'active'">
+                th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
+                th:classappend="${pageNumber == i} ? 'active'">
                 <a class="page-link"
-                   th:href="@{/admin/project-manage(pageNumber=${page})}"
-                   th:text="${page + 1}">1</a>
+                   th:href="@{/admin/program-manage(pageNumber=${i})}"
+                   th:text="${i + 1}">1</a>
             </li>
 
             <!-- Nút Next -->
             <li class="page-item" th:classappend="${pageNumber == totalPages - 1} ? 'disabled'">
                 <a class="page-link"
-                   th:href="@{/admin/project-manage(pageNumber=${pageNumber + 1})}"
+                   th:href="@{/admin/program-manage(pageNumber=${pageNumber + 1})}"
                    aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
                 </a>
             </li>
         </ul>
     </nav>
+
 </div>
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

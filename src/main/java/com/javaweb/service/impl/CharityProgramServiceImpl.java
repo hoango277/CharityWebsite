@@ -69,8 +69,8 @@ public class CharityProgramServiceImpl implements CharityProgramService {
             throw new InvalidDataException("Amount needed cannot be zero.");
         }
 
-        if (charityProgramEntity.getStartDate().before(new Date())) {
-            throw new InvalidDataException("Start date cannot be in the past.");
+        if (charityProgramEntity.getEndDate().before(new Date())) {
+            throw new InvalidDataException("End date cannot be in the past.");
         }
         if (charityProgramEntity.getEndDate().before(charityProgramEntity.getStartDate())) {
             throw new InvalidDataException("End date must be after start date.");
@@ -89,13 +89,6 @@ public class CharityProgramServiceImpl implements CharityProgramService {
             throw new InvalidDataException("Amount needed cannot be zero.");
         }
 
-        if (charityProgramEntity.getStartDate().before(new Date())) {
-            throw new InvalidDataException("Start date cannot be in the past.");
-        }
-        if (charityProgramEntity.getEndDate().before(charityProgramEntity.getStartDate())) {
-            throw new InvalidDataException("End date must be after start date.");
-        }
-
         Optional<CharityProgramEntity> existingCharityProgram = charityProgramRepository.findById(id);
 
         if (!existingCharityProgram.isPresent()) {
@@ -110,7 +103,9 @@ public class CharityProgramServiceImpl implements CharityProgramService {
         updatedCharityProgram.setAddress(charityProgramEntity.getAddress());
         updatedCharityProgram.setAmountNeeded(charityProgramEntity.getAmountNeeded());
         updatedCharityProgram.setTotalAmount(charityProgramEntity.getTotalAmount());
-        updatedCharityProgram.setImage(charityProgramEntity.getImage());
+        if(charityProgramEntity.getImage() != null) {
+            updatedCharityProgram.setImage(charityProgramEntity.getImage());
+        }
 
         charityProgramRepository.save(updatedCharityProgram);
         CharityProgramResponse charityProgramResponse = charityProgramConverter.convertToResponse(updatedCharityProgram);
