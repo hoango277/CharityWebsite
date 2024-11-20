@@ -107,3 +107,17 @@ body {
         margin-left: 0;
     }
 }
+/* Đảm bảo thanh sidebar chiếm toàn bộ chiều cao và nút sẽ được đẩy xuống dưới cùng */
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* Chiều cao của sidebar chiếm toàn bộ màn hình */
+}
+
+.sidebar .nav {
+    flex-grow: 1; /* Các mục trong sidebar sẽ chiếm không gian còn lại */
+}
+
+.sidebar .nav-item:last-child {
+    margin-top: auto; /* Đẩy nút về cuối */
+}

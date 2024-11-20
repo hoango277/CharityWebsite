@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Về chúng tôi - GiveNow</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/assets/css/styles.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/about.css}">
+</head>
+<body>
+<header class="header">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark position-sticky top-0 z-1">
+        <div class="container">
+            <a class="navbar-brand" th:href="@{/}"><img src="/assets/images/logo.png" alt="logo"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link" th:href="@{/}">Trang chủ</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/projects}">Dự án</a></li>
+                    <li class="nav-item"><a class="nav-link active" th:href="@{/about}">Về chúng tôi</a></li>
+                    <li class="nav-item"><a class="nav-link btn btn-danger text-white" th:href="@{/donate}">Ủng hộ ngay</a></li>
+                </ul>
+                <div class="d-flex align-items-center ms-2 justify-content-center pt-2 pt-lg-0">
+                    <a th:href="@{/register}" class="btn btn-outline-light me-2" id="registerButton">Đăng ký</a>
+                    <a th:href="@{/login}" class="btn btn-outline-light" id="loginButton">Đăng nhập</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<main>
+    <div class="container py-5">
+        <h1 class="text-center mb-4">Về chúng tôi</h1>
+        <div class="row">
+            <div class="col-md-6">
+                <h3>Sứ mệnh của chúng tôi</h3>
+                <p>
+                    Chúng tôi là một nền tảng gây quỹ cộng đồng trực tuyến, tạo ra không gian để mọi người có thể đóng góp cho các dự án ý nghĩa và thay đổi cuộc sống của những người cần hỗ trợ. Chúng tôi cam kết cung cấp sự minh bạch, dễ dàng và an toàn trong mọi giao dịch và kết nối giữa các nhà tài trợ và những người cần giúp đỡ.
+                </p>
+            </div>
+            <div class="col-md-6">
+                <h3>Tầm nhìn của chúng tôi</h3>
+                <p>
+                    Tầm nhìn của chúng tôi là trở thành nền tảng gây quỹ cộng đồng hàng đầu, kết nối những tấm lòng hảo tâm và những dự án xã hội hiệu quả. Chúng tôi tin rằng mỗi đóng góp, dù nhỏ, đều có thể tạo nên sự khác biệt và thay đổi cộng đồng.
+                </p>
+            </div>
+        </div>
+
+        <h3 class="mt-5">Đội ngũ sáng lập</h3>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="team-member">
+                    <img src="/assets/images/team/member1.jpg" alt="Team Member 1" class="img-fluid rounded-circle">
+                    <h5 class="text-center mt-2">Ngô Xuân Hoà</h5>
+                    <p class="text-center">Leader - Giám Đốc Kinh Doanh</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="team-member">
+                    <img src="/assets/images/team/member2.jpg" alt="Team Member 2" class="img-fluid rounded-circle">
+                    <h5 class="text-center mt-2">Lô Minh Huy</h5>
+                    <p class="text-center">Giám Đốc Dự Án</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="team-member">
+                    <img src="/assets/images/team/member3.jpg" alt="Team Member 3" class="img-fluid rounded-circle">
+                    <h5 class="text-center mt-2">Chu Thắng</h5>
+                    <p class="text-center">Giám Đốc Nhân Sự</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="team-member">
+                    <img src="/assets/images/team/member4.jpg" alt="Team Member 4" class="img-fluid rounded-circle">
+                    <h5 class="text-center mt-2">Nguyễn Võ Hưng</h5>
+                    <p class="text-center">Giám đốc điều hành</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer class="footer py-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <a class="navbar-brand" th:href="@{/}">
+                    <img src="/assets/images/logo.png" alt="GiveNow Logo" class="footer-logo">
+                </a>
+                <p>Nền tảng gây quỹ cộng đồng trực tuyến tiện lợi, tin cậy và minh bạch.</p>
+            </div>
+            <div class="col-md-4">
+                <ul class="footer-links list-unstyled">
+                    <li><a href="#">Giới thiệu</a></li>
+                    <li><a href="#">Điều khoản và điều kiện</a></li>
+                    <li><a href="#">Tin tức</a></li>
+                    <li><a href="#">Báo chí</a></li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <p><strong>Hotline:</strong> <a href="tel:0917945368" class="text-white">0917945368</a></p>
+                <p><strong>Email:</strong> <a href="mailto:hungnv.b22cn417@stu.ptit.edu.vn" class="text-white">hungnv.b22cn417@stu.ptit.edu.vn</a></p>
+                <p><strong>Địa chỉ:</strong> Hà Nội.</p>
+                <div class="social-links mt-3">
+                    <a th:href="@{https://www.facebook.com/huwn2004}" class="btn btn-outline-light">Facebook Page</a>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-4">
+            <p>© GiveNow – All Rights Reserved</p>
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
