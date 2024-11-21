@@ -23,9 +23,12 @@
       <li class="nav-item">
         <a th:href="@{/admin/transaction-manage}" class="nav-link transaction">Quản lý Giao Dịch</a>
       </li>
+      <!-- Button to go back to home page -->
+      <li class="nav-item">
+        <button class="btn btn-primary w-100" onclick="window.location.href='/'">Quay về trang chủ</button>
+      </li>
     </ul>
   </div>
-
   <!-- Content -->
   <div class="content">
     <div th:replace="~{manager/user-account :: user-account}"></div>

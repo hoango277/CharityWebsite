@@ -1,0 +1,19 @@
+.team-member {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.team-member img {
+    width: 150px; /* Kích thước ảnh */
+    height: 150px; /* Kích thước ảnh */
+    object-fit: cover; /* Đảm bảo ảnh không bị méo */
+    border-radius: 50%; /* Tạo hình tròn cho ảnh */
+    margin-bottom: 10px; /* Khoảng cách giữa ảnh và chữ */
+}
+
+.team-member h5, .team-member p {
+    margin: 0; /* Loại bỏ margin mặc định */
+}
