@@ -23,8 +23,6 @@
                     <li class="nav-item"><a class="nav-link" th:href="@{/}">Trang chủ</a></li>
                     <li class="nav-item"><a class="nav-link" th:href="@{/projects}">Dự án</a></li>
                     <li class="nav-item"><a class="nav-link" th:href="@{/about}">Về chúng tôi</a></li>
-                    <li class="nav-item"><a class="nav-link" th:href="@{/guide}">Hướng dẫn</a></li>
-                    <li class="nav-item"><a class="nav-link btn btn-danger text-white" th:href="@{/donate}">Ủng hộ ngay</a></li>
                 </ul>
                 <div class="col-3">
                     <div class="box-search">
@@ -162,8 +160,6 @@
                                         </div>
                                         <input type="hidden" id="projectID" name="projectID" th:value="${projects.id}">
                                         <input type="hidden" id="userID" name="userID" th:value="${userID}">
-
-                                        <input type="hidden" name="anonymous" value="false">
 
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" id="anonymous" name="anonymous" value="true">

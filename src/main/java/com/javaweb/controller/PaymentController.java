@@ -1,8 +1,6 @@
 package com.javaweb.controller;
 
-import com.javaweb.entity.TransactionEntity;
 import com.javaweb.service.PaymentServices;
-import com.javaweb.service.TransactionService;
 import com.javaweb.service.VolunteerService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -32,7 +30,7 @@ public class PaymentController {
     @PostMapping
     public void processDonation(@RequestParam String amount,
                                 @RequestParam Long projectID,
-                                @RequestParam(required = false) Boolean anonymous,
+                                @RequestParam(required = false,defaultValue = "false") Boolean anonymous,
                                 @RequestParam String userID,
                                 HttpServletResponse response,
                                 HttpSession session,

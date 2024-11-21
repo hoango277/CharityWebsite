@@ -10,7 +10,6 @@ import com.javaweb.repository.TransactionRepository;
 import com.javaweb.repository.WalletRepository;
 import com.javaweb.service.WalletService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;

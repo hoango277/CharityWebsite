@@ -6,7 +6,6 @@ import com.javaweb.model.response.*;
 import com.javaweb.service.CharityProgramService;
 import com.javaweb.service.UserService;
 import com.javaweb.service.VolunteerService;
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -14,7 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
-import java.util.List;
 
 @Controller
 @RequestMapping("/projects")

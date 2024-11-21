@@ -1,9 +1,7 @@
 package com.javaweb.service;
 
-
 import com.javaweb.model.dto.LoginDTO;
 import com.javaweb.model.dto.RegisterDTO;
-import com.javaweb.model.dto.ResetPasswordDTO;
 import com.javaweb.model.dto.UserDTO;
 import com.javaweb.model.dto.ResponseDTO;
 import com.javaweb.model.response.StatusResponse;

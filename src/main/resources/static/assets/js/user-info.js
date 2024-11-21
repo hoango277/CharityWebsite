@@ -4,7 +4,6 @@ function loadUserInfo(userId) {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${localStorage.getItem("accessToken")}` // Optional if auth is needed
         }
     })
         .then(response => {
@@ -14,7 +13,7 @@ function loadUserInfo(userId) {
             return response.json();
         })
         .then(data => {
-            const userData = data.data; // Accessing the "data" field in the response
+            const userData = data.data;
             console.log(userData)
             displayUserInfo(userData);
         })
@@ -45,6 +44,5 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 
-// Replace 'user_id' with the actual ID, e.g., from URL or session
 const userId = localStorage.getItem("userId")
 loadUserInfo(userId);

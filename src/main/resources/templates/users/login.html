@@ -4,11 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <!-- Custom CSS -->
     <link rel="stylesheet" th:href="@{/assets/css/login.css}">
-    <!-- Custom JavaScript -->
     <script th:src="@{/assets/js/login.js}"></script>
 </head>
 <body>
@@ -17,12 +14,10 @@
     <div class="card p-4 shadow" style="width: 100%; max-width: 400px; border-radius: 10px;">
         <h2 class="text-center mb-4">Login</h2>
 
-        <!-- Display error message if exists -->
         <div th:if="${errorMessage}" class="alert alert-danger">
             <p th:text="${errorMessage}"></p>
         </div>
 
-        <!-- Display success message if exists -->
         <div th:if="${successMessage}" class="alert alert-success">
             <p th:text="${successMessage}"></p>
         </div>

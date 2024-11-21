@@ -8,14 +8,12 @@ import com.javaweb.exception.InvalidDataException;
 import com.javaweb.exception.ResourceNotFoundException;
 import com.javaweb.model.dto.LoginDTO;
 import com.javaweb.model.dto.RegisterDTO;
-import com.javaweb.model.dto.ResetPasswordDTO;
 import com.javaweb.model.dto.UserDTO;
 import com.javaweb.model.dto.ResponseDTO;
 import com.javaweb.model.response.StatusResponse;
 import com.javaweb.model.response.TokenResponse;
 import com.javaweb.repository.RoleRepository;
 import com.javaweb.repository.UserRepository;
-import com.javaweb.repository.WalletRepository;
 import com.javaweb.service.TokenService;
 import com.javaweb.service.AuthenticationService;
 import com.javaweb.utils.JWTTokenUtils;
@@ -87,7 +85,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 .map(RoleEntity::getRoleName)
                 .collect(Collectors.joining(","));
 
-        // save to database
         tokenService.saveToken(TokenEntity.builder()
                         .name(userEntity.getUsername())
                         .accessToken(accessToken)
@@ -118,7 +115,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
         String accessToken = jwtTokenUtils.generateToken(userEntity.get(),userEntity.get().getUserId());
 
-        // save to database
         tokenService.saveToken(TokenEntity.builder()
                         .name(userEntity.get().getUsername())
                         .accessToken(accessToken)
@@ -154,7 +150,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
         String resetToken = jwtTokenUtils.generateResetToken(userEntity);
 
-        //kafkaTemplate.send("confirm-forgot-password-topic", String.format("email=%s,id=%s,code=%s", email, userEntity.getId(),resetToken));
         mailService.sendConfirmLink(email,userEntity.getUserId(),resetToken);
         log.info("Reset token: " + resetToken);
         return StatusResponse.builder()

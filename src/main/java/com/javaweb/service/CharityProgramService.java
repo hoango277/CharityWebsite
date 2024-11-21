@@ -1,14 +1,12 @@
 package com.javaweb.service;
 
 import com.javaweb.entity.CharityProgramEntity;
-import com.javaweb.model.dto.ResponseDTO;
 import com.javaweb.model.response.CharityProgramResponse;
 import com.javaweb.model.response.StatusResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
-import java.util.List;
 
 @Service
 public interface CharityProgramService {

@@ -1,6 +1,5 @@
-package com.javaweb.controller.restcontroller;
+package com.javaweb.restcontroller;
 
-import com.javaweb.model.dto.ResetPasswordDTO;
 import com.javaweb.model.response.StatusResponse;
 import com.javaweb.model.response.TokenResponse;
 import com.javaweb.service.AuthenticationService;
