@@ -7,7 +7,6 @@ import com.javaweb.entity.*;
 import com.javaweb.exception.InvalidDataException;
 import com.javaweb.exception.ResourceNotFoundException;
 import com.javaweb.model.dto.ResponseDTO;
-import com.javaweb.model.dto.UserDTO;
 import com.javaweb.model.response.*;
 import com.javaweb.repository.UserRepository;
 import com.javaweb.service.UserService;

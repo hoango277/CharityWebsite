@@ -13,12 +13,9 @@
 <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
     <div class="card p-4 shadow" style="width: 100%; max-width: 400px; border-radius: 10px;">
         <h2 class="text-center mb-4">Register</h2>
-        <!-- Hiển thị thông báo lỗi nếu có -->
         <div th:if="${errorMessage}" class="alert alert-danger">
             <p th:text="${errorMessage}"></p>
         </div>
-
-        <!-- Hiển thị thông báo thành công nếu có -->
         <div th:if="${successMessage}" class="alert alert-success">
             <p th:text="${successMessage}"></p>
         </div>

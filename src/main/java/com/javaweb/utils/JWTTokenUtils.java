@@ -1,6 +1,5 @@
 package com.javaweb.utils;
 
-import com.javaweb.entity.UserEntity;
 import com.javaweb.exception.InvalidDataException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

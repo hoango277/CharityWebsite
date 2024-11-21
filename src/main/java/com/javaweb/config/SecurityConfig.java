@@ -38,8 +38,8 @@ public class SecurityConfig {
             public void addCorsMappings(@NonNull CorsRegistry registry) {
                 registry.addMapping("**")
                         .allowedOrigins("http://localhost:8088")
-                        .allowedMethods("GET", "POST", "PUT", "DELETE") // Allowed HTTP methods
-                        .allowedHeaders("*") // Allowed request headers
+                        .allowedMethods("GET", "POST", "PUT", "DELETE")
+                        .allowedHeaders("*")
                         .allowCredentials(false)
                         .maxAge(3600);
             }
@@ -59,7 +59,8 @@ public class SecurityConfig {
                 .and()
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
                         .requestMatchers(MessageUtils.PUBLIC_URLS).permitAll()
-                        //.requestMatchers(MessageUtils.USER_URLS).hasAnyRole("USER","ADMIN")
+                        .requestMatchers(MessageUtils.ADMIN_URLS).hasAnyRole("ADMIN")
+                        .requestMatchers(MessageUtils.USER_URLS).hasAnyRole("USER","ADMIN")
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(manager -> manager.sessionCreationPolicy(STATELESS))

@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", function() {
-    // Gán hàm forgotPassword vào sự kiện submit của form
     const form = document.getElementById("forgotPasswordForm");
     if (form) {
         form.addEventListener("submit", forgotPassword);
@@ -8,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 // Hàm xử lý gửi yêu cầu quên mật khẩu
 async function forgotPassword(event) {
-    event.preventDefault(); // Ngăn chặn hành động mặc định của form
+    event.preventDefault();
 
     const email = document.getElementById("email").value;
 
@@ -24,13 +23,13 @@ async function forgotPassword(event) {
             headers: {
                 "Content-Type": "text/plain"
             },
-            body: email // Gửi email trực tiếp dưới dạng văn bản mà không có dấu ngoặc kép
+            body: email
         });
 
         if (response.ok) {
             const data = await response.json();
             alert(data.message || "A reset link has been sent to your email.");
-            window.location.href = "/login"; // Chuyển hướng về trang đăng nhập
+            window.location.href = "/login";
         } else {
             const errorData = await response.json();
             alert(errorData.message || "An error occurred. Please try again.");

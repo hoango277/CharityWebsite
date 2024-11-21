@@ -1,8 +1,6 @@
 package com.javaweb.converter;
 
-import com.javaweb.entity.CharityProgramEntity;
 import com.javaweb.entity.VolunteerEntity;
-import com.javaweb.model.response.CharityProgramResponse;
 import com.javaweb.model.response.VolunteerResponse;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package com.javaweb.controller.restcontroller;
+package com.javaweb.restcontroller;
 
 import com.javaweb.model.response.CharityProgramResponse;
 import com.javaweb.service.CharityProgramService;
@@ -6,7 +6,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 

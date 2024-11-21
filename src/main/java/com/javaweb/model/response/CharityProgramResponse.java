@@ -1,9 +1,6 @@
 package com.javaweb.model.response;
 
-import com.javaweb.exception.InvalidDataException;
 import lombok.*;
-
-import java.util.Date;
 
 @Data
 @NoArgsConstructor

@@ -19,8 +19,8 @@ public class SwaggerConfig {
     @Bean
     public GroupedOpenApi publicApi() {
         return GroupedOpenApi.builder()
-                .group("charity-service") // /v3/api-docs/api-service
-                .packagesToScan("com.javaweb.controller")
+                .group("charity-service")
+                .packagesToScan("com.javaweb.restcontroller")
                 .build();
     }
 

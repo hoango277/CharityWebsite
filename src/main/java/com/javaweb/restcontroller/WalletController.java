@@ -1,4 +1,4 @@
-package com.javaweb.controller.restcontroller;
+package com.javaweb.restcontroller;
 
 
 import com.javaweb.model.dto.ResponseDTO;
