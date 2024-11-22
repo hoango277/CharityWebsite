@@ -26,7 +26,7 @@
         </thead>
         <tbody>
         <tr th:each="user, iterStat : ${userAccounts}">
-            <td th:text="${iterStat.index + 1 + (pageNumber * 10)}">1</td>
+            <td th:text="${iterStat.index + 1 + (pageNumber * 5)}">1</td>
             <td th:text="${user.userName}">Tên người dùng</td>
             <td th:text="${user.email}">Email</td>
             <td th:text="${user.phoneNumber}">Số điện thoại</td>
