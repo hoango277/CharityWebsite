@@ -27,10 +27,10 @@ public class RegisterController {
     @PostMapping
     public String register(@Valid @ModelAttribute("user") RegisterDTO registerDTO, BindingResult result, Model model) {
         try{
-            StatusResponse statusResponse = authenticationService.registerUser(registerDTO);
             if (result.hasErrors()) {
                 return "users/register";
             }
+            StatusResponse statusResponse = authenticationService.registerUser(registerDTO);
             if (statusResponse.getStatus() == HttpStatus.CREATED.value()) {
                 model.addAttribute("successMessage", statusResponse.getMessage());
                 return "redirect:/login";
