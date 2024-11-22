@@ -32,7 +32,7 @@
         </thead>
         <tbody>
         <tr th:each="project, iterStat : ${charityProjects}">
-            <td th:text="${iterStat.index + 1 + (pageNumber * 10)}">1</td>
+            <td th:text="${iterStat.index + 1 + (pageNumber * 6)}">1</td>
             <td th:text="${project.name}">Tên dự án</td>
             <td th:text="${project.description}">Mô tả</td>
             <td th:text="${#dates.format(project.startDate, 'dd/MM/yyyy')}">Ngày bắt đầu</td>
