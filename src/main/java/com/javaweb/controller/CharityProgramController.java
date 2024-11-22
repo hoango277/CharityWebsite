@@ -49,7 +49,7 @@ public class CharityProgramController {
                                         Model model,
                                         @RequestParam(value = "userId") Long userId,
                                         @RequestParam(defaultValue = "0") int page,
-                                        @RequestParam(defaultValue = "10") int size
+                                        @RequestParam(defaultValue = "6") int size
     ) throws ParseException {
         CharityProgramResponse charityProgramResponse = charityProgramService.getCharityProgramById(id);
         Page<VolunteerResponse> volunteerResponse = volunteerService.getAllVolunteers(id, page, size);
