@@ -12,7 +12,7 @@
 
 <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
     <div class="card p-4 shadow" style="width: 100%; max-width: 400px; border-radius: 10px;">
-        <h2 class="text-center mb-4">Register</h2>
+        <h2 class="text-center mb-4">Đăng Ký</h2>
         <div th:if="${errorMessage}" class="alert alert-danger">
             <p th:text="${errorMessage}"></p>
         </div>
@@ -31,16 +31,16 @@
                 <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-danger"></p>
             </div>
             <div class="form-group">
-                <label for="phoneNumber">Phone Number</label>
+                <label for="phoneNumber">Số Điện Thoại</label>
                 <input type="text" id="phoneNumber" th:field="*{phoneNumber}" class="form-control" required>
                 <p th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}" class="text-danger"></p>
             </div>
             <div class="form-group">
-                <label for="password">Password</label>
+                <label for="password">Mật Khẩu</label>
                 <input type="password" id="password" th:field="*{password}" class="form-control" required>
             </div>
             <div class="form-group">
-                <label for="confirmPassword">Confirm Password</label>
+                <label for="confirmPassword">Xác Nhận Mật Khẩu</label>
                 <input type="password" id="confirmPassword" th:field="*{confirmPassword}" class="form-control" required>
             </div>
             <button type="submit" onclick="validateForm(event)" class="btn btn-success btn-block">Đăng ký</button>
